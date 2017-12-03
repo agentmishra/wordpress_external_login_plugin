@@ -7,6 +7,8 @@ Author: Tom Benyon
 Version: 0.1.0
 Author URI: http://tom.benyon.io
 */
+$plugin_name = "External Login";
+$plugin_id = "external_login";
 
 $db_name = "dojo2016";
 $db_usernme = "root";
@@ -21,3 +23,4 @@ $dbstructure_last_name = "LastName";
 $dbstructure_dob = "DOB";
 
 include 'db.php';
+include 'options_external_login.php';
