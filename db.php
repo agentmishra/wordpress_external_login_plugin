@@ -8,10 +8,20 @@ $mydb = new wpdb(
 );
 $rows = $mydb->get_results('select ' . $dbstructure_username . ' from ' . $dbstructure_table);
 
-if (!is_admin()) {
-    echo "<ul>";
-    foreach ($rows as $obj) :
-        echo "<li>".$obj->{$dbstructure_username}."</li>";
-    endforeach;
-    echo "</ul>";
+//if (!is_admin()) {
+//    echo "<ul>";
+//    foreach ($rows as $obj) :
+//        echo "<li>".$obj->{$dbstructure_username}."</li>";
+//    endforeach;
+//    echo "</ul>";
+//}
+
+function ex_login_db_query($username, $password) {
+    return array(
+        "valid" => true,
+        "username" => "tombo",
+        "password" => "password",
+        "first_name" => "Tom",
+        "last_name" => "Benyon",
+    );
 }

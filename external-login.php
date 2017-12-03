@@ -25,5 +25,6 @@ $dbstructure_dob = "DOB";
 include 'db.php';
 include 'options_fields.php';
 include 'options_external_login.php';
+include 'authenticate.php';
 
 //@todo Revist use of global variables
