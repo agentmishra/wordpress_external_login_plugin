@@ -4,7 +4,11 @@ add_action( 'admin_menu', 'external_login_menu' );
 add_action( 'admin_init', 'register_external_login_settings');
 
 function register_external_login_settings() {
-    register_setting( 'external_login_option-group', 'external_login_option_db_host' );
+    global $ex_login_option_fields;
+    foreach ($ex_login_option_fields as $form_field) {
+      error_log($form_field["field_slug"]);
+      register_setting( 'external_login_option-group', $form_field["field_slug"] );
+    }
 };
 
 function external_login_menu() {
@@ -12,6 +16,8 @@ function external_login_menu() {
 }
 
 function custom_external_login_options() {
+    global $ex_login_option_fields;
+
     if ( !current_user_can( 'manage_options' ) )  {
         wp_die( 'You do not have sufficient permissions to access this page.' );
     }
@@ -27,8 +33,15 @@ function custom_external_login_options() {
         do_settings_fields( 'external_login_option-group', '' );
         ?>
 
-      <p>Database Host</p>
-      <input type="text" name="external_login_option_db_host" value="<?php echo get_option('external_login_option_db_host'); ?>" />
+        <?php foreach ($ex_login_option_fields as $form_field) : ?>
+          <h4><?php echo $form_field["field_name"]; ?></h4>
+          <p><?php echo $form_field["field_description"]; ?></p>
+          <input
+            type="text"
+            name="<?php echo $form_field["field_slug"]; ?>"
+            value="<?php echo get_option($form_field["field_slug"]); ?>"
+          />
+        <?php endforeach; ?>
 
         <?php
         submit_button();

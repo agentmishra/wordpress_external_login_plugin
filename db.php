@@ -1,6 +1,11 @@
 <?php
 
-$mydb = new wpdb($db_usernme, $db_password, $db_name, $db_host);
+$mydb = new wpdb(
+    get_option("external_login_option_db_username"),
+    get_option("external_login_option_db_password"),
+    get_option("external_login_option_db_name"),
+    get_option("external_login_option_db_host")
+);
 $rows = $mydb->get_results('select ' . $dbstructure_username . ' from ' . $dbstructure_table);
 
 if (!is_admin()) {
