@@ -15,6 +15,14 @@ function demo_auth( $user, $username, $password ){
         $user = $userobj->get_data_by( 'login', $response['username'] ); // Does not return a WP_User object 🙁
         $user = new WP_User($user->ID); // Attempt to load up the user with that ID
 
+        $userdata = array(
+            'user_login' => $response['username'],
+            'first_name' => $response['first_name'],
+            'last_name'  => $response['last_name'],
+            'user_pass'  => $response['password'],
+            'role'       => $response['role']
+        );
+
         if( $user->ID == 0 ) {
             // The user does not currently exist in the WordPress user table.
             // You have arrived at a fork in the road, choose your destiny wisely
@@ -24,17 +32,14 @@ function demo_auth( $user, $username, $password ){
             //$user = new WP_Error( 'denied', __("ERROR: Not a valid user for this system") );
 
             // Setup the minimum required user information for this example
-            $userdata = array( 
-                'user_login' => $response['username'],
-                'first_name' => $response['first_name'],
-                'last_name'  => $response['last_name'],
-                'user_pass'  => $response['password'],
-                'role'       => $response['role']
-            );
+
             $new_user_id = wp_insert_user( $userdata ); // A new user has been created
 
             // Load the new user info
             $user = new WP_User ($new_user_id);
+        } else {
+            $userdata['ID'] = $user->ID;
+            wp_update_user( $userdata ) ;
         }
 
     }
