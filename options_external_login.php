@@ -6,7 +6,6 @@ add_action( 'admin_init', 'register_external_login_settings');
 function register_external_login_settings() {
     global $ex_login_option_fields;
     foreach ($ex_login_option_fields as $form_field) {
-      error_log($form_field["field_slug"]);
       register_setting( 'external_login_option-group', $form_field["field_slug"] );
     }
 };
