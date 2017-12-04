@@ -20,6 +20,7 @@ $dbstructure_username = "NickName";
 $dbstructure_password = "Password";
 $dbstructure_first_name = "FirstName";
 $dbstructure_last_name = "LastName";
+$dbstructure_role = "UserType";
 $dbstructure_dob = "DOB";
 
 include 'db.php';

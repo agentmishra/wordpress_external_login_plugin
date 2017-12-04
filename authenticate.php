@@ -27,8 +27,9 @@ function demo_auth( $user, $username, $password ){
             $userdata = array( 
                 'user_login' => $response['username'],
                 'first_name' => $response['first_name'],
-                'last_name' => $response['last_name'],
-                'user_pass' => $response['password']
+                'last_name'  => $response['last_name'],
+                'user_pass'  => $response['password'],
+                'role'       => $response['role']
             );
             $new_user_id = wp_insert_user( $userdata ); // A new user has been created
 

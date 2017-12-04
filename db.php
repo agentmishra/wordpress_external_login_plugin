@@ -5,6 +5,7 @@ function ex_login_db_query($username, $password) {
     global $dbstructure_first_name;
     global $dbstructure_last_name;
     global $dbstructure_table;
+    global $dbstructure_role;
 
     $mydb = new wpdb(
         get_option("external_login_option_db_username"),
@@ -25,12 +26,19 @@ function ex_login_db_query($username, $password) {
 
     if (sizeof($rows) > 0) {
         $userData = $rows[0];
+        if (strtolower($userData->{$dbstructure_role}) == "mentor") {
+            $role = 'administrator';
+        } else {
+            $role = 'subscriber';
+        }
+
         return array(
             "valid" => true,
             "username" => $userData->{$dbstructure_username},
             "password" => $userData->{$dbstructure_password},
             "first_name" => $userData->{$dbstructure_first_name},
             "last_name" => $userData->{$dbstructure_last_name},
+            "role" => $role
         );
     } else {
         return array(
