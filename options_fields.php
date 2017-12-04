@@ -21,4 +21,9 @@ $ex_login_option_fields = array(
         "field_description" => "The password for the account to access the database.",
         "field_slug" => "external_login_option_db_password",
     ),
+    array(
+        "field_name" => "Database Password Salt",
+        "field_description" => "The salt used when hashing the password.",
+        "field_slug" => "external_login_option_db_salt",
+    ),
 );
