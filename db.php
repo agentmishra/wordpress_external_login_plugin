@@ -1,11 +1,11 @@
 <?php
 function exlog_auth_query($username, $password) {
-    global $dbstructure_username;
-    global $dbstructure_password;
-    global $dbstructure_first_name;
-    global $dbstructure_last_name;
-    global $dbstructure_table;
-    global $dbstructure_role;
+    $dbstructure_table = get_option('exlog_dbstructure_table');
+    $dbstructure_username = get_option('exlog_dbstructure_username');
+    $dbstructure_password = get_option('exlog_dbstructure_password');
+    $dbstructure_first_name = get_option('exlog_dbstructure_first_name');
+    $dbstructure_last_name = get_option('exlog_dbstructure_last_name');
+    $dbstructure_role = get_option('exlog_dbstructure_role');
 
     $mydb = new wpdb(
         get_option("external_login_option_db_username"),
@@ -44,5 +44,5 @@ function exlog_auth_query($username, $password) {
         return array(
             "valid" => false
         );
-    };
+    }
 }
