@@ -1,6 +1,6 @@
 <?php
 
-$ex_login_option_fields = array(
+$EXLOG_OPTION_FIELDS = array(
     array(
         "field_name" => "Database Name",
         "field_description" => "This is the name of the database to connect to.",

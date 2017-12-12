@@ -1,5 +1,5 @@
 <?php
-function ex_login_db_query($username, $password) {
+function exlog_auth_query($username, $password) {
     global $dbstructure_username;
     global $dbstructure_password;
     global $dbstructure_first_name;

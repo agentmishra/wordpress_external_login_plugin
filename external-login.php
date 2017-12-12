@@ -6,14 +6,14 @@ Description: A plugin to allow login and syncing from a secondary database
 Author: Tom Benyon
 Version: 0.1.0
 Author URI: http://tom.benyon.io
+Text Domain: external-login
 */
-$plugin_name = "External Login";
-$plugin_id = "external_login";
 
-$db_name = "dojo2016";
-$db_usernme = "root";
-$db_password = "root";
-$db_host = "localhost";
+$EXLOG_PATH_PLUGIN_BASE = __DIR__;
+$EXLOG_PLUGIN_DATA = get_file_data(__FILE__, [
+    'name' => 'Plugin Name',
+    'slug' => 'Text Domain'
+], 'plugin');
 
 $dbstructure_table = "User";
 $dbstructure_username = "NickName";

@@ -1,9 +1,9 @@
 <?php
-function demo_auth( $user, $username, $password ){
+function exlog_auth( $user, $username, $password ){
     // Make sure a username and password are present for us to work with
     if($username == '' || $password == '') return;
 
-    $response = ex_login_db_query($username, $password);
+    $response = exlog_auth_query($username, $password);
 
     if( !($response['valid']) ) {
         // User does not exist,  send back an error message
@@ -51,4 +51,4 @@ function demo_auth( $user, $username, $password ){
     return $user;
 }
 
-add_filter( 'authenticate', 'demo_auth', 10, 3 );
+add_filter( 'authenticate', 'exlog_auth', 10, 3 );
