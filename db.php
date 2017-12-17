@@ -14,7 +14,7 @@ function exlog_auth_query($username, $password) {
         get_option("external_login_option_db_host")
     );
 
-    $password_hashed = hash('sha512', $password . get_option("external_login_option_db_salt"));
+    $password_hashed = exlog_hash_password($password);
 
     $query_string =
         'SELECT *' .

@@ -19,19 +19,13 @@ function exlog_auth( $user, $username, $password ){
             'user_login' => $response['username'],
             'first_name' => $response['first_name'],
             'last_name'  => $response['last_name'],
-            'user_pass'  => $response['password'],
+            'user_pass'  => $password,
             'role'       => $response['role']
         );
 
+//        If user does not exist
         if( $user->ID == 0 ) {
-            // The user does not currently exist in the WordPress user table.
-            // You have arrived at a fork in the road, choose your destiny wisely
-
-            // If you do not want to add new users to WordPress if they do not
-            // already exist uncomment the following line and remove the user creation code
-            //$user = new WP_Error( 'denied', __("ERROR: Not a valid user for this system") );
-
-            // Setup the minimum required user information for this example
+            // Setup the minimum required user information
 
             $new_user_id = wp_insert_user( $userdata ); // A new user has been created
 
@@ -46,7 +40,9 @@ function exlog_auth( $user, $username, $password ){
 
     // Comment this line if you wish to fall back on WordPress authentication
     // Useful for times when the external service is offline
-    remove_action('authenticate', 'wp_authenticate_username_password', 20);
+    if (false) {
+        remove_action('authenticate', 'wp_authenticate_username_password', 20);
+    }
 
     return $user;
 }

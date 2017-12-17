@@ -15,6 +15,7 @@ $EXLOG_PLUGIN_DATA = get_file_data(__FILE__, [
     'slug' => 'Text Domain'
 ], 'plugin');
 
+include 'hashPassword.php';
 include 'db.php';
 include 'options_fields.php';
 include 'options_external_login.php';
