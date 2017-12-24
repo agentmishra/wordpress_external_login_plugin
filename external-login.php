@@ -10,6 +10,7 @@ Text Domain: external-login
 */
 
 $EXLOG_PATH_PLUGIN_BASE = __DIR__;
+$EXLOG_PATH_PLUGIN_VIEWS = $EXLOG_PATH_PLUGIN_BASE . '/views';
 $EXLOG_PLUGIN_DATA = get_file_data(__FILE__, [
     'name' => 'Plugin Name',
     'slug' => 'Text Domain'
