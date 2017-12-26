@@ -23,8 +23,7 @@
                     endif;
                 ?>
             <?php endforeach; ?>
+            <?php submit_button(); ?>
         <?php endforeach; ?>
-
-        <?php submit_button(); ?>
     </form>
 </div>
