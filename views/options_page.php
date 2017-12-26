@@ -18,6 +18,8 @@
                         include $EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/text_field.php';
                     elseif ($form_field["type"] == "select") :
                         include $EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/select_field.php';
+                    elseif ($form_field["type"] == "checkbox") :
+                        include $EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/checkbox_field.php';
                     endif;
                 ?>
             <?php endforeach; ?>

@@ -40,7 +40,7 @@ function exlog_auth( $user, $username, $password ){
 
     // Comment this line if you wish to fall back on WordPress authentication
     // Useful for times when the external service is offline
-    if (false) {
+    if (get_option('external_login_option_disable_local_login') == "on") {
         remove_action('authenticate', 'wp_authenticate_username_password', 20);
     }
 
