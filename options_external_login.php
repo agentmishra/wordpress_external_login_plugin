@@ -30,3 +30,11 @@ function exlog_generate_options_view() {
 
     include $EXLOG_PATH_PLUGIN_VIEWS . '/options_page.php';
 }
+
+add_action( 'admin_enqueue_scripts', 'exlog_enqueue_for_options' );
+
+function exlog_enqueue_for_options() {
+    global $EXLOG_PATH_PLUGIN_BASE;
+    global $EXLOG_PLUGIN_DATA;
+    wp_enqueue_style( 'exlog-styles', plugin_dir_url($EXLOG_PATH_PLUGIN_BASE) . $EXLOG_PLUGIN_DATA['slug'] . '/scss/style.css' );
+}
