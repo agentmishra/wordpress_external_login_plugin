@@ -1,6 +1,36 @@
 .exlog_options_page {
+  * {
+    box-sizing: border-box;
+  }
+
+  //Caters for admin area margin
+  margin-left: -10px;
+  @media screen and (min-width: 783px) {
+    margin-left: -20px;
+  }
+
   h2 {
     text-align: center;
     font-size: 30px;
+  }
+
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+
+    .options_section_container {
+      width: 50%;
+      padding: 0 20px;
+
+      @media screen and (max-width: 700px) {
+        width: 100%;
+      }
+      .options_section {
+        padding: 10px 30px;
+        background-color: antiquewhite;
+        border-radius: 15px;
+      }
+    }
   }
 }

@@ -1,3 +1,24 @@
-.exlog_options_page h2 {
-  text-align: center;
-  font-size: 30px; }
+.exlog_options_page {
+  margin-left: -10px; }
+  .exlog_options_page * {
+    box-sizing: border-box; }
+  @media screen and (min-width: 783px) {
+    .exlog_options_page {
+      margin-left: -20px; } }
+  .exlog_options_page h2 {
+    text-align: center;
+    font-size: 30px; }
+  .exlog_options_page form {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row; }
+    .exlog_options_page form .options_section_container {
+      width: 50%;
+      padding: 0 20px; }
+      @media screen and (max-width: 700px) {
+        .exlog_options_page form .options_section_container {
+          width: 100%; } }
+      .exlog_options_page form .options_section_container .options_section {
+        padding: 10px 30px;
+        background-color: antiquewhite;
+        border-radius: 15px; }

@@ -9,23 +9,25 @@
         ?>
 
         <?php foreach ($EXLOG_OPTION_FIELDS as $form_section) : ?>
-            <div class="options_section">
-              <h3><?php echo $form_section['section_name'] ?></h3>
-              <p><?php echo $form_section['section_description'] ?></p>
+            <div class="options_section_container">
+              <div class="options_section">
+                <h3><?php echo $form_section['section_name'] ?></h3>
+                <p><?php echo $form_section['section_description'] ?></p>
 
-              <?php foreach ($form_section['section_fields'] as $form_field) : ?>
-                  <?php
-                      if ($form_field["type"] == "text") :
-                          include $EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/text_field.php';
-                      elseif ($form_field["type"] == "select") :
-                          include $EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/select_field.php';
-                      elseif ($form_field["type"] == "checkbox") :
-                          include $EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/checkbox_field.php';
-                      endif;
-                  ?>
-              <?php endforeach; ?>
+                <?php foreach ($form_section['section_fields'] as $form_field) : ?>
+                    <?php
+                        if ($form_field["type"] == "text") :
+                            include $EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/text_field.php';
+                        elseif ($form_field["type"] == "select") :
+                            include $EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/select_field.php';
+                        elseif ($form_field["type"] == "checkbox") :
+                            include $EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/checkbox_field.php';
+                        endif;
+                    ?>
+                <?php endforeach; ?>
 
-              <?php submit_button(); ?>
+                <?php submit_button(); ?>
+              </div>
             </div>
         <?php endforeach; ?>
     </form>
