@@ -13,13 +13,13 @@
             <p><?php echo $form_section['section_description'] ?></p>
 
             <?php foreach ($form_section['section_fields'] as $form_field) : ?>
-                <h4><?php echo $form_field["field_name"]; ?></h4>
-                <p><?php echo $form_field["field_description"]; ?></p>
-                <input
-                    type="text"
-                    name="<?php echo $form_field["field_slug"]; ?>"
-                    value="<?php echo get_option($form_field["field_slug"]); ?>"
-                />
+                <?php
+                    if ($form_field["type"] == "text") :
+                        include $EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/text_field.php';
+                    elseif ($form_field["type"] == "select") :
+                        include $EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/select_field.php';
+                    endif;
+                ?>
             <?php endforeach; ?>
         <?php endforeach; ?>
 
