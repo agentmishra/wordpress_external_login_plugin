@@ -47,12 +47,6 @@ $EXLOG_OPTION_FIELDS = array(
                 "field_slug" => "external_login_option_db_salt",
                 "type" => "text",
             ),
-            array(
-                "field_name" => "Disable Local Login",
-                "field_description" => "Tick this box if you want to disable the login attempt with the Wordpress Database if the external login fails.",
-                "field_slug" => "external_login_option_disable_local_login",
-                "type" => "checkbox",
-            ),
         ),
     ),
     array(
@@ -97,5 +91,18 @@ $EXLOG_OPTION_FIELDS = array(
                 "type" => "text",
             ),
         )
-    )
+    ),
+    array(
+        "section_name" => "Feature Settings",
+        "section_slug" => "feature_settings",
+        "section_description" => "These settings are for functionality of the plugin.",
+        "section_fields" => array(
+            array(
+                "field_name" => "Disable Local Login",
+                "field_description" => "Tick this box if you want to disable the login attempt with the Wordpress Database if the external login fails.",
+                "field_slug" => "external_login_option_disable_local_login",
+                "type" => "checkbox",
+            ),
+        ),
+    ),
 );

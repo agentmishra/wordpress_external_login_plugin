@@ -13,6 +13,7 @@
               <div class="options_section">
                 <h3><?php echo $form_section['section_name'] ?></h3>
                 <p><?php echo $form_section['section_description'] ?></p>
+                <hr>
 
                 <?php foreach ($form_section['section_fields'] as $form_field) : ?>
                     <?php
