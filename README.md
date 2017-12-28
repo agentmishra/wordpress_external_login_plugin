@@ -8,9 +8,7 @@ Tom Benyon
 
 http://tom.benyon.io
 
-#To DO
-- Give hashing it's own section in the menu
-- Increase the number of hashing types
+#To Do
 - Add a locked state to elements of the menus
 - Add ability to set all users to one role
 - Add ability to set a role for each of the default roles
