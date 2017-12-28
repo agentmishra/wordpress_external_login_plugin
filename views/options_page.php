@@ -23,6 +23,8 @@
                             include $EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/select_field.php';
                         elseif ($form_field["type"] == "checkbox") :
                             include $EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/checkbox_field.php';
+                        elseif ($form_field["type"] == "roles") :
+                            include $EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/roles_fields_builder.php';
                         endif;
                     ?>
                 <?php endforeach; ?>

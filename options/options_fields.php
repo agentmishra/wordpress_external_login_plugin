@@ -30,23 +30,6 @@ $EXLOG_OPTION_FIELDS = array(
                 "field_slug" => "external_login_option_db_password",
                 "type" => "text",
             ),
-            array(
-                "field_name" => "Salt Location",
-                "field_description" => "Whether the salt is concatenated before or after the password.",
-                "field_slug" => "external_login_option_db_salt_location",
-                "type" => "select",
-                "select_options" => array(
-                    "none" => "No Salt",
-                    "before" => "Salt Before",
-                    "after" => "Salt After"
-                )
-            ),
-            array(
-                "field_name" => "Password Salt",
-                "field_description" => "The salt used when hashing the password. If no salt is specified above this will have no effect.",
-                "field_slug" => "external_login_option_db_salt",
-                "type" => "text",
-            ),
         ),
     ),
     array(
@@ -56,7 +39,7 @@ $EXLOG_OPTION_FIELDS = array(
         "section_fields" => array(
             array(
                 "field_name" => "Hash Type",
-                "field_description" => "The hashing algorithm used. The standard one used bu Wordpress is bcrypt.",
+                "field_description" => "The hashing algorithm used. The standard one used by Wordpress is bcrypt.",
                 "field_slug" => "external_login_option_hash_algorithm",
                 "type" => "select",
                 "select_options" => array(
@@ -103,7 +86,7 @@ $EXLOG_OPTION_FIELDS = array(
             ),
             array(
                 "field_name" => "Salt Location",
-                "field_description" => "Whether the salt is concatenated before or after the password.",
+                "field_description" => "Whether the salt is concatenated before or after the password. This is ignored if bcrypt is chosen as the salt will be stored within the hash.",
                 "field_slug" => "external_login_option_db_salt_location",
                 "type" => "select",
                 "select_options" => array(
@@ -114,7 +97,7 @@ $EXLOG_OPTION_FIELDS = array(
             ),
             array(
                 "field_name" => "Password Salt",
-                "field_description" => "The salt used when hashing the password. If no salt is specified above this will have no effect.",
+                "field_description" => "The salt used when hashing the password. If no salt is specified above this will have no effect. This is ignored if bcrypt is chosen as the salt will be stored within the hash.",
                 "field_slug" => "external_login_option_db_salt",
                 "type" => "text",
             ),
@@ -162,6 +145,16 @@ $EXLOG_OPTION_FIELDS = array(
                 "type" => "text",
             ),
         )
+    ),
+    array(
+        "section_name" => "Roles Settings",
+        "section_slug" => "role_settings",
+        "section_description" => "These settings map roles from the external database to the WordPress one.",
+        "section_fields" => array(
+            array(
+                "type" => "roles",
+            ),
+        ),
     ),
     array(
         "section_name" => "Feature Settings",
