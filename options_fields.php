@@ -56,10 +56,11 @@ $EXLOG_OPTION_FIELDS = array(
         "section_fields" => array(
             array(
                 "field_name" => "Hash Type",
-                "field_description" => "The hashing algorithm used.",
+                "field_description" => "The hashing algorithm used. The standard one used bu Wordpress is bcrypt.",
                 "field_slug" => "external_login_option_hash_algorithm",
                 "type" => "select",
                 "select_options" => array(
+                    "bcrypt" => "bcrypt",
                     "md2" => "md2",
                     "md4" => "md4",
                     "md5" => "md5",
