@@ -23,7 +23,7 @@
         readonly
       >
 
-      <select class="<?php echo "field_slug_demo0000"; ?>" name="<?php echo "REFFFFFFFFFFFFFFFFFFF"; ?>">
+      <select class="wordpress_role" name="<?php echo "REFFFFFFFFFFFFFFFFFFF"; ?>">
           <?php foreach ($exlog_roles as $key => $value) : ?>
               <option
                   <?php if ("SOMETHING" == $key) :?>
