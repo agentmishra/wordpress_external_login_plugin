@@ -32,3 +32,8 @@
         padding: 10px 30px;
         background-color: antiquewhite;
         border-radius: 15px; }
+        .exlog_options_page form .options_section_container .options_section .add_more {
+          margin-top: 30px; }
+          .exlog_options_page form .options_section_container .options_section .add_more .add_button {
+            font-size: 300px;
+            padding: 40px; }

@@ -147,12 +147,13 @@ $EXLOG_OPTION_FIELDS = array(
         )
     ),
     array(
-        "section_name" => "Roles Settings",
+        "section_name" => "Role Settings",
         "section_slug" => "role_settings",
         "section_description" => "These settings map roles from the external database to the WordPress one.",
         "section_fields" => array(
             array(
                 "type" => "roles",
+                "field_slug" => "exlog_roles_custom_fields",
             ),
         ),
     ),

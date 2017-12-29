@@ -10,7 +10,7 @@
 
         <?php foreach ($EXLOG_OPTION_FIELDS as $form_section) : ?>
             <div class="options_section_container">
-              <div class="options_section">
+              <div class="options_section <?php echo $form_section['section_slug']; ?>">
                 <h3><?php echo $form_section['section_name'] ?></h3>
                 <p><?php echo $form_section['section_description'] ?></p>
                 <hr>

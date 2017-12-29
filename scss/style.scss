@@ -46,6 +46,15 @@
         padding: 10px 30px;
         background-color: antiquewhite;
         border-radius: 15px;
+
+        .add_more {
+          margin-top: 30px;
+
+          .add_button {
+            font-size: 300px;
+            padding: 40px;
+          }
+        }
       }
     }
   }
