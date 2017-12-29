@@ -38,4 +38,5 @@ function exlog_enqueue_for_options() {
     global $EXLOG_PLUGIN_DATA;
     wp_enqueue_style( 'exlog-styles', plugin_dir_url($EXLOG_PATH_PLUGIN_BASE) . $EXLOG_PLUGIN_DATA['slug'] . '/scss/style.css' );
     wp_enqueue_script( 'exlog-scripts', plugin_dir_url($EXLOG_PATH_PLUGIN_BASE) . $EXLOG_PLUGIN_DATA['slug'] . '/js/external_login.js' );
+    wp_enqueue_script( 'exlog-validation-tools', plugin_dir_url($EXLOG_PATH_PLUGIN_BASE) . $EXLOG_PLUGIN_DATA['slug'] . '/js/tools.js' );
 }
