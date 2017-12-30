@@ -15,3 +15,4 @@ http://tom.benyon.io
 - Add required fields that turn off the plugin if they are empty
 - Add port option to database connection settings
 - Allow unique salt per password
+- Work on validation and sensitisation
