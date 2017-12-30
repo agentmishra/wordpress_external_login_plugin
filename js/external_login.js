@@ -4,20 +4,6 @@
         var $roles = $(".roles", $role_section);
         var hidden_roles_input_selector = ".exlog_custom_roles";
 
-        $(".add_button", $role_section).click(function () {
-            var $new_item = $(".role", $role_section)
-                .first()
-                .clone()
-                .appendTo($roles);
-
-            $(".external_role", $new_item)
-                .attr("readonly", false)
-                .attr("value", "");
-            $(".description", $new_item).remove();
-
-            watchRoleTextInputs();
-        });
-
         function watchRoleTextInputs() {
             $(".external_role", $role_section)
                 .change(function () {
@@ -36,7 +22,7 @@
                     var external_role_text = $(".external_role", $(this)).attr("value");
                     var wordpress_role = $(".wordpress_role", $(this)).attr("value");
                     roles_data.push({
-                        "external_role_text": external_role_text,
+                        "external_role": external_role_text,
                         "wordpress_role": wordpress_role
                     })
                 });
@@ -45,5 +31,21 @@
                 $(hidden_roles_input_selector, $role_section).attr("value", input_ready_roles);
             }
         }
+
+        $(".add_button", $role_section).click(function () {
+            var $new_item = $(".role", $role_section)
+                .first()
+                .clone()
+                .appendTo($roles);
+
+            $(".external_role", $new_item)
+                .attr("readonly", false)
+                .attr("value", "");
+            $(".description", $new_item).remove();
+
+            watchRoleTextInputs();
+        });
+
+        watchRoleTextInputs();
     })
 }(jQuery));
