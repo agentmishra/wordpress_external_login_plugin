@@ -1,15 +1,10 @@
 <?php
-  $exlog_roles = array_reverse(exlog_get_roles());
-  reset($exlog_roles);
-  $exlog_first_role = key($exlog_roles);
+  $EXLOG_WORDPRESS_AVAILABLE_ROLES = exlog_get_wp_role_types();
+  reset($EXLOG_WORDPRESS_AVAILABLE_ROLES);
+  $exlog_first_role = key($EXLOG_WORDPRESS_AVAILABLE_ROLES);
 
   $EXLOG_EXTERNAL_ROLE_PREFIX = "exlog_role_external_";
   $EXLOG_WORDPRESS_ROLE_PREFIX = "exlog_role_wordpress_";
-
-  $EXLOG_UNSPECIFIED_EXTERNAL_ROLE_VALUE = "UNSPECIFIED";
-  $EXLOG_UNSPECIFIED_EXTERNAL_ROLE_NAME = $EXLOG_EXTERNAL_ROLE_PREFIX . strtolower($EXLOG_UNSPECIFIED_EXTERNAL_ROLE_VALUE);
-  $EXLOG_UNSPECIFIED_WORDPRESS_ROLE_NAME = $EXLOG_WORDPRESS_ROLE_PREFIX . strtolower($EXLOG_UNSPECIFIED_EXTERNAL_ROLE_VALUE);
-  $EXLOG_UNSPECIFIED_WORDPRESS_ROLE_VALUE = $exlog_first_role;
 
   $EXLOG_JSON_KEY_EXTERNAL_VALUE = "external_role_value";
   $EXLOG_JSON_KEY_EXTERNAL_NAME = "external_role_name";
@@ -18,18 +13,7 @@
 
   $exlog_external_roles = get_option($form_field["field_slug"]);
 
-  if ($exlog_external_roles) {
-      $exlog_external_roles = json_decode(urldecode($exlog_external_roles), true);
-  } else {
-      $exlog_external_roles = array(
-          array(
-              $EXLOG_JSON_KEY_EXTERNAL_VALUE => $EXLOG_UNSPECIFIED_EXTERNAL_ROLE_VALUE,
-              $EXLOG_JSON_KEY_EXTERNAL_NAME => $EXLOG_UNSPECIFIED_EXTERNAL_ROLE_NAME,
-              $EXLOG_JSON_KEY_WORDPRESS_VALUE => $EXLOG_UNSPECIFIED_WORDPRESS_ROLE_VALUE,
-              $EXLOG_JSON_KEY_WORDPRESS_NAME => $EXLOG_UNSPECIFIED_WORDPRESS_ROLE_NAME,
-          )
-      );
-  };
+  $exlog_external_roles = json_decode(urldecode($exlog_external_roles), true);
 ?>
 
 <div
@@ -42,6 +26,8 @@
   data-exlog-json-key-wordpress-value="<?php echo $EXLOG_JSON_KEY_WORDPRESS_VALUE; ?>"
   data-exlog-json-key-wordpress-name="<?php echo $EXLOG_JSON_KEY_WORDPRESS_NAME; ?>"
 >
+  <h4><?php echo $form_field["field_name"]; ?></h4>
+  <p><?php echo $form_field["field_description"]; ?></p>
   <?php foreach ($exlog_external_roles as $exlog_external_role) : ?>
     <div class="role">
       <input
@@ -49,13 +35,10 @@
         type="text"
         value="<?php echo $exlog_external_role[$EXLOG_JSON_KEY_EXTERNAL_VALUE]; ?>"
         name="<?php echo $exlog_external_role[$EXLOG_JSON_KEY_EXTERNAL_NAME]; ?>"
-        <?php if ($exlog_external_role[$EXLOG_JSON_KEY_EXTERNAL_VALUE] == $EXLOG_UNSPECIFIED_EXTERNAL_ROLE_VALUE) : ?>
-          readonly
-        <?php endif; ?>
       >
 
       <select class="wordpress_role" name="<?php echo $exlog_external_role[$EXLOG_JSON_KEY_WORDPRESS_NAME]; ?>">
-          <?php foreach ($exlog_roles as $key => $value) : ?>
+          <?php foreach ($EXLOG_WORDPRESS_AVAILABLE_ROLES as $key => $value) : ?>
               <option
                   <?php if ($exlog_external_role[$EXLOG_JSON_KEY_WORDPRESS_VALUE] == $key) :?>
                       selected="selected"
@@ -68,11 +51,7 @@
       <input
         class="remove_role_pairing"
         value="Delete"
-      <?php if ($exlog_external_role[$EXLOG_JSON_KEY_EXTERNAL_VALUE] == $EXLOG_UNSPECIFIED_EXTERNAL_ROLE_VALUE) : ?>
-        type="hidden"
-      <?php else : ?>
         type="button"
-      <?php endif; ?>
       />
 
     </div>

@@ -15,12 +15,14 @@ function exlog_auth( $user, $username, $password ){
         $user = $userobj->get_data_by( 'login', $response['username'] ); // Does not return a WP_User object 🙁
         $user = new WP_User($user->ID); // Attempt to load up the user with that ID
 
+        $role = exlog_map_role($response['role']);
+
         $userdata = array(
             'user_login' => $response['username'],
             'first_name' => $response['first_name'],
             'last_name'  => $response['last_name'],
             'user_pass'  => $password,
-            'role'       => $response['role']
+            'role'       => $role,
         );
 
 //        If user does not exist

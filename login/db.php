@@ -10,14 +10,6 @@ function exlog_auth_query($username, $password) {
         }
     }
 
-    function exlog_get_role($db_role) {
-        if (strtolower($db_role) == "mentor") {
-            return 'administrator';
-        } else {
-            return 'subscriber';
-        }
-    }
-
     $dbstructure_table = get_option('exlog_dbstructure_table');
     $dbstructure_username = get_option('exlog_dbstructure_username');
     $dbstructure_password = get_option('exlog_dbstructure_password');
@@ -42,7 +34,6 @@ function exlog_auth_query($username, $password) {
     if (sizeof($rows) > 0) {
         $userData = $rows[0];
         if (exlog_validate_password($password, $userData->{$dbstructure_password})) {
-            $role = exlog_get_role($userData->{$dbstructure_role});
 
             return array(
                 "valid" => true,
@@ -50,7 +41,7 @@ function exlog_auth_query($username, $password) {
                 "password" => $userData->{$dbstructure_password},
                 "first_name" => $userData->{$dbstructure_first_name},
                 "last_name" => $userData->{$dbstructure_last_name},
-                "role" => $role
+                "role" => $userData->{$dbstructure_role}
             );
         }
     }

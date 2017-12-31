@@ -152,7 +152,16 @@ $EXLOG_OPTION_FIELDS = array(
         "section_description" => "These settings map roles from the external database to the WordPress one.",
         "section_fields" => array(
             array(
+                "field_name" => "Unspecified Role",
+                "field_description" => "This is default role that will be assigned to users who don't match a following role mapping.",
+                "field_slug" => "exlog_unspecified_role",
+                "type" => "select",
+                "select_options" => exlog_get_wp_role_types(),
+            ),
+            array(
+                "field_name" => "Role Mappings",
                 "type" => "roles",
+                "field_description" => "These are mappings from role types in your external Database to role types in Wordpress.",
                 "field_slug" => "exlog_roles_custom_fields",
             ),
         ),
