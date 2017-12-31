@@ -65,13 +65,7 @@
                 .attr("value", "");
             $(".description", $new_item).remove();
             $(".wordpress_role", $new_item)[0].selectedIndex = 0;
-
-            var button = $(document.createElement('input'))
-                .attr("type", "button")
-                .attr("class", "remove_role_pairing")
-                .attr("value", "Delete");
-
-            $new_item.append(button);
+            $(".remove_role_pairing", $new_item).attr("type", "button");
 
             watchRoleTextInputs();
         });

@@ -64,6 +64,17 @@
               </option>
           <?php endforeach; ?>
       </select>
+
+      <input
+        class="remove_role_pairing"
+        value="Delete"
+      <?php if ($exlog_external_role[$EXLOG_JSON_KEY_EXTERNAL_VALUE] == $EXLOG_UNSPECIFIED_EXTERNAL_ROLE_VALUE) : ?>
+        type="hidden"
+      <?php else : ?>
+        type="button"
+      <?php endif; ?>
+      />
+
     </div>
   <?php endforeach; ?>
 </div>
