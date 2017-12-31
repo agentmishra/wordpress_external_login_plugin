@@ -47,6 +47,11 @@
                 $(this).attr("name", slugged_wordpress_role);
                 update_roles_data();
             });
+
+            $(".remove_role_pairing", $role_section).click(function () {
+                $(this).parent().remove();
+                update_roles_data();
+            });
         }
 
         $(".add_button", $role_section).click(function () {
@@ -60,6 +65,13 @@
                 .attr("value", "");
             $(".description", $new_item).remove();
             $(".wordpress_role", $new_item)[0].selectedIndex = 0;
+
+            var button = $(document.createElement('input'))
+                .attr("type", "button")
+                .attr("class", "remove_role_pairing")
+                .attr("value", "Delete");
+
+            $new_item.append(button);
 
             watchRoleTextInputs();
         });
