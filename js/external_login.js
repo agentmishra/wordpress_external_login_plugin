@@ -59,6 +59,7 @@
                 .attr("readonly", false)
                 .attr("value", "");
             $(".description", $new_item).remove();
+            $(".wordpress_role", $new_item)[0].selectedIndex = 0;
 
             watchRoleTextInputs();
         });
