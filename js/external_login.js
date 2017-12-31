@@ -7,16 +7,23 @@
         var external_role_name_prefix = $roles.attr("data-exlog-external-role-prefix");
         var wordpress_role_name_prefix = $roles.attr("data-exlog-wordpress-role-prefix");
 
+        var json_key_external_role_value = $roles.attr("data-exlog-json-key-external-value");
+        var json_key_external_role_name = $roles.attr("data-exlog-json-key-external-name");
+        var json_key_wordpress_role_value = $roles.attr("data-exlog-json-key-wordpress-value");
+        var json_key_wordpress_role_name = $roles.attr("data-exlog-json-key-wordpress-name");
+
         function update_roles_data() {
             var roles_data = [];
             $(".role", $role_section).each(function () {
                 var $this = $(this);
-                roles_data.push({
-                    "external_role_value": $(".external_role", $this).attr("value"),
-                    "wordpress_role_value": $(".wordpress_role", $this).attr("value"),
-                    "wordpress_role_name": $(".wordpress_role", $this).attr("name"),
-                    "external_role_name": $(".external_role", $this).attr("name")
-                })
+                var role_data = {};
+
+                role_data[json_key_external_role_value] = $(".external_role", $this).attr("value");
+                role_data[json_key_wordpress_role_value] = $(".wordpress_role", $this).attr("value");
+                role_data[json_key_wordpress_role_name] = $(".wordpress_role", $this).attr("name");
+                role_data[json_key_external_role_name] = $(".external_role", $this).attr("name");
+
+                roles_data.push(role_data);
             });
 
             var input_ready_roles = window.exlog.json_to_input(roles_data);
