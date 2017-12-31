@@ -16,3 +16,4 @@ http://tom.benyon.io
 - Add port option to database connection settings
 - Allow unique salt per password
 - Work on validation and sensitisation
+- Remove option data from db if they are removed or renamed in the admin area
