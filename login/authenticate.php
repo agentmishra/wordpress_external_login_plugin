@@ -49,4 +49,6 @@ function exlog_auth( $user, $username, $password ){
     return $user;
 }
 
-add_filter( 'authenticate', 'exlog_auth', 10, 3 );
+if (get_option("external_login_option_enable_external_login") == "on") {
+    add_filter('authenticate', 'exlog_auth', 10, 3);
+}

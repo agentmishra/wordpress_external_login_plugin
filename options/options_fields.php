@@ -2,6 +2,25 @@
 
 $EXLOG_OPTION_FIELDS = array(
     array(
+        "section_name" => "Functionality Settings",
+        "section_slug" => "feature_settings",
+        "section_description" => "These settings are for functionality of the plugin.",
+        "section_fields" => array(
+            array(
+                "field_name" => "Enable External Login",
+                "field_description" => "Tick this box if you want to enable the main functionality of logging in with the external DB.",
+                "field_slug" => "external_login_option_enable_external_login",
+                "type" => "checkbox",
+            ),
+            array(
+                "field_name" => "Disable Local Login",
+                "field_description" => "Tick this box if you want to disable the login attempt with the Wordpress Database if the external login fails. This will only take effect if External Login is enabled.",
+                "field_slug" => "external_login_option_disable_local_login",
+                "type" => "checkbox",
+            ),
+        ),
+    ),
+    array(
         "section_name" => "Database Connection",
         "section_slug" => "database_connection",
         "section_description" => "These settings are for connecting to the database.",
@@ -163,19 +182,6 @@ $EXLOG_OPTION_FIELDS = array(
                 "type" => "roles",
                 "field_description" => "These are mappings from role types in your external Database to role types in Wordpress.",
                 "field_slug" => "exlog_roles_custom_fields",
-            ),
-        ),
-    ),
-    array(
-        "section_name" => "Feature Settings",
-        "section_slug" => "feature_settings",
-        "section_description" => "These settings are for functionality of the plugin.",
-        "section_fields" => array(
-            array(
-                "field_name" => "Disable Local Login",
-                "field_description" => "Tick this box if you want to disable the login attempt with the Wordpress Database if the external login fails.",
-                "field_slug" => "external_login_option_disable_local_login",
-                "type" => "checkbox",
             ),
         ),
     ),
