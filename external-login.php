@@ -23,6 +23,6 @@ include $EXLOG_PATH_PLUGIN_TOOLS . '/get_roles.php';
 include $EXLOG_PATH_PLUGIN_TOOLS . '/map_role.php';
 include $EXLOG_PATH_PLUGIN_OPTIONS . '/options_fields.php';
 include $EXLOG_PATH_PLUGIN_OPTIONS . '/options_external_login.php';
-include $EXLOG_PATH_PLUGIN_LOGIN . '/hashPassword.php';
+include $EXLOG_PATH_PLUGIN_LOGIN . '/validate_password.php';
 include $EXLOG_PATH_PLUGIN_LOGIN . '/db.php';
 include $EXLOG_PATH_PLUGIN_LOGIN . '/authenticate.php';

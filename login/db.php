@@ -1,14 +1,5 @@
 <?php
 
-function exlog_validate_password($password, $hash) {
-    $algorithm = get_option("external_login_option_hash_algorithm");
-    if ($algorithm == "bcrypt") {
-        return password_verify($password, $hash);
-    } else {
-        return exlog_hash_password($password) == $hash;
-    }
-}
-
 function exlog_get_external_db_instance_and_fields() {
     return array(
         "db_instance" => new wpdb(

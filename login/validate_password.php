@@ -12,3 +12,12 @@
             return hash($algorithm, $password);
         }
     }
+
+    function exlog_validate_password($password, $hash) {
+        $algorithm = get_option("external_login_option_hash_algorithm");
+        if ($algorithm == "bcrypt") {
+            return password_verify($password, $hash);
+        } else {
+            return exlog_hash_password($password) == $hash;
+        }
+    }
