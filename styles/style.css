@@ -48,3 +48,38 @@
           align-items: center; }
           .exlog_options_page form .options_section_container .options_section.role_settings .role select, .exlog_options_page form .options_section_container .options_section.role_settings .role input {
             margin-right: 10px; }
+
+.exlog_test_results_container {
+  z-index: 99999999999;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: red; }
+  .exlog_test_results_container .exlog_test_results_inner_container {
+    position: fixed;
+    top: 10%;
+    bottom: 10%;
+    left: 10%;
+    right: 10%;
+    background-color: white; }
+    .exlog_test_results_container .exlog_test_results_inner_container table {
+      width: 100%; }
+  .exlog_test_results_container .exlog_close_button {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: black;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    cursor: pointer; }
+    .exlog_test_results_container .exlog_close_button span {
+      pointer-events: none; }

@@ -1,4 +1,7 @@
-<div class="exlog_options_page">
+<div
+  class="exlog_options_page"
+  data-exlog-test-ajax-url="<?php global $EXLOG_PATH_PLUGIN_BASE; echo "hmmm" . $EXLOG_PATH_PLUGIN_BASE . '/testing_ajax.php'; ?>"
+>
     <?php screen_icon(); ?>
     <h2><?php echo $EXLOG_PLUGIN_DATA['name'] ?> Options</h2>
 
