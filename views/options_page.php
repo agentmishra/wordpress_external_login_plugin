@@ -25,6 +25,8 @@
                             include $EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/checkbox_field.php';
                         elseif ($form_field["type"] == "roles") :
                             include $EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/roles_fields_builder.php';
+                        elseif ($form_field["type"] == "button") :
+                            include $EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/button.php';
                         endif;
                     ?>
                 <?php endforeach; ?>

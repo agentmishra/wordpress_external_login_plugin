@@ -7,6 +7,14 @@ $EXLOG_OPTION_FIELDS = array(
         "section_description" => "These settings are for functionality of the plugin.",
         "section_fields" => array(
             array(
+                "field_name" => "Test External DB Connection",
+                "field_description" => "Click this button to see an example result of users from your external database to ensure data is being pulled correctly.",
+                "field_slug" => "external_login_option_test_button",
+                "field_text" => "TEST",
+                "type" => "button",
+                "input_class" => "exlog_test_connection"
+            ),
+            array(
                 "field_name" => "Enable External Login",
                 "field_description" => "Tick this box if you want to enable the main functionality of logging in with the external DB.",
                 "field_slug" => "external_login_option_enable_external_login",
