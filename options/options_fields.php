@@ -14,7 +14,7 @@ $EXLOG_OPTION_FIELDS = array(
             ),
             array(
                 "field_name" => "Database Host",
-                "field_description" => "This is the database host. This may well be 'localhost'",
+                "field_description" => "This is the database host. This may well be 'localhost'. For ports that differ the standard 3306, add them to the end of the host seperated by a colon eg: 'localhost:3306'.",
                 "field_slug" => "external_login_option_db_host",
                 "type" => "text",
             ),
