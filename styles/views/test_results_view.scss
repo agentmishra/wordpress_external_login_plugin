@@ -1,16 +1,17 @@
-.exlog_test_results_container {
+.exlog_modal {
+  display: none;
   z-index: 999998;
   position: fixed;
   $distance_from_edge: 0;
   top: $distance_from_edge; bottom: $distance_from_edge; left: $distance_from_edge; right: $distance_from_edge;
   background-color: rgba(0,0,0,0.8);
   color: red;
+
   .exlog_test_results_inner_container {
     position: fixed;
 
     $distance_from_edge: 10%;
     top: $distance_from_edge;
-    //bottom: $distance_from_edge;
     left: $distance_from_edge;
     right: $distance_from_edge;
     background-color: white;
