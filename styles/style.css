@@ -50,7 +50,7 @@
             margin-right: 10px; }
 
 .exlog_test_results_container {
-  z-index: 99999999999;
+  z-index: 999998;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -61,25 +61,36 @@
   .exlog_test_results_container .exlog_test_results_inner_container {
     position: fixed;
     top: 10%;
-    bottom: 10%;
     left: 10%;
     right: 10%;
-    background-color: white; }
+    background-color: white;
+    overflow: scroll; }
     .exlog_test_results_container .exlog_test_results_inner_container table {
       width: 100%; }
+      .exlog_test_results_container .exlog_test_results_inner_container table table, .exlog_test_results_container .exlog_test_results_inner_container table th, .exlog_test_results_container .exlog_test_results_inner_container table td {
+        border: double black 2px; }
+      .exlog_test_results_container .exlog_test_results_inner_container table th {
+        text-align: center;
+        height: 50px;
+        background-color: #ffe6af; }
+      .exlog_test_results_container .exlog_test_results_inner_container table td {
+        text-align: center;
+        height: 50px; }
   .exlog_test_results_container .exlog_close_button {
     position: absolute;
-    top: 30px;
-    right: 30px;
-    width: 50px;
-    height: 50px;
+    z-index: 999999;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    background-color: black;
-    color: white;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 30px;
+    font-size: 20px;
     cursor: pointer; }
     .exlog_test_results_container .exlog_close_button span {
       pointer-events: none; }
