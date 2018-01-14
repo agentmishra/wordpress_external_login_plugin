@@ -11,9 +11,13 @@
   $EXLOG_JSON_KEY_WORDPRESS_VALUE = "wordpress_role_value";
   $EXLOG_JSON_KEY_WORDPRESS_NAME = "wordpress_role_name";
 
-  $exlog_external_roles = get_option($form_field["field_slug"]);
+//  Turn option field encoded version of data into php array
+  $exlog_external_roles = exlog_decode_json_data(get_option($form_field["field_slug"]));
 
-  $exlog_external_roles = json_decode(urldecode($exlog_external_roles), true);
+//  Prepare a variable to store the markup for a role field. This is used by client side JS to create additional fields.
+  ob_start();
+  include $EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/role_field.php';
+  $exlog_roles_markup = htmlspecialchars(ob_get_clean());
 ?>
 
 <div
@@ -25,41 +29,20 @@
   data-exlog-json-key-external-name="<?php echo $EXLOG_JSON_KEY_EXTERNAL_NAME; ?>"
   data-exlog-json-key-wordpress-value="<?php echo $EXLOG_JSON_KEY_WORDPRESS_VALUE; ?>"
   data-exlog-json-key-wordpress-name="<?php echo $EXLOG_JSON_KEY_WORDPRESS_NAME; ?>"
+
+  data-exlog-field-markup="<?php echo $exlog_roles_markup; ?>"
 >
   <h4><?php echo $form_field["field_name"]; ?></h4>
   <p><?php echo $form_field["field_description"]; ?></p>
-  <?php foreach ($exlog_external_roles as $exlog_external_role) : ?>
-    <div class="role">
-      <input
-        class="external_role"
-        type="text"
-        value="<?php echo $exlog_external_role[$EXLOG_JSON_KEY_EXTERNAL_VALUE]; ?>"
-        name="<?php echo $exlog_external_role[$EXLOG_JSON_KEY_EXTERNAL_NAME]; ?>"
-      >
-
-      <select class="wordpress_role" name="<?php echo $exlog_external_role[$EXLOG_JSON_KEY_WORDPRESS_NAME]; ?>">
-          <?php foreach ($EXLOG_WORDPRESS_AVAILABLE_ROLES as $key => $value) : ?>
-              <option
-                  <?php if ($exlog_external_role[$EXLOG_JSON_KEY_WORDPRESS_VALUE] == $key) :?>
-                      selected="selected"
-                  <?php endif; ?>
-                  value="<?php echo $key; ?>"><?php echo $value; ?>
-              </option>
-          <?php endforeach; ?>
-      </select>
-
-      <input
-        class="remove_role_pairing"
-        value="Delete"
-        type="button"
-      />
-
-    </div>
-  <?php endforeach; ?>
+  <?php if (is_array($exlog_external_roles) && sizeof($exlog_external_roles > 0)) : ?>
+    <?php foreach ($exlog_external_roles as $exlog_external_role) : ?>
+          <?php include $EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/role_field.php'; ?>
+      <?php endforeach; ?>
+  <?php endif; ?>
 </div>
 
 <div class="add_more">
-  <p class="description">Click to add another key value pair:</p>
+  <p class="description">Click to add a key value pair:</p>
   <input class="add_button" type="button" value="+"/>
 </div>
 

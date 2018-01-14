@@ -5,8 +5,6 @@
         var $modal_content_container = $(".exlog_test_results_inner_container", $modal);
 
 
-        console.log($modal);
-
         $(".exlog_close_button", $modal).click(function () {
             $modal.hide();
             $modal_content_container.text("");

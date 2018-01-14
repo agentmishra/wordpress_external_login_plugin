@@ -12,6 +12,8 @@
         var json_key_wordpress_role_value = $roles.attr("data-exlog-json-key-wordpress-value");
         var json_key_wordpress_role_name = $roles.attr("data-exlog-json-key-wordpress-name");
 
+        var $new_role_element = $($roles.attr("data-exlog-field-markup"));
+
         function update_roles_data() {
             var roles_data = [];
             $(".role", $role_section).each(function () {
@@ -55,10 +57,7 @@
         }
 
         $(".add_button", $role_section).click(function () {
-            var $new_item = $(".role", $role_section)
-                .first()
-                .clone()
-                .appendTo($roles);
+            var $new_item = $new_role_element.clone().appendTo($roles);
 
             $(".external_role", $new_item)
                 .attr("readonly", false)

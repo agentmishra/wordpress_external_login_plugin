@@ -14,6 +14,15 @@ function exlog_validate($value, $field_data) {
 
             return get_option($field_data["field_slug"]);
         }
+    } elseif ($field_data['field_slug'] == "exlog_roles_custom_fields") {
+            $decoded_value = exlog_decode_json_data($value);
+            if (is_array($decoded_value)) {
+                foreach ($decoded_value as &$role) {
+                    $role['external_role_value'] = trim(strip_tags($role['external_role_value']));
+                }
+            }
+            return json_encode($decoded_value);
     };
+
     return strip_tags($value);
 }
