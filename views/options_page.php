@@ -1,6 +1,5 @@
 <div
   class="exlog_options_page"
-  data-exlog-test-ajax-url="<?php global $EXLOG_PATH_PLUGIN_BASE; echo "hmmm" . $EXLOG_PATH_PLUGIN_BASE . '/testing_ajax.php'; ?>"
 >
     <?php screen_icon(); ?>
     <h2><?php echo $EXLOG_PLUGIN_DATA['name'] ?> Options</h2>
@@ -40,19 +39,6 @@
         <?php endforeach; ?>
     </form>
 
-  <div class="exlog_modal">
-
-    <div class="exlog_close_button">
-      <span>X</span>
-    </div>
-
-    <div class="exlog_loader_container">
-      <div class="exlog_loader">Loading...</div>
-    </div>
-
-    <div class="exlog_test_results_inner_container">
-
-    </div>
-  </div>
+    <?php include $EXLOG_PATH_PLUGIN_VIEWS . '/modal.php'; ?>
 
 </div>
