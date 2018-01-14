@@ -2,6 +2,7 @@
 
 function exlog_validate($value, $field_data) {
     $exlog_error_title = "Validation Error in field " . $field_data['field_name'] . ".<br> - ";
+
     if ($field_data['field_slug'] == "exlog_unspecified_role") {
         if (!(array_key_exists($value, exlog_get_wp_role_types()))) {
             add_settings_error(
@@ -14,5 +15,5 @@ function exlog_validate($value, $field_data) {
             return get_option($field_data["field_slug"]);
         }
     };
-    return $value;
+    return strip_tags($value);
 }
