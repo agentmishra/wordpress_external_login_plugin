@@ -14,5 +14,5 @@ http://tom.benyon.io
 - Add required fields that turn off the plugin if they are empty
 - Add port option to database connection settings
 - Allow unique salt per password
-- Work on validation and sensitisation
+- Work on validation and sensitisation - see https://konstantin.blog/2012/the-wordpress-settings-api/
 - Remove option data from db if they are removed or renamed in the admin area

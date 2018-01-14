@@ -9,7 +9,9 @@ function exlog_register_options_menu_settings() {
 
     foreach ($EXLOG_OPTION_FIELDS as $section) {
         foreach ($section['section_fields'] as $form_field) {
-            register_setting($EXLOG_PLUGIN_DATA['slug'] . '-option-group', $form_field["field_slug"]);
+            register_setting($EXLOG_PLUGIN_DATA['slug'] . '-option-group', $form_field["field_slug"], function( $input ) use ( $form_field ) {
+                return exlog_validate( $input, $form_field );
+            });
         }
     }
 };
