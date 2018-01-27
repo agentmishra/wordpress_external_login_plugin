@@ -112,6 +112,17 @@ $EXLOG_OPTION_FIELDS = array(
                 )
             ),
             array(
+                "field_name" => "Salting Method",
+                "field_description" => "How salts are being used for added security.",
+                "field_slug" => "external_login_option_db_salting_method",
+                "type" => "select",
+                "select_options" => array(
+                    "none" => "No Salting",
+                    "one" => "One salt for all passwords",
+                    "all" => "Separate salt for each password"
+                )
+            ),
+            array(
                 "field_name" => "Salt Location",
                 "field_description" => "Whether the salt is concatenated before or after the password. This is ignored if bcrypt is chosen as the salt will be stored within the hash.",
                 "field_slug" => "external_login_option_db_salt_location",
@@ -120,6 +131,14 @@ $EXLOG_OPTION_FIELDS = array(
                     "none" => "No Salt",
                     "before" => "Salt Before",
                     "after" => "Salt After"
+                ),
+                "conditionals" => array(
+                    "and",
+                    array(
+                        "condition_field" => "external_login_option_db_salting_method",
+                        "condition_field_value" => "none",
+                        "condition_operator" => "!="
+                    )
                 )
             ),
             array(

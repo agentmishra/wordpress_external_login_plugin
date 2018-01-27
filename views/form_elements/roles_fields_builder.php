@@ -19,36 +19,37 @@
   include $EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/role_field.php';
   $exlog_roles_markup = htmlspecialchars(ob_get_clean());
 ?>
+<div class="option-container">
+  <div
+    class="roles"
+    data-exlog-external-role-prefix="<?php echo $EXLOG_EXTERNAL_ROLE_PREFIX; ?>"
+    data-exlog-wordpress-role-prefix="<?php echo $EXLOG_WORDPRESS_ROLE_PREFIX; ?>"
 
-<div
-  class="roles"
-  data-exlog-external-role-prefix="<?php echo $EXLOG_EXTERNAL_ROLE_PREFIX; ?>"
-  data-exlog-wordpress-role-prefix="<?php echo $EXLOG_WORDPRESS_ROLE_PREFIX; ?>"
+    data-exlog-json-key-external-value="<?php echo $EXLOG_JSON_KEY_EXTERNAL_VALUE; ?>"
+    data-exlog-json-key-external-name="<?php echo $EXLOG_JSON_KEY_EXTERNAL_NAME; ?>"
+    data-exlog-json-key-wordpress-value="<?php echo $EXLOG_JSON_KEY_WORDPRESS_VALUE; ?>"
+    data-exlog-json-key-wordpress-name="<?php echo $EXLOG_JSON_KEY_WORDPRESS_NAME; ?>"
 
-  data-exlog-json-key-external-value="<?php echo $EXLOG_JSON_KEY_EXTERNAL_VALUE; ?>"
-  data-exlog-json-key-external-name="<?php echo $EXLOG_JSON_KEY_EXTERNAL_NAME; ?>"
-  data-exlog-json-key-wordpress-value="<?php echo $EXLOG_JSON_KEY_WORDPRESS_VALUE; ?>"
-  data-exlog-json-key-wordpress-name="<?php echo $EXLOG_JSON_KEY_WORDPRESS_NAME; ?>"
+    data-exlog-field-markup="<?php echo $exlog_roles_markup; ?>"
+  >
+    <h4><?php echo $form_field["field_name"]; ?></h4>
+    <p><?php echo $form_field["field_description"]; ?></p>
+    <?php if (is_array($exlog_external_roles) && sizeof($exlog_external_roles > 0)) : ?>
+      <?php foreach ($exlog_external_roles as $exlog_external_role) : ?>
+            <?php include $EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/role_field.php'; ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
+  </div>
 
-  data-exlog-field-markup="<?php echo $exlog_roles_markup; ?>"
->
-  <h4><?php echo $form_field["field_name"]; ?></h4>
-  <p><?php echo $form_field["field_description"]; ?></p>
-  <?php if (is_array($exlog_external_roles) && sizeof($exlog_external_roles > 0)) : ?>
-    <?php foreach ($exlog_external_roles as $exlog_external_role) : ?>
-          <?php include $EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/role_field.php'; ?>
-      <?php endforeach; ?>
-  <?php endif; ?>
+  <div class="add_more">
+    <p class="description">Click to add a key value pair:</p>
+    <input class="add_button" type="button" value="+"/>
+  </div>
+
+  <input
+    class="exlog_custom_roles"
+    type="hidden"
+    name="<?php echo $form_field["field_slug"]; ?>"
+    value="<?php echo get_option($form_field["field_slug"]); ?>"
+  />
 </div>
-
-<div class="add_more">
-  <p class="description">Click to add a key value pair:</p>
-  <input class="add_button" type="button" value="+"/>
-</div>
-
-<input
-  class="exlog_custom_roles"
-  type="hidden"
-  name="<?php echo $form_field["field_slug"]; ?>"
-  value="<?php echo get_option($form_field["field_slug"]); ?>"
-/>
