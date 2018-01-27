@@ -25,6 +25,14 @@ $EXLOG_OPTION_FIELDS = array(
                 "field_description" => "Tick this box if you want to disable the login attempt with the Wordpress Database if the external login fails. This will only take effect if External Login is enabled.",
                 "field_slug" => "external_login_option_disable_local_login",
                 "type" => "checkbox",
+                "conditionals" => array(
+                    "and",
+                    array(
+                        "condition_field" => "external_login_option_enable_external_login",
+                        "condition_field_value" => "true",
+                        "condition_operator" => "="
+                    )
+                )
             ),
         ),
     ),

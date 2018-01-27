@@ -73,7 +73,12 @@
         }
 
         function getFieldValue(fieldID) {
-            return $('#' + fieldID).val();
+            var $field = $('#' + fieldID);
+            if ($field[0].type === 'checkbox') {
+                return $field[0].checked ? "true" : "false";
+            } else {
+                return $field.val();
+            }
         }
 
         function evaluateCondition(value, checkValue, operator) {
@@ -121,6 +126,6 @@
 
         runConditionalChecks();
 
-        $('select').change(runConditionalChecks);
+        $('select, input').change(runConditionalChecks);
     })
 }(jQuery));
