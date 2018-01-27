@@ -120,5 +120,7 @@
         }
 
         runConditionalChecks();
+
+        $('select').change(runConditionalChecks);
     })
 }(jQuery));
