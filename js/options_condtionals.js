@@ -1,9 +1,11 @@
 (function ($) {
     $(function () {
-        var conditionals_data_name = "data-exlog-conditionals";
-        var $option_field_containers = $(".option-container");
+        var err_start = "\n\nExternal Login ERROR:\n";
 
         function runConditionalChecks() {
+            var conditionals_data_name = "data-exlog-conditionals";
+            var $option_field_containers = $(".option-container");
+
             $option_field_containers.each(function () {
                 var $this = $(this);
                 var data = $this.attr(conditionals_data_name);
@@ -12,13 +14,19 @@
                     try {
                         json_data = JSON.parse(data);
                     } catch (error) {
-                        console.log("Invalid JSON in conditional string.\n", data);
+                        console.log(err_start, "Invalid JSON in conditional string. Data:\n", data);
+                        return;
                     }
 
                     if (json_data) {
-                        showOrHideField($this, evaluateConditions(json_data));
+                        var result = evaluateConditions(json_data);
+                        if (result !== null) {
+                            showOrHideField($this, result);
+                        } else {
+                            console.log(err_start, "Error validating conditions. Data:\n", data);
+                        }
                     } else {
-                        console.log("Invalid condition structure.");
+                        console.log(err_start, "Invalid condition structure. Data:\n", data);
                     }
                 }
             });
@@ -58,6 +66,9 @@
             } else if (andOr === "or") {
                 //Check if one condition is true
                 return condition_results.indexOf(true) === -1;
+            } else {
+                console.log(err_start, "And or Condition not correctly set. Data:\n", raw_conditions);
+                return null;
             }
         }
 
@@ -95,7 +106,7 @@
                         conditions_prepared['andOr'] = "or";
                         break;
                     default:
-                        console.log("Invalid condition data passed for options page.");
+                        console.log(err_start, "Invalid condition data passed for options page. Data:\n", raw_conditions);
                         return false;
                 }
 
