@@ -207,6 +207,20 @@ $EXLOG_OPTION_FIELDS = array(
                 "type" => "text",
             ),
             array(
+                "field_name" => "Salt Field Name",
+                "field_description" => "This is the name of the field the salt for the password hashing of that users password.",
+                "field_slug" => "exlog_dbstructure_salt",
+                "type" => "text",
+                "conditionals" => array(
+                    "and",
+                    array(
+                        "condition_field" => "external_login_option_db_salting_method",
+                        "condition_field_value" => "all",
+                        "condition_operator" => "="
+                    )
+                )
+            ),
+            array(
                 "field_name" => "First Name Field Name",
                 "field_description" => "This is the name of the field that stores your users' first name.",
                 "field_slug" => "exlog_dbstructure_first_name",

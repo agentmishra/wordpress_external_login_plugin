@@ -1,8 +1,12 @@
 <?php
-    function exlog_hash_password($password, $no_salt = false) {
+    function exlog_hash_password($password, $no_salt = false, $user_specific_salt = false) {
         $algorithm = get_option("external_login_option_hash_algorithm");
-        $salt = get_option("external_login_option_db_salt");
         $salt_location = get_option("external_login_option_db_salt_location");
+        if ($user_specific_salt) {
+            $salt = $user_specific_salt;
+        } else {
+            $salt = get_option("external_login_option_db_salt");
+        }
 
         if ($no_salt) {
             return hash($algorithm, $password);
@@ -15,7 +19,7 @@
         }
     }
 
-    function exlog_validate_password($password, $hash) {
+    function exlog_validate_password($password, $hash, $user_specific_salt) {
         $salt_method = get_option("external_login_option_db_salting_method");
         $algorithm = get_option("external_login_option_hash_algorithm");
 
@@ -24,6 +28,9 @@
         } else {
             if ($salt_method == 'none') {
                 return exlog_hash_password($password, true) == $hash;
+            } else if ($salt_method == 'all') {
+                return exlog_hash_password($password, false, $user_specific_salt) == $hash;
+
             } else {
                 return exlog_hash_password($password) == $hash;
             }

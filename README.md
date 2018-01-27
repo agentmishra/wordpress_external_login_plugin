@@ -13,4 +13,7 @@ http://tom.benyon.io
 - Add required fields that turn off the plugin if they are empty
 - Allow unique salt per password
 - Remove option data from db if they are removed or renamed in the admin area
-- Work on errors in conditional options_conditionals.js
+- TEST!
+    - No salt works
+    - Separate salts work
+    
