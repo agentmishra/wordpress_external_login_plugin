@@ -120,6 +120,14 @@ $EXLOG_OPTION_FIELDS = array(
                     "none" => "No Salting",
                     "one" => "One salt for all passwords",
                     "all" => "Separate salt for each password"
+                ),
+                "conditionals" => array(
+                    "and",
+                    array(
+                        "condition_field" => "external_login_option_hash_algorithm",
+                        "condition_field_value" => "bcrypt",
+                        "condition_operator" => "!="
+                    )
                 )
             ),
             array(
@@ -138,6 +146,11 @@ $EXLOG_OPTION_FIELDS = array(
                         "condition_field" => "external_login_option_db_salting_method",
                         "condition_field_value" => "none",
                         "condition_operator" => "!="
+                    ),
+                    array(
+                        "condition_field" => "external_login_option_hash_algorithm",
+                        "condition_field_value" => "bcrypt",
+                        "condition_operator" => "!="
                     )
                 )
             ),
@@ -146,6 +159,19 @@ $EXLOG_OPTION_FIELDS = array(
                 "field_description" => "The salt used when hashing the password. If no salt is specified above this will have no effect. This is ignored if bcrypt is chosen as the salt will be stored within the hash.",
                 "field_slug" => "external_login_option_db_salt",
                 "type" => "text",
+                "conditionals" => array(
+                    "and",
+                    array(
+                        "condition_field" => "external_login_option_db_salting_method",
+                        "condition_field_value" => "none",
+                        "condition_operator" => "!="
+                    ),
+                    array(
+                        "condition_field" => "external_login_option_hash_algorithm",
+                        "condition_field_value" => "bcrypt",
+                        "condition_operator" => "!="
+                    )
+                )
             ),
         ),
     ),
