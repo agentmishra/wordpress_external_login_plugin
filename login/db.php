@@ -14,6 +14,7 @@ function exlog_get_external_db_instance_and_fields() {
         "dbstructure_first_name" => get_option('exlog_dbstructure_first_name'),
         "dbstructure_last_name" => get_option('exlog_dbstructure_last_name'),
         "dbstructure_role" => get_option('exlog_dbstructure_role'),
+        "dbstructure_email" => get_option('exlog_dbstructure_email'),
     );
 
     if (get_option('external_login_option_db_salting_method') == 'all') {
@@ -29,7 +30,8 @@ function exlog_build_wp_user_data($db_data, $userData) {
         "password" => $userData->{$db_data["dbstructure_password"]},
         "first_name" => $userData->{$db_data["dbstructure_first_name"]},
         "last_name" => $userData->{$db_data["dbstructure_last_name"]},
-        "role" => $userData->{$db_data["dbstructure_role"]}
+        "role" => $userData->{$db_data["dbstructure_role"]},
+        "email" => $userData->{$db_data["dbstructure_email"]},
     );
 }
 

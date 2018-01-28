@@ -225,6 +225,12 @@ $EXLOG_OPTION_FIELDS = array(
                 )
             ),
             array(
+                "field_name" => "E-mail Field Name",
+                "field_description" => "This is the name of the field that stores your users' e-mail.",
+                "field_slug" => "exlog_dbstructure_email",
+                "type" => "text",
+            ),
+            array(
                 "field_name" => "First Name Field Name",
                 "field_description" => "This is the name of the field that stores your users' first name.",
                 "field_slug" => "exlog_dbstructure_first_name",

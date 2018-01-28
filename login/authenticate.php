@@ -23,6 +23,7 @@ function exlog_auth( $user, $username, $password ){
             'last_name'  => $response['last_name'],
             'user_pass'  => $password,
             'role'       => $role,
+            'user_email' => $response['email'],
         );
 
 //        If user does not exist
