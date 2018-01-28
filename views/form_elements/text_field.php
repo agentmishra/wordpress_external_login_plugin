@@ -8,5 +8,8 @@
       type="text"
       name="<?php echo $form_field["field_slug"]; ?>"
       value="<?php echo get_option($form_field["field_slug"]); ?>"
+      <?php if ($form_field["required"]) : ?>
+        required
+      <?php endif; ?>
   />
 </div>

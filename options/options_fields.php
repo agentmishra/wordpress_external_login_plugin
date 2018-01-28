@@ -46,24 +46,30 @@ $EXLOG_OPTION_FIELDS = array(
                 "field_description" => "This is the name of the database to connect to.",
                 "field_slug" => "external_login_option_db_name",
                 "type" => "text",
+                "required" => true
+
             ),
             array(
                 "field_name" => "Database Host",
                 "field_description" => "This is the database host. This may well be 'localhost'. For ports that differ the standard 3306, add them to the end of the host seperated by a colon eg: 'localhost:3306'.",
                 "field_slug" => "external_login_option_db_host",
                 "type" => "text",
+                "required" => true
+
             ),
             array(
                 "field_name" => "Database Username",
                 "field_description" => "The username for the account to access the database.",
                 "field_slug" => "external_login_option_db_username",
                 "type" => "text",
+                "required" => true
             ),
             array(
                 "field_name" => "Database Password",
                 "field_description" => "The password for the account to access the database.",
                 "field_slug" => "external_login_option_db_password",
                 "type" => "text",
+                "required" => true
             ),
         ),
     ),
@@ -197,18 +203,21 @@ $EXLOG_OPTION_FIELDS = array(
                 "field_description" => "The name of the table that stores your users.",
                 "field_slug" => "exlog_dbstructure_table",
                 "type" => "text",
+                "required" => true
             ),
             array(
                 "field_name" => "Username Field Name",
                 "field_description" => "This is the name of the field that stores your users' username or other unique ID. It MUST be unique.",
                 "field_slug" => "exlog_dbstructure_username",
                 "type" => "text",
+                "required" => true
             ),
             array(
                 "field_name" => "Password Field Name",
                 "field_description" => "This is the name of the field that stores your users' hashed passwords.",
                 "field_slug" => "exlog_dbstructure_password",
                 "type" => "text",
+                "required" => true
             ),
             array(
                 "field_name" => "Salt Field Name",

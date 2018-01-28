@@ -6,7 +6,11 @@
   <p><?php echo $form_field["field_description"]; ?></p>
   <select
     id="<?php echo $form_field["field_slug"]; ?>"
-    name="<?php echo $form_field["field_slug"]; ?>">
+    name="<?php echo $form_field["field_slug"]; ?>"
+    <?php if ($form_field["required"]) : ?>
+      required
+    <?php endif; ?>
+  >
     <?php foreach ($form_field["select_options"] as $key => $value) : ?>
       <option
           <?php if (get_option($form_field["field_slug"]) == $key) :?>
