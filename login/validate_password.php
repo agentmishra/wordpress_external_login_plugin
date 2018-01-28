@@ -23,6 +23,8 @@
         $salt_method = get_option("external_login_option_db_salting_method");
         $algorithm = get_option("external_login_option_hash_algorithm");
 
+        $hash = exlog_should_lowercase_hex_hash($algorithm, $hash);
+
         if ($algorithm == "bcrypt") {
             return password_verify($password, $hash);
         } else {
@@ -30,9 +32,19 @@
                 return exlog_hash_password($password, true) == $hash;
             } else if ($salt_method == 'all') {
                 return exlog_hash_password($password, false, $user_specific_salt) == $hash;
-
             } else {
                 return exlog_hash_password($password) == $hash;
             }
         }
+    }
+
+//    Because a hash represented in hexidecimal could be represented in lower case or upper,
+//    make it compatible with PHPs lowercase system
+    function exlog_should_lowercase_hex_hash($algorithm, $hash) {
+        if ($algorithm === "bcrypt") {
+            return $hash;
+        } else {
+            return strtolower($hash);
+        }
+
     }

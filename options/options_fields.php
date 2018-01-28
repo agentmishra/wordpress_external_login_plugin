@@ -175,6 +175,11 @@ $EXLOG_OPTION_FIELDS = array(
                         "condition_operator" => "!="
                     ),
                     array(
+                        "condition_field" => "external_login_option_db_salting_method",
+                        "condition_field_value" => "all",
+                        "condition_operator" => "!="
+                    ),
+                    array(
                         "condition_field" => "external_login_option_hash_algorithm",
                         "condition_field_value" => "bcrypt",
                         "condition_operator" => "!="
