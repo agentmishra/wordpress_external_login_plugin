@@ -144,7 +144,6 @@ $EXLOG_OPTION_FIELDS = array(
                 "field_slug" => "external_login_option_db_salt_location",
                 "type" => "select",
                 "select_options" => array(
-                    "none" => "No Salt",
                     "before" => "Salt Before",
                     "after" => "Salt After"
                 ),
