@@ -9,7 +9,8 @@ Tom Benyon
 http://tom.benyon.io
 
 #To Do
-- Add a locked state to elements of the menus
-- Add required fields that turn off the plugin if they are empty
 - Remove option data from db if they are removed or renamed in the admin area
-- Add email to users
+- Add Social Login with:
+    - Facebook
+    - Google
+    - Github
