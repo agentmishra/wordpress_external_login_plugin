@@ -9,6 +9,7 @@ Author URI: http://tom.benyon.io
 Text Domain: external-login
 */
 
+$EXLOG_PLUGIN_FILE_PATH = __FILE__;
 $EXLOG_PATH_PLUGIN_BASE = __DIR__;
 $EXLOG_PATH_PLUGIN_VIEWS = $EXLOG_PATH_PLUGIN_BASE . '/views';
 $EXLOG_PATH_PLUGIN_LOGIN = $EXLOG_PATH_PLUGIN_BASE . '/login';
@@ -25,6 +26,7 @@ include $EXLOG_PATH_PLUGIN_TOOLS . '/get_roles.php';
 include $EXLOG_PATH_PLUGIN_TOOLS . '/map_role.php';
 include $EXLOG_PATH_PLUGIN_OPTIONS . '/options_fields.php';
 include $EXLOG_PATH_PLUGIN_OPTIONS . '/options_external_login.php';
+include $EXLOG_PATH_PLUGIN_OPTIONS . '/cleanup.php';
 include $EXLOG_PATH_PLUGIN_OPTIONS . '/testing_ajax.php';
 include $EXLOG_PATH_PLUGIN_LOGIN . '/validate_password.php';
 include $EXLOG_PATH_PLUGIN_LOGIN . '/db.php';

@@ -34,6 +34,12 @@ $EXLOG_OPTION_FIELDS = array(
                     )
                 )
             ),
+            array(
+                "field_name" => "Delete Settings on Plugin Deactivation",
+                "field_description" => "Tick this box if you want to delete all settings when you deactivate the plugin.",
+                "field_slug" => "external_login_option_delete_plugin_settings",
+                "type" => "checkbox",
+            ),
         ),
     ),
     array(

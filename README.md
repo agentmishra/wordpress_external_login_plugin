@@ -9,7 +9,7 @@ Tom Benyon
 http://tom.benyon.io
 
 #To Do
-- Remove option data from db if they are removed or renamed in the admin area
+- Add setttings link to the settings page
 - Add Social Login with:
     - Facebook
     - Google
