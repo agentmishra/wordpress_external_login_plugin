@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: External Login
-Plugin URI: http://tom.benyon.io
+Plugin URI: http://tom.benyon.io/plugins/external-login
 Description: A plugin to allow login and syncing from a secondary database
 Author: Tom Benyon
 Version: 0.1.0
