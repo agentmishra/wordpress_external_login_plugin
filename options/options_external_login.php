@@ -18,7 +18,7 @@ function exlog_register_options_menu_settings() {
 
 function exlog_create_options_menu() {
     global $EXLOG_PLUGIN_DATA;
-    add_options_page( $EXLOG_PLUGIN_DATA['name'] . ' Options', $EXLOG_PLUGIN_DATA['name'], 'manage_options', $EXLOG_PLUGIN_DATA['slug'] . '-identifier', 'exlog_generate_options_view' );
+    add_options_page( $EXLOG_PLUGIN_DATA['name'] . ' Options', $EXLOG_PLUGIN_DATA['name'], 'manage_options', $EXLOG_PLUGIN_DATA['slug'], 'exlog_generate_options_view' );
 }
 
 function exlog_generate_options_view() {

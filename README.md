@@ -9,7 +9,6 @@ Tom Benyon
 http://tom.benyon.io
 
 #To Do
-- Add setttings link to the settings page
 - Add Social Login with:
     - Facebook
     - Google
