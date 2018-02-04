@@ -4,7 +4,7 @@ Donate link: https://www.paypal.me/tombenyon
 Tags: external, db, database, login, users, WordPress, different, username, password, hashing, md, md2, md4, md5, bcrypt, sha, sha1, sha256, sha384, sha512
 Requires at least: 4.6
 Tested up to: 4.9
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 Requires PHP: 5.2.4
 License: MIT
 
@@ -20,26 +20,26 @@ The plugin will re-create users in the WordPress database which has has two bene
     2. If the 'external database' is not available, you can allow the plugin to log them in with the local WordPress version of their user.
 
 **Features**
-* Use your current table of users in a different database to login to WordPress
-* Map the names for your database fields against the required WordPress fields
-* Map roles from your 'external database' to those found in WordPress e.g. a student in the 'external database' becomes an editor in the WordPress database.
-* Every time a user logs in, their WordPress user will be updated with the details from the 'external database'.
-* Many password hashing methods are supported including:
-    * bcrypt
-    * md2
-    * md4
-    * md5
-    * sha1
-    * sha256
-    * sha384
-    * sha512
-    * and more...
-* Support for separate password salts for each password
-* Support for one salt for all passwords
-* Support for salts being prepended or appended to the password
-* Ability to fall back to the generated WordPress user for login if the 'external database' is unavailable.
-* Test the connection in the settings menu to make sure your data is being pulled correctly
-* Option to delete plugin data on plugin deactivation
+- Use your current table of users in a different database to login to WordPress
+- Map the names for your database fields against the required WordPress fields
+- Map roles from your 'external database' to those found in WordPress e.g. a student in the 'external database' becomes an editor in the WordPress database.
+- Every time a user logs in, their WordPress user will be updated with the details from the 'external database'.
+- Many password hashing methods are supported including:
+    - bcrypt
+    - md2
+    - md4
+    - md5
+    - sha1
+    - sha256
+    - sha384
+    - sha512
+    - and more...
+- Support for separate password salts for each password
+- Support for one salt for all passwords
+- Support for salts being prepended or appended to the password
+- Ability to fall back to the generated WordPress user for login if the 'external database' is unavailable.
+- Test the connection in the settings menu to make sure your data is being pulled correctly
+- Option to delete plugin data on plugin deactivation
 
 
 == Installation ==
@@ -105,11 +105,10 @@ Initial production version
 It is recommended that you create a new Database user to access the external database. This way you can set appropriate permissions to the user so that they do not have write access.
 
 **Hashing**
-For the security of your users, your 'external database' should be hashing your users passwords.
-Although support is given for other hashing methods, 'bcrypt' is advised as it is the only supported method that uses SLOW hashing.
-Without this support it would be far easier for someone to derive your users plain text password if they gained access to your database.
-It is also highly recommended that a salt is used. This is done by default with 'bcrypt'.
-Using one salt for all passwords is supported but it is recommended to use a separate salt for each password as a different field in your database. This helps prevent the use of 'rainbow tables' to derive your users passwords.
+For the security of your users, your 'external database' should be hashing your users passwords. Although support is given for other hashing methods, 'bcrypt' is advised as it uses SLOW hashing. Without this it would be far easier for someone to derive your users password through a brute force attack if they gained access to your database.
+
+It is also highly recommended that a salt is used. This is done by default with 'bcrypt'. Using one salt for all passwords is supported but it is recommended to use a separate salt for each password as a different field in your database. This helps prevent the use of 'rainbow tables' to derive your users passwords.
+
 For explanation and more information on this I recommend [this article](https://martinfowler.com/articles/web-security-basics.html) starting from the section "Hash and Salt Your Users' Passwords".
 
 
