@@ -8,7 +8,6 @@
         $(".exlog_close_button", $modal).click(function () {
             $modal.hide();
             $modal_content_container.text("");
-
         });
 
         $("input.exlog_test_connection").click(function () {

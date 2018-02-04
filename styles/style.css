@@ -77,6 +77,8 @@
       .exlog_modal .exlog_test_results_inner_container table td {
         text-align: center;
         height: 50px; }
+    .exlog_modal .exlog_test_results_inner_container .error-message p {
+      text-align: center; }
   .exlog_modal .exlog_close_button {
     position: absolute;
     z-index: 999999;
