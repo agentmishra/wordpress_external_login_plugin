@@ -86,7 +86,7 @@ $EXLOG_OPTION_FIELDS = array(
         "section_fields" => array(
             array(
                 "field_name" => "Hash Type",
-                "field_description" => "The hashing algorithm used. The standard one used by Wordpress is bcrypt.",
+                "field_description" => "The hashing algorithm used. The standard one used by Wordpress is bcrypt and is the best option. Other hashes are not great. No hashing should never be used in production.",
                 "field_slug" => "external_login_option_hash_algorithm",
                 "type" => "select",
                 "select_options" => array(
@@ -129,6 +129,7 @@ $EXLOG_OPTION_FIELDS = array(
                     "haval192,5" => "haval192,5",
                     "haval224,5" => "haval224,5",
                     "haval256,5" => "haval256,5",
+                    "none" => "None"
                 )
             ),
             array(
@@ -146,6 +147,11 @@ $EXLOG_OPTION_FIELDS = array(
                     array(
                         "condition_field" => "external_login_option_hash_algorithm",
                         "condition_field_value" => "bcrypt",
+                        "condition_operator" => "!="
+                    ),
+                    array(
+                        "condition_field" => "external_login_option_hash_algorithm",
+                        "condition_field_value" => "none",
                         "condition_operator" => "!="
                     )
                 )
@@ -170,6 +176,11 @@ $EXLOG_OPTION_FIELDS = array(
                         "condition_field" => "external_login_option_hash_algorithm",
                         "condition_field_value" => "bcrypt",
                         "condition_operator" => "!="
+                    ),
+                    array(
+                        "condition_field" => "external_login_option_hash_algorithm",
+                        "condition_field_value" => "none",
+                        "condition_operator" => "!="
                     )
                 )
             ),
@@ -193,6 +204,11 @@ $EXLOG_OPTION_FIELDS = array(
                     array(
                         "condition_field" => "external_login_option_hash_algorithm",
                         "condition_field_value" => "bcrypt",
+                        "condition_operator" => "!="
+                    ),
+                    array(
+                        "condition_field" => "external_login_option_hash_algorithm",
+                        "condition_field_value" => "none",
                         "condition_operator" => "!="
                     )
                 )

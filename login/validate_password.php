@@ -25,7 +25,9 @@
 
         $hash = exlog_should_lowercase_hex_hash($algorithm, $hash);
 
-        if ($algorithm == "bcrypt") {
+        if ($algorithm == "none") {
+            return $password == $hash;
+        } else if ($algorithm == "bcrypt") {
             return password_verify($password, $hash);
         } else {
             if ($salt_method == 'none') {
