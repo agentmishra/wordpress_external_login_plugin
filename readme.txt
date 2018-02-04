@@ -10,6 +10,7 @@ License: UNLICENSED
 
 External Login allows users to log in to the WordPress site with a different database of users.
 
+
 == Description ==
 
 External Login allows you to log in in to your WordPress site using an 'external database' instead of the WordPress database.
@@ -18,7 +19,6 @@ The 'external database' that you would like to use does not have to be a WordPre
 The plugin will re-create users in the WordPress database which has has two benefits:
 1. It will allow you to use WordPress correctly with other plugins that require a named user to be logged in.
 1. If the 'external database' is not available, you can allow the plugin to log them in with the local WordPress version of their user.
-
 
 #Features
 * Use your current table of users in a different database to login to WordPress
