@@ -1,7 +1,7 @@
 === External Login ===
 Contributors: tbenyon
 Donate link: https://www.paypal.me/tombenyon
-Tags: external, db, database, login, users, WordPress, different, username, password, hashing, md, md2, md4, md5, bcrypt, sha, sha1, sha256, sha384, sha512
+Tags: external login, external, database, login, users, db, WordPress, different, username, password, hashing, md, md2, md4, md5, bcrypt, sha, sha1, sha256, sha384, sha512
 Requires at least: 4.6
 Tested up to: 4.9
 Stable tag: 1.0.2
