@@ -40,8 +40,8 @@ function exlog_auth_query($username, $password) {
 
     $query_string =
         'SELECT *' .
-        ' FROM ' . $db_data["dbstructure_table"] .
-        ' WHERE ' . $db_data["dbstructure_username"] . '="' . $username . '"';
+        ' FROM ' . esc_sql($db_data["dbstructure_table"]) .
+        ' WHERE ' . esc_sql($db_data["dbstructure_username"]) . '="' . esc_sql($username) . '"';
 
     $rows = $db_data["db_instance"]->get_results($query_string);
 
