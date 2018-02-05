@@ -1,6 +1,6 @@
 <?php
 
-$EXLOG_OPTION_FIELDS = array(
+define('EXLOG_OPTION_FIELDS', array(
     array(
         "section_name" => "Functionality Settings",
         "section_slug" => "feature_settings",
@@ -301,4 +301,4 @@ $EXLOG_OPTION_FIELDS = array(
             ),
         ),
     ),
-);
+));

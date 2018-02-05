@@ -16,7 +16,7 @@
 
 //  Prepare a variable to store the markup for a role field. This is used by client side JS to create additional fields.
   ob_start();
-  include $EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/role_field.php';
+  include EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/role_field.php';
   $exlog_roles_markup = htmlspecialchars(ob_get_clean());
 ?>
 <div class="option-container">
@@ -36,7 +36,7 @@
     <p><?php echo $form_field["field_description"]; ?></p>
     <?php if (is_array($exlog_external_roles) && sizeof($exlog_external_roles > 0)) : ?>
       <?php foreach ($exlog_external_roles as $exlog_external_role) : ?>
-            <?php include $EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/role_field.php'; ?>
+            <?php include EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/role_field.php'; ?>
         <?php endforeach; ?>
     <?php endif; ?>
   </div>
