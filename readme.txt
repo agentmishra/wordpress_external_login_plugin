@@ -19,27 +19,28 @@ The plugin will re-create users in the WordPress database which has has two bene
     1. It will allow you to use WordPress correctly with other plugins that require a named user to be logged in.
     2. If the 'external database' is not available, you can allow the plugin to log them in with the local WordPress version of their user.
 
-**Features**
-- Use your current table of users in a different database to login to WordPress
-- Map the names for your database fields against the required WordPress fields
-- Map roles from your 'external database' to those found in WordPress e.g. a student in the 'external database' becomes an editor in the WordPress database.
-- Every time a user logs in, their WordPress user will be updated with the details from the 'external database'.
-- Many password hashing methods are supported including:
-    - bcrypt
-    - md2
-    - md4
-    - md5
-    - sha1
-    - sha256
-    - sha384
-    - sha512
-    - and more...
-- Support for separate password salts for each password
-- Support for one salt for all passwords
-- Support for salts being prepended or appended to the password
-- Ability to fall back to the generated WordPress user for login if the 'external database' is unavailable.
-- Test the connection in the settings menu to make sure your data is being pulled correctly
-- Option to delete plugin data on plugin deactivation
+== Features ==
+
+* Use your current table of users in a different database to login to WordPress
+* Map the names for your database fields against the required WordPress fields
+* Map roles from your 'external database' to those found in WordPress e.g. a student in the 'external database' becomes an editor in the WordPress database.
+* Every time a user logs in, their WordPress user will be updated with the details from the 'external database'.
+* Many password hashing methods are supported including:
+    * bcrypt
+    * md2
+    * md4
+    * md5
+    * sha1
+    * sha256
+    * sha384
+    * sha512
+    * and more...
+* Support for separate password salts for each password
+* Support for one salt for all passwords
+* Support for salts being prepended or appended to the password
+* Ability to fall back to the generated WordPress user for login if the 'external database' is unavailable.
+* Test the connection in the settings menu to make sure your data is being pulled correctly
+* Option to delete plugin data on plugin deactivation
 
 
 == Installation ==
