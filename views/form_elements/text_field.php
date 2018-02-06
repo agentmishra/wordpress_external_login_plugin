@@ -4,12 +4,17 @@
 >
   <h4><?php echo $form_field["field_name"]; ?></h4>
   <p><?php echo $form_field["field_description"]; ?></p>
-  <input
-      type="text"
-      name="<?php echo $form_field["field_slug"]; ?>"
-      value="<?php echo get_option($form_field["field_slug"]); ?>"
-      <?php if ($form_field["required"]) : ?>
-        required
-      <?php endif; ?>
-  />
+
+  <?php if (!(exlog_is_wpconfig_option_set($form_field["field_slug"]))) : ?>
+    <input
+        type="text"
+        name="<?php echo $form_field["field_slug"]; ?>"
+        value="<?php echo exlog_get_option($form_field["field_slug"]); ?>"
+        <?php if ($form_field["required"]) : ?>
+          required
+        <?php endif; ?>
+    />
+  <?php else : ?>
+      <?php include EXLOG_PATH_PLUGIN_VIEWS . "/partials/wpconfig_option_set_message.php"?>
+  <?php endif; ?>
 </div>

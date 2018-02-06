@@ -9,7 +9,7 @@ function exlog_map_role($db_role) {
         }
     }
 
-    $unspecified_role = get_option("exlog_unspecified_role");
+    $unspecified_role = exlog_get_option("exlog_unspecified_role");
     if ($unspecified_role != "") {
         return $unspecified_role;
     } else {

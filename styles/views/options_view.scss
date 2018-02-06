@@ -44,8 +44,15 @@
       .options_section {
         width: 100%;
         padding: 10px 30px;
-        background-color: antiquewhite;
+        background-color: $color_primary;
         border-radius: 15px;
+
+        .exlog_wpconfig_value_set_message {
+          color: $color_accent_secondary;
+          span {
+            font-weight: bold;
+          }
+        }
 
         &.role_settings {
           .add_more {

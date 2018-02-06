@@ -3,22 +3,22 @@
 function exlog_get_external_db_instance_and_fields() {
     $data = array(
         "db_instance" => new wpdb(
-            get_option("external_login_option_db_username"),
-            get_option("external_login_option_db_password"),
-            get_option("external_login_option_db_name"),
-            get_option("external_login_option_db_host")
+            exlog_get_option("external_login_option_db_username"),
+            exlog_get_option("external_login_option_db_password"),
+            exlog_get_option("external_login_option_db_name"),
+            exlog_get_option("external_login_option_db_host")
         ),
-        "dbstructure_table" => get_option('exlog_dbstructure_table'),
-        "dbstructure_username" => get_option('exlog_dbstructure_username'),
-        "dbstructure_password" => get_option('exlog_dbstructure_password'),
-        "dbstructure_first_name" => get_option('exlog_dbstructure_first_name'),
-        "dbstructure_last_name" => get_option('exlog_dbstructure_last_name'),
-        "dbstructure_role" => get_option('exlog_dbstructure_role'),
-        "dbstructure_email" => get_option('exlog_dbstructure_email'),
+        "dbstructure_table" => exlog_get_option('exlog_dbstructure_table'),
+        "dbstructure_username" => exlog_get_option('exlog_dbstructure_username'),
+        "dbstructure_password" => exlog_get_option('exlog_dbstructure_password'),
+        "dbstructure_first_name" => exlog_get_option('exlog_dbstructure_first_name'),
+        "dbstructure_last_name" => exlog_get_option('exlog_dbstructure_last_name'),
+        "dbstructure_role" => exlog_get_option('exlog_dbstructure_role'),
+        "dbstructure_email" => exlog_get_option('exlog_dbstructure_email'),
     );
 
-    if (get_option('external_login_option_db_salting_method') == 'all') {
-        $data['dbstructure_salt'] = get_option('exlog_dbstructure_salt');
+    if (exlog_get_option('external_login_option_db_salting_method') == 'all') {
+        $data['dbstructure_salt'] = exlog_get_option('exlog_dbstructure_salt');
     }
 
     return $data;
@@ -50,7 +50,7 @@ function exlog_auth_query($username, $password) {
 
         $user_specific_salt = false;
 
-        if (get_option('external_login_option_db_salting_method') == 'all') {
+        if (exlog_get_option('external_login_option_db_salting_method') == 'all') {
             $user_specific_salt =  $userData->{$db_data["dbstructure_salt"]};
         }
 

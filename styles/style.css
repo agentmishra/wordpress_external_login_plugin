@@ -32,6 +32,10 @@
         padding: 10px 30px;
         background-color: antiquewhite;
         border-radius: 15px; }
+        .exlog_options_page form .options_section_container .options_section .exlog_wpconfig_value_set_message {
+          color: #0073aa; }
+          .exlog_options_page form .options_section_container .options_section .exlog_wpconfig_value_set_message span {
+            font-weight: bold; }
         .exlog_options_page form .options_section_container .options_section.role_settings .add_more {
           margin-top: 30px;
           display: flex;

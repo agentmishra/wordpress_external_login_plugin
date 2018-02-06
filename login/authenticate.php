@@ -42,13 +42,13 @@ function exlog_auth( $user, $username, $password ){
     }
 
     // Whether to disable login fallback with the local Wordpress version of the username and password
-    if (get_option('external_login_option_disable_local_login') == "on") {
+    if (exlog_get_option('external_login_option_disable_local_login') == "on") {
         remove_action('authenticate', 'wp_authenticate_username_password', 20);
     }
 
     return $user;
 }
 
-if (get_option("external_login_option_enable_external_login") == "on") {
+if (exlog_get_option("external_login_option_enable_external_login") == "on") {
     add_filter('authenticate', 'exlog_auth', 10, 3);
 }

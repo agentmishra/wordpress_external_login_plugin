@@ -24,5 +24,11 @@ function exlog_validate($value, $field_data) {
             return json_encode($decoded_value);
     };
 
+    //    If no data passed in form keep the current.
+    //    This is important to stop data being deleted when using wpconfig settings
+    if ($value == NULL) {
+        return get_option($field_data["field_slug"]);
+    }
+
     return strip_tags($value);
 }

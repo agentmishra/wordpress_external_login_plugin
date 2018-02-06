@@ -22,6 +22,7 @@ define( 'EXLOG_PLUGIN_DATA', get_file_data(EXLOG_PLUGIN_FILE_PATH, [
     ], 'plugin'));
 
 
+include EXLOG_PATH_PLUGIN_OPTIONS . '/wpconfig_options.php';
 include EXLOG_PATH_PLUGIN_SANITISATION_VALIDATION . '/validation.php';
 include EXLOG_PATH_PLUGIN_TOOLS . '/get_roles.php';
 include EXLOG_PATH_PLUGIN_TOOLS . '/map_role.php';
