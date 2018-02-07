@@ -77,6 +77,9 @@ Get in contact. I'll normally add simple functionality for free and pretty quick
 
 == Changelog ==
 
+= 1.1.0 =
+* Add ability to store settings in wp-config
+
 = 1.0.3 =
 * Add further sanitisation of data in SQL command
 * Refactor code
@@ -92,6 +95,9 @@ Get in contact. I'll normally add simple functionality for free and pretty quick
 
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+* Add ability to store settings in wp-config
 
 = 1.0.3 =
 * Add further sanitisation of data in SQL command
