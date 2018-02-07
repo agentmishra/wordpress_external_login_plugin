@@ -116,15 +116,40 @@ Get in contact. I'll normally add simple functionality for free and pretty quick
 
 == Security Notes ==
 
-**Database User**
+__Database User__
 It is recommended that you create a new Database user to access the external database. This way you can set appropriate permissions to the user so that they do not have write access.
 
-**Hashing**
+__Hashing__
 For the security of your users, your 'external database' should be hashing your users passwords. Although support is given for other hashing methods, 'bcrypt' is advised as it uses SLOW hashing. Without this it would be far easier for someone to derive your users password through a brute force attack if they gained access to your database.
 
 It is also highly recommended that a salt is used. This is done by default with 'bcrypt'. Using one salt for all passwords is supported but it is recommended to use a separate salt for each password as a different field in your database. This helps prevent the use of 'rainbow tables' to derive your users passwords.
 
 For explanation and more information on this I recommend [this article](https://martinfowler.com/articles/web-security-basics.html) starting from the section "Hash and Salt Your Users' Passwords".
+
+__Storing Settings in wp-config.php__
+You may prefer to store your settings in 'wp-config.php'. This could have security benefits, so long as you are careful not to store your code in a publicly accessible repository and you ensure your wp-config file cannot be accessed on the server.
+
+Below is an example of code that can be added to 'wp-config.php'.
+
+```
+// ** EXTERNAL LOGIN SETTINGS ** //
+/** EXLOG - The External Database Name */
+define('EXTERNAL_LOGIN_OPTION_DB_NAME', 'dojo2016');
+
+/** EXLOG - The External Database Host */
+define('EXTERNAL_LOGIN_OPTION_DB_HOST', 'localhost');
+
+/** EXLOG - The External Database Username */
+define('EXTERNAL_LOGIN_OPTION_DB_USERNAME', 'root');
+
+/** EXLOG - The External Database Password */
+define('EXTERNAL_LOGIN_OPTION_DB_PASSWORD', 'root');
+
+/** EXLOG - Password Salt */
+define('EXTERNAL_LOGIN_OPTION_DB_SALT', 'ksjefh2lkrh2r2oh23');
+```
+
+All settings (except from those mapping roles) can currently be set this way. For a full list and possible settings see the "Appendix" section below.
 
 
 == Special Thanks ==
@@ -134,3 +159,168 @@ A special thank you to Ben Lobaugh for a [great article](https://ben.lobaugh.net
 
 == DONATE ==
 Like the plugin and want to [buy me a beer](https://www.paypal.me/tombenyon)? Well, thank you!
+
+
+== Appendix ==
+
+__Storing Settings in wp-config.php__
+Here is a full listing of possible fields and values.
+
+* Enable External Login
+    * Constant Name
+        * EXTERNAL_LOGIN_OPTION_ENABLE_EXTERNAL_LOGIN
+    * Possible Values
+        * on
+        * off
+
+* Disable Local Login
+    * Constant Name
+        * EXTERNAL_LOGIN_OPTION_DISABLE_LOCAL_LOGIN
+    * Possible Values
+        * on
+        * off
+
+* Delete Settings on Plugin Deactivation
+    * Constant Name
+        * EXTERNAL_LOGIN_OPTION_DELETE_PLUGIN_SETTINGS
+    * Possible Values
+        * on
+        * off
+
+* Database Name
+    * Constant Name
+        * EXTERNAL_LOGIN_OPTION_DB_NAME
+    * Possible Values
+        * Any String
+
+* Database Host
+    * Constant Name
+        * EXTERNAL_LOGIN_OPTION_DB_HOST
+    * Possible Values
+        * Any String
+
+* Database Username
+    * Constant Name
+        * EXTERNAL_LOGIN_OPTION_DB_USERNAME
+    * Possible Values
+        * Any String
+
+* Database Password
+    * Constant Name
+        * EXTERNAL_LOGIN_OPTION_DB_PASSWORD
+    * Possible Values
+        * Any String
+
+* Database Hash Type
+    * Constant Name
+        * EXTERNAL_LOGIN_OPTION_HASH_ALGORITHM
+    * Possible Values
+        * bcrypt
+        * md2
+        * md4
+        * md5
+        * sha1
+        * sha256
+        * sha384
+        * sha512
+        * ripemd128
+        * ripemd160
+        * ripemd256
+        * ripemd320
+        * whirlpool
+        * tiger128,3
+        * tiger160,3
+        * tiger192,3
+        * tiger128,4
+        * tiger160,4
+        * tiger192,4
+        * snefru
+        * gost
+        * adler32
+        * crc32
+        * crc32b
+        * haval128,3
+        * haval160,3
+        * haval192,3
+        * haval224,3
+        * haval256,3
+        * haval128,4
+        * haval160,4
+        * haval192,4
+        * haval224,4
+        * haval256,4
+        * haval128,5
+        * haval160,5
+        * haval192,5
+        * haval224,5
+        * haval256,5
+        * none
+
+* Salting Method
+    * Constant Name
+        * EXTERNAL_LOGIN_OPTION_DB_SALTING_METHOD
+    * Possible Values
+        * none
+        * one
+        * all
+
+* Salt Location
+    * Constant Name
+        * EXTERNAL_LOGIN_OPTION_DB_SALT_LOCATION
+    * Possible Values
+        * before
+        * after
+
+* Password Salt
+    * Constant Name
+        * EXTERNAL_LOGIN_OPTION_DB_SALT
+    * Possible Values
+        * Any String
+
+* Table Name
+    * Constant Name
+        * EXLOG_DBSTRUCTURE_TABLE
+    * Possible Values
+        * Any String
+
+* Username Field Name
+    * Constant Name
+        * EXLOG_DBSTRUCTURE_USERNAME
+    * Possible Values
+        * Any String
+
+* Password Field Name
+    * Constant Name
+        * EXLOG_DBSTRUCTURE_PASSWORD
+    * Possible Values
+        * Any String
+
+* Salt Field Name
+    * Constant Name
+        * EXLOG_DBSTRUCTURE_SALT
+    * Possible Values
+        * Any String
+
+* E-mail Field Name
+    * Constant Name
+        * EXLOG_DBSTRUCTURE_EMAIL
+    * Possible Values
+        * Any String
+
+* First Name Field Name
+    * Constant Name
+        * EXLOG_DBSTRUCTURE_FIRST_NAME
+    * Possible Values
+        * Any String
+
+* Last Name Field Name
+    * Constant Name
+        * EXLOG_DBSTRUCTURE_LAST_NAME
+    * Possible Values
+        * Any String
+
+* Role Field Name
+    * Constant Name
+        * EXLOG_DBSTRUCTURE_ROLE
+    * Possible Values
+        * Any String

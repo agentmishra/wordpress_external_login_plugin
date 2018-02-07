@@ -6,7 +6,7 @@ This is done to save duplication as readme.txt is required for WordPress plugin 
 ##Special Thanks
 A special thank you to Ben Lobaugh for a [great article](https://ben.lobaugh.net/blog/7175/wordpress-replace-built-in-user-authentication) which I used heavily for this plugin.
 
-##To Do
+##Future Plans
 - Add Social Login with:
     - Facebook
     - Google
