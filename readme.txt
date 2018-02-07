@@ -4,7 +4,7 @@ Donate link: https://www.paypal.me/tombenyon
 Tags: external login, external, database, login, users, db, WordPress, different, username, password, hashing, md, md2, md4, md5, bcrypt, sha, sha1, sha256, sha384, sha512
 Requires at least: 4.6
 Tested up to: 4.9
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 Requires PHP: 7.0.0
 License: MIT
 
@@ -58,10 +58,6 @@ The plugin will re-create users in the WordPress database which has has two bene
 = How do I add a port to the database connection? =
 
 For ports that differ the standard 3306, add them to the end of the host separated by a colon eg: 'localhost:3306'.
-
-= I need an extra feature. Can you add it? =
-
-Get in contact. I'll normally add simple functionality for free and pretty quick!
 
 = What values can I set in wp-config.php? =
 Here is a full listing of possible fields and values.
@@ -225,6 +221,10 @@ Here is a full listing of possible fields and values.
     * Possible Values
         * Any String
 
+= I need an extra feature. Can you add it? =
+
+Get in contact. I'll normally add simple functionality for free and pretty quick!
+
 
 == Screenshots ==
 
@@ -238,6 +238,12 @@ Here is a full listing of possible fields and values.
 
 
 == Changelog ==
+
+= 1.1.2 =
+* Remove old data from the DB if you switch to using wp-config to store your settings.
+
+= 1.1.1 =
+* Improve plugin documentation
 
 = 1.1.0 =
 * Add ability to store settings in wp-config
@@ -257,6 +263,12 @@ Here is a full listing of possible fields and values.
 
 
 == Upgrade Notice ==
+
+= 1.1.2 =
+* Remove old data from the DB if you switch to using wp-config to store your settings.
+
+= 1.1.1 =
+* Improve plugin documentation
 
 = 1.1.0 =
 * Add ability to store settings in wp-config
@@ -315,6 +327,13 @@ define('EXTERNAL_LOGIN_OPTION_DB_PASSWORD', 'root');
 
 /** EXLOG - Password Salt */
 define('EXTERNAL_LOGIN_OPTION_DB_SALT', 'ksjefh2lkrh2r2oh23');
+`
+
+You can of course set these with environment variables if you wish in the following way:
+
+`
+/** EXLOG - The External Database Name */
+define('EXTERNAL_LOGIN_OPTION_DB_NAME', getenv('MY_EXLOG_DB_NAME_ENVIRONMENT_VARIABLE'));
 `
 
 All settings (except from those mapping roles) can currently be set this way. For a full list and possible settings see the "FAQ" question - "What values can I set in wp-config.php?".
