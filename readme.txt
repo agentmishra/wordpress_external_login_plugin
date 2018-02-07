@@ -4,7 +4,7 @@ Donate link: https://www.paypal.me/tombenyon
 Tags: external login, external, database, login, users, db, WordPress, different, username, password, hashing, md, md2, md4, md5, bcrypt, sha, sha1, sha256, sha384, sha512
 Requires at least: 4.6
 Tested up to: 4.9
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 Requires PHP: 7.0.0
 License: MIT
 
@@ -63,113 +63,7 @@ For ports that differ the standard 3306, add them to the end of the host separat
 
 Get in contact. I'll normally add simple functionality for free and pretty quick!
 
-
-== Screenshots ==
-
-1. Main Settings View
-2. Functionality Settings
-3. Database Connection Settings
-4. Database Table Mapping Settings
-5. Password Hashing Settings
-6. Role Settings
-7. Test Results
-
-
-== Changelog ==
-
-= 1.1.0 =
-* Add ability to store settings in wp-config
-
-= 1.0.3 =
-* Add further sanitisation of data in SQL command
-* Refactor code
-
-= 1.0.2 =
-* Update readme.txt to better present plugin information again.
-
-= 1.0.1 =
-* Update readme.txt to better present plugin information.
-
-= 1.0.0 =
-* Initial production version
-
-
-== Upgrade Notice ==
-
-= 1.1.0 =
-* Add ability to store settings in wp-config
-
-= 1.0.3 =
-* Add further sanitisation of data in SQL command
-* Refactor code
-
-= 1.0.2 =
-* Update readme.txt to better present plugin information again.
-
-= 1.0.1 =
-* Update readme.txt to better present plugin information.
-
-= 1.0.0 =
-* Initial production version
-
-
-== FUNCTIONALITY WARNINGS AND LIMITATIONS ==
-
-1. ALWAYS take a backup of your database and test the functionality before using this plugin in production.
-2. Users created in WordPress will be overwritten if users in the external database have the same username. This could be fixed by appending usernames with a separate string.
-3. Edits to a user made in WordPress will be overwritten when the user logs back in with the 'external database'. This is only the case for fields that are being pulled from the external database.
-
-
-== Security Notes ==
-
-__Database User__
-It is recommended that you create a new Database user to access the external database. This way you can set appropriate permissions to the user so that they do not have write access.
-
-__Hashing__
-For the security of your users, your 'external database' should be hashing your users passwords. Although support is given for other hashing methods, 'bcrypt' is advised as it uses SLOW hashing. Without this it would be far easier for someone to derive your users password through a brute force attack if they gained access to your database.
-
-It is also highly recommended that a salt is used. This is done by default with 'bcrypt'. Using one salt for all passwords is supported but it is recommended to use a separate salt for each password as a different field in your database. This helps prevent the use of 'rainbow tables' to derive your users passwords.
-
-For explanation and more information on this I recommend [this article](https://martinfowler.com/articles/web-security-basics.html) starting from the section "Hash and Salt Your Users' Passwords".
-
-__Storing Settings in wp-config.php__
-You may prefer to store your settings in 'wp-config.php'. This could have security benefits, so long as you are careful not to store your code in a publicly accessible repository and you ensure your wp-config file cannot be accessed on the server.
-
-Below is an example of code that can be added to 'wp-config.php'.
-
-```
-// ** EXTERNAL LOGIN SETTINGS ** //
-/** EXLOG - The External Database Name */
-define('EXTERNAL_LOGIN_OPTION_DB_NAME', 'dojo2016');
-
-/** EXLOG - The External Database Host */
-define('EXTERNAL_LOGIN_OPTION_DB_HOST', 'localhost');
-
-/** EXLOG - The External Database Username */
-define('EXTERNAL_LOGIN_OPTION_DB_USERNAME', 'root');
-
-/** EXLOG - The External Database Password */
-define('EXTERNAL_LOGIN_OPTION_DB_PASSWORD', 'root');
-
-/** EXLOG - Password Salt */
-define('EXTERNAL_LOGIN_OPTION_DB_SALT', 'ksjefh2lkrh2r2oh23');
-```
-
-All settings (except from those mapping roles) can currently be set this way. For a full list and possible settings see the "Appendix" section below.
-
-
-== Special Thanks ==
-
-A special thank you to Ben Lobaugh for a [great article](https://ben.lobaugh.net/blog/7175/wordpress-replace-built-in-user-authentication) which I used heavily for this plugin.
-
-
-== DONATE ==
-Like the plugin and want to [buy me a beer](https://www.paypal.me/tombenyon)? Well, thank you!
-
-
-== Appendix ==
-
-__Storing Settings in wp-config.php__
+= What values can I set in wp-config.php? =
 Here is a full listing of possible fields and values.
 
 * Enable External Login
@@ -330,3 +224,106 @@ Here is a full listing of possible fields and values.
         * EXLOG_DBSTRUCTURE_ROLE
     * Possible Values
         * Any String
+
+
+== Screenshots ==
+
+1. Main Settings View
+2. Functionality Settings
+3. Database Connection Settings
+4. Database Table Mapping Settings
+5. Password Hashing Settings
+6. Role Settings
+7. Test Results
+
+
+== Changelog ==
+
+= 1.1.0 =
+* Add ability to store settings in wp-config
+
+= 1.0.3 =
+* Add further sanitisation of data in SQL command
+* Refactor code
+
+= 1.0.2 =
+* Update readme.txt to better present plugin information again.
+
+= 1.0.1 =
+* Update readme.txt to better present plugin information.
+
+= 1.0.0 =
+* Initial production version
+
+
+== Upgrade Notice ==
+
+= 1.1.0 =
+* Add ability to store settings in wp-config
+
+= 1.0.3 =
+* Add further sanitisation of data in SQL command
+* Refactor code
+
+= 1.0.2 =
+* Update readme.txt to better present plugin information again.
+
+= 1.0.1 =
+* Update readme.txt to better present plugin information.
+
+= 1.0.0 =
+* Initial production version
+
+
+== FUNCTIONALITY WARNINGS AND LIMITATIONS ==
+
+1. ALWAYS take a backup of your database and test the functionality before using this plugin in production.
+2. Users created in WordPress will be overwritten if users in the external database have the same username. This could be fixed by appending usernames with a separate string.
+3. Edits to a user made in WordPress will be overwritten when the user logs back in with the 'external database'. This is only the case for fields that are being pulled from the external database.
+
+
+== Security Notes ==
+
+__Database User__
+It is recommended that you create a new Database user to access the external database. This way you can set appropriate permissions to the user so that they do not have write access.
+
+__Hashing__
+For the security of your users, your 'external database' should be hashing your users passwords. Although support is given for other hashing methods, 'bcrypt' is advised as it uses SLOW hashing. Without this it would be far easier for someone to derive your users password through a brute force attack if they gained access to your database.
+
+It is also highly recommended that a salt is used. This is done by default with 'bcrypt'. Using one salt for all passwords is supported but it is recommended to use a separate salt for each password as a different field in your database. This helps prevent the use of 'rainbow tables' to derive your users passwords.
+
+For explanation and more information on this I recommend [this article](https://martinfowler.com/articles/web-security-basics.html) starting from the section "Hash and Salt Your Users' Passwords".
+
+__Storing Settings in wp-config.php__
+You may prefer to store your settings in 'wp-config.php'. This could have security benefits, so long as you are careful not to store your code in a publicly accessible repository and you ensure your wp-config file cannot be accessed on the server.
+
+Below is an example of code that can be added to 'wp-config.php'.
+
+`
+// ** EXTERNAL LOGIN SETTINGS ** //
+/** EXLOG - The External Database Name */
+define('EXTERNAL_LOGIN_OPTION_DB_NAME', 'dojo2016');
+
+/** EXLOG - The External Database Host */
+define('EXTERNAL_LOGIN_OPTION_DB_HOST', 'localhost');
+
+/** EXLOG - The External Database Username */
+define('EXTERNAL_LOGIN_OPTION_DB_USERNAME', 'root');
+
+/** EXLOG - The External Database Password */
+define('EXTERNAL_LOGIN_OPTION_DB_PASSWORD', 'root');
+
+/** EXLOG - Password Salt */
+define('EXTERNAL_LOGIN_OPTION_DB_SALT', 'ksjefh2lkrh2r2oh23');
+`
+
+All settings (except from those mapping roles) can currently be set this way. For a full list and possible settings see the "FAQ" question - "What values can I set in wp-config.php?".
+
+
+== Special Thanks ==
+
+A special thank you to Ben Lobaugh for a [great article](https://ben.lobaugh.net/blog/7175/wordpress-replace-built-in-user-authentication) which I used heavily for this plugin.
+
+
+== DONATE ==
+Like the plugin and want to [buy me a beer](https://www.paypal.me/tombenyon)? Well, thank you!
