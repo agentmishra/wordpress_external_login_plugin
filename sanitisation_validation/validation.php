@@ -3,6 +3,12 @@
 function exlog_validate($value, $field_data) {
     $exlog_error_title = "Validation Error in field " . $field_data['field_name'] . ".<br> - ";
 
+//    Delete items from the database if they have been set as a constant in code
+    $constant_option_name = strtoupper($field_data['field_slug']);
+    if (defined($constant_option_name)) {
+        return "";
+    }
+    
     if ($field_data['field_slug'] == "exlog_unspecified_role") {
         if (!(array_key_exists($value, exlog_get_wp_role_types()))) {
             add_settings_error(
@@ -23,12 +29,6 @@ function exlog_validate($value, $field_data) {
             }
             return json_encode($decoded_value);
     };
-
-    //    If no data passed in form keep the current.
-    //    This is important to stop data being deleted when using wpconfig settings
-    if ($value == NULL) {
-        return get_option($field_data["field_slug"]);
-    }
 
     return strip_tags($value);
 }
