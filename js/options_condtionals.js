@@ -74,10 +74,14 @@
 
         function getFieldValue(fieldID) {
             var $field = $('#' + fieldID);
-            if ($field[0].type === 'checkbox') {
-                return $field[0].checked ? "true" : "false";
+            if ($field.length > 0) {
+                if ($field[0].type === 'checkbox') {
+                    return $field[0].checked ? "true" : "false";
+                } else {
+                    return $field.val();
+                }
             } else {
-                return $field.val();
+                return "";
             }
         }
 
