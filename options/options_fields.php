@@ -86,11 +86,18 @@ define('EXLOG_OPTION_FIELDS', array(
         "section_fields" => array(
             array(
                 "field_name" => "Hash Type",
-                "field_description" => "The hashing algorithm used. The standard one used by Wordpress is bcrypt and is the best option. Other hashes are not great. No hashing should never be used in production.",
+                "field_description" => "
+                        This is the hashing algorithm used.
+                        Hashing should ALWAYS be used in production.
+                        For help on knowing which algorithm was used when creating your external database password hashes check out the plugin page FAQ.
+                        https://wordpress.org/plugins/external-login#What%20hashes%20are%20available%20and%20which%20does%20my%20external%20database%20use%3F
+                    ",
                 "field_slug" => "external_login_option_hash_algorithm",
                 "type" => "select",
                 "select_options" => array(
                     "bcrypt" => "bcrypt",
+                    "phpass" => "phpass",
+                    "phpcrypt" => "phpcrypt",
                     "md2" => "md2",
                     "md4" => "md4",
                     "md5" => "md5",

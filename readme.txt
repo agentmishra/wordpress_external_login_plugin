@@ -4,7 +4,7 @@ Donate link: https://www.paypal.me/tombenyon
 Tags: external login, external, database, login, users, db, WordPress, different, username, password, hashing, md, md2, md4, md5, bcrypt, sha, sha1, sha256, sha384, sha512
 Requires at least: 4.6
 Tested up to: 4.9
-Stable tag: 1.1.2
+Stable tag: 1.2.0
 Requires PHP: 7.0.0
 License: MIT
 
@@ -59,6 +59,108 @@ The plugin will re-create users in the WordPress database which has has two bene
 
 For ports that differ the standard 3306, add them to the end of the host separated by a colon eg: 'localhost:3306'.
 
+= What hashes are available and which does my external database use? =
+
+Below is a list of the available hashing options. Within each there are examples of what the hashed string might look like.
+
+* bcrypt
+    * $2b$10$MaTFwF7Ov2JRTTPnV.I4X.q0KQ3VVAiwTzULlPnBYeSBkBztnXfJO
+    * $2y$10$fEg5j9N5zrrqq9Bjm7yoB.Xprd9iZZfO3pgHZNl0FiLMnqMDlSQh.
+    * $2a$06$qAOKdDYnSWcSp6UI1Hpkau/8sRfsvahYvRPq5vpDxMRMzPdQNGw8m
+* phpass
+    * $P$BEldufbwSc73mu/epnZsHmmnX7/.Ni0
+* phpcrypt
+    * This is for use with other algorithms that store the algorithm, salt and hash in the same field in the external databse. These are:
+        * Standard DES:
+            * rl.3StKT.4T8M
+        * Extended DES:
+            * _J9..rasmBYk8r9AiWNc
+        * MD5:
+            * $1$rasmusle$rISCgZzpwk3UhDidwXvin0
+        * Blowfish:
+            * $2a$07$usesomesillystringfore2uDLvp1Ii2e./U9C8sBjqp8I90dH6hi
+        * SHA-256:
+            * $5$rounds=5000$usesomesillystri$KqJWpanXZHKq2BOB43TSaYhEWsQ1Lr5QNyPCDH/Tp.6
+        * SHA-512:
+            * $6$rounds=5000$usesomesillystri$D4IrlXatmP7rx3P3InaxBeoomnAihCKRVQP22JZ6EY47Wc6BkroIuUUBOov1i.S5KPgErtP/EN5mcO.ChWQW21
+* md2
+    * f03881a88c6e39135f0ecc60efd609b9
+* md4
+    * 8a9d093f14f8701df17732b2bb182c74
+* md5
+    * 5f4dcc3b5aa765d61d8327deb882cf99
+* sha1
+    * 5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8
+* sha256
+    * 5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8
+* sha384
+    * 9c1565e99afa2ce7800e96a73c125363c06697c5674d59f227b3368fd00b85ead506eefa90702673d873cb2c9357eafc
+* sha512
+    * b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86
+* ripemd128
+    * c9c6d316d6dc4d952a789fd4b8858ed7
+* ripemd160
+    * 2c08e8f5884750a7b99f6f2f342fc638db25ff31
+* ripemd256
+    * f94cf96c79103c3ccad10d308c02a1db73b986e2c48962e96ecd305e0b80ef1b
+* ripemd320
+    * c571d82e535de67ff5f87e417b3d53125f2d83ed7598b89d74483e6c0dfe8d86e88b380249fc8fb4
+* whirlpool
+    * 74dfc2b27acfa364da55f93a5caee29ccad3557247eda238831b3e9bd931b01d77fe994e4f12b9d4cfa92a124461d2065197d8cf7f33fc88566da2db2a4d6eae
+* tiger128,3
+    * d476a6b8b5c35ce912781497d02d09fa
+* tiger160,3
+    * d476a6b8b5c35ce912781497d02d09faeb8aa05a
+* tiger192,3
+    * d476a6b8b5c35ce912781497d02d09faeb8aa05a489223f5
+* tiger128,4
+    * b1e057f1b2e82506f13d4d43fd17d8b8
+* tiger160,4
+    * b1e057f1b2e82506f13d4d43fd17d8b843e173a8
+* tiger192,4
+    * b1e057f1b2e82506f13d4d43fd17d8b843e173a8a1ea3f7c
+* snefru
+    * 8ec80c31fab12b5f7930e6c9288c3076852aeef8f560a9ed91fb2e33838e6871
+* gost
+    * db4d9992897eda89b50f1d3208db607902da7e79c6f3bc6e6933cc5919068564
+* adler32
+    * 0f910374
+* crc32
+    * 35c246d5
+* crc32b
+    * 4fa7edbb
+* haval128,3
+    * 2221b19499669a2da53c49caf3c5e5be
+* haval160,3
+    * 9e997134ef585a1b143574ddc38cb8617c597230
+* haval192,3
+    * d8d7e2b0c045418daf3e696f1c819f3da8b751fb539780a0
+* haval224,3
+    * 46f2dff67ec34847e71128386569438e9186f9b0f993f77c06f4794e
+* haval256,3
+    * 502ef024050f4b58d9cdf57b9d1e847ca53b7cdbbbe31071bb2f2176824ca4aa
+* haval128,4
+    * a2ac4348ff7caf14d2a16a9bb207315a
+* haval160,4
+    * 757921aaa14a05363dd9bea6a5cafa622333d191
+* haval192,4
+    * 7670901e6a800b1787e08555e62ae0e68310b0d66e3ad4d4
+* haval224,4
+    * 5857f727b00252f6bd7abf6569d658bdab66003407b6db8989805a03
+* haval256,4
+    * 68e61bcce9204cf87e8c7563bd32074124205299d43205d1a086d3566adda324
+* haval128,5
+    * 9bec7b503c2680c94cefcadee5c72c93
+* haval160,5
+    * 756700c90d00421529549def07a3512b258c42f4
+* haval192,5
+    * e7218675e85e01c85cc196ab4aabc99cc218749b7944a788
+* haval224,5
+    * b21cbe5ac421cce98ee10a5d2f65607d59095c3777de339c1e978efd
+* haval256,5
+    * a7dac1b901376073284fbe145b37ffe6bcf6fc1ae94728186939ce91bcf73e51
+* none
+
 = What values can I set in wp-config.php? =
 Here is a full listing of possible fields and values.
 
@@ -112,6 +214,8 @@ Here is a full listing of possible fields and values.
         * EXTERNAL_LOGIN_OPTION_HASH_ALGORITHM
     * Possible Values
         * bcrypt
+        * phpass
+        * phpcrypt
         * md2
         * md4
         * md5

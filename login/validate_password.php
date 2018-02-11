@@ -27,6 +27,10 @@
 
         if ($algorithm == "none") {
             return $password == $hash;
+        } else if ($algorithm == "phpass") {
+            return wp_check_password($password, $hash);
+        } else if ($algorithm == "phpcrypt") {
+            return crypt($password, $hash) == $hash;
         } else if ($algorithm == "bcrypt") {
             return password_verify($password, $hash);
         } else {
@@ -43,8 +47,10 @@
 //    Because a hash represented in hexidecimal could be represented in lower case or upper,
 //    make it compatible with PHPs lowercase system
     function exlog_should_lowercase_hex_hash($algorithm, $hash) {
-        if ($algorithm === "bcrypt") {
+//        Case sensitive hashes
+        if ($algorithm == "bcrypt" || $algorithm == "phpass" || $algorithm == "phpcrypt") {
             return $hash;
+//        Hex hashes that can be lower or upper case
         } else {
             return strtolower($hash);
         }
