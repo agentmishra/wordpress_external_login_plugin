@@ -89,7 +89,7 @@ define('EXLOG_OPTION_FIELDS', array(
                 "field_description" => "
                     This is the hashing algorithm used.
                     Hashing should ALWAYS be used in production.
-                    For help on knowing which algorithm was used when creating your external database password hashes check out the plugin <a href='https://wordpress.org/plugins/external-login/#what%20hashes%20are%20available%20and%20which%20does%20my%20external%20database%20use%3F'>FAQ</a> section.
+                    For help on knowing which algorithm was used when creating your external database password hashes check out the plugin <a target='_blank' href='https://wordpress.org/plugins/external-login/#what%20hashes%20are%20available%20and%20which%20does%20my%20external%20database%20use%3F'>FAQ</a> section.
                  ",
                 "field_slug" => "external_login_option_hash_algorithm",
                 "type" => "select",
