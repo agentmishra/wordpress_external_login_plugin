@@ -74,7 +74,7 @@ function exlog_test_query($limit = false) {
 
     $query_string =
         'SELECT *' .
-        ' FROM ' . $db_data["dbstructure_table"] ;
+        ' FROM ' . esc_sql($db_data["dbstructure_table"]);
 
     if ($limit && is_int($limit)) {
         $query_string .= ' LIMIT ' . $limit;
