@@ -6,7 +6,7 @@ add_action( 'admin_init', 'exlog_register_options_menu_settings');
 function exlog_register_options_menu_settings() {
     foreach (BuiltPluginData::Instance()->get_option_fields() as $section) {
         foreach ($section['section_fields'] as $form_field) {
-            register_setting(EXLOG_PLUGIN_DATA['slug'] . '-option-group', $form_field["field_slug"], function( $input ) use ( $form_field ) {
+            register_setting(BuiltPluginData::Instance()->get_plugin_data()['slug'] . '-option-group', $form_field["field_slug"], function( $input ) use ( $form_field ) {
                 return exlog_validate( $input, $form_field );
             });
         }
@@ -14,7 +14,10 @@ function exlog_register_options_menu_settings() {
 };
 
 function exlog_create_options_menu() {
-    add_options_page( EXLOG_PLUGIN_DATA['name'] . ' Options', EXLOG_PLUGIN_DATA['name'], 'manage_options', EXLOG_PLUGIN_DATA['slug'], 'exlog_generate_options_view' );
+    $plugin_name = BuiltPluginData::Instance()->get_plugin_data()['name'];
+    $plugin_slug = BuiltPluginData::Instance()->get_plugin_data()['slug'];
+
+    add_options_page( $plugin_name . ' Options', $plugin_name, 'manage_options', $plugin_slug, 'exlog_generate_options_view' );
 }
 
 function exlog_generate_options_view() {
@@ -28,9 +31,11 @@ function exlog_generate_options_view() {
 add_action( 'admin_enqueue_scripts', 'exlog_enqueue_for_options' );
 
 function exlog_enqueue_for_options() {
-    wp_enqueue_style( 'exlog-styles', plugin_dir_url(EXLOG_PATH_PLUGIN_BASE) . EXLOG_PLUGIN_DATA['slug'] . '/styles/style.css' );
-    wp_enqueue_script( 'exlog-validation-tools', plugin_dir_url(EXLOG_PATH_PLUGIN_BASE) . EXLOG_PLUGIN_DATA['slug'] . '/js/tools.js' );
-    wp_enqueue_script( 'exlog-scripts', plugin_dir_url(EXLOG_PATH_PLUGIN_BASE) . EXLOG_PLUGIN_DATA['slug'] . '/js/external_login.js' );
-    wp_enqueue_script( 'exlog-option-conditionals', plugin_dir_url(EXLOG_PATH_PLUGIN_BASE) . EXLOG_PLUGIN_DATA['slug'] . '/js/options_condtionals.js' );
-    wp_enqueue_script( 'exlog-test', plugin_dir_url(EXLOG_PATH_PLUGIN_BASE) . EXLOG_PLUGIN_DATA['slug'] . '/js/exlog_test.js' );
+    $plugin_slug = BuiltPluginData::Instance()->get_plugin_data()['slug'];
+
+    wp_enqueue_style( 'exlog-styles', plugin_dir_url(EXLOG_PATH_PLUGIN_BASE) . $plugin_slug . '/styles/style.css' );
+    wp_enqueue_script( 'exlog-validation-tools', plugin_dir_url(EXLOG_PATH_PLUGIN_BASE) . $plugin_slug . '/js/tools.js' );
+    wp_enqueue_script( 'exlog-scripts', plugin_dir_url(EXLOG_PATH_PLUGIN_BASE) . $plugin_slug . '/js/external_login.js' );
+    wp_enqueue_script( 'exlog-option-conditionals', plugin_dir_url(EXLOG_PATH_PLUGIN_BASE) . $plugin_slug . '/js/options_condtionals.js' );
+    wp_enqueue_script( 'exlog-test', plugin_dir_url(EXLOG_PATH_PLUGIN_BASE) . $plugin_slug . '/js/exlog_test.js' );
 }

@@ -2,12 +2,12 @@
   class="exlog_options_page"
 >
     <?php screen_icon(); ?>
-    <h2><?php echo EXLOG_PLUGIN_DATA['name'] ?> Options</h2>
+    <h2><?php echo BuiltPluginData::Instance()->get_plugin_data()['name'] ?> Options</h2>
 
     <form method="post" action="options.php">
         <?php
-          settings_fields( EXLOG_PLUGIN_DATA['slug'] . '-option-group' );
-          do_settings_fields( EXLOG_PLUGIN_DATA['slug'] . '-option-group', '' );
+          settings_fields( BuiltPluginData::Instance()->get_plugin_data()['slug'] . '-option-group' );
+          do_settings_fields( BuiltPluginData::Instance()->get_plugin_data()['slug'] . '-option-group', '' );
         ?>
 
         <?php foreach (BuiltPluginData::Instance()->get_option_fields() as $form_section) : ?>

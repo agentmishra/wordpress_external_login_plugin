@@ -2,6 +2,7 @@
 
 final class BuiltPluginData {
 
+    private $plugin_data;
     private $options_fields_data;
 
     /**
@@ -24,10 +25,22 @@ final class BuiltPluginData {
      */
     private function __construct() {
         $this->option_fields_data = $this->build_option_fields_data();
+        $this->plugin_data = $this->build_plugin_data();
     }
 
     function get_option_fields() {
         return $this->option_fields_data;
+    }
+
+    function get_plugin_data() {
+        return $this->plugin_data;
+    }
+
+    private function build_plugin_data() {
+        return get_file_data(EXLOG_PLUGIN_FILE_PATH, [
+            'name' => 'Plugin Name',
+            'slug' => 'Text Domain'
+        ], 'plugin');
     }
 
     function build_option_fields_data() {
