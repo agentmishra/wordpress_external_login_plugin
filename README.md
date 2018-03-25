@@ -21,4 +21,5 @@ This is a note to self. This process and code needs integrating into the plugin 
 1) Modify readme.txt version
 1) Modify readme.txt == Changelog ==
 1) Modify readme.txt == Upgrade Notice ==
+1) Tag git commit with respective version number
 1) In plugins dir execute./deploy.sh
