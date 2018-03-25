@@ -4,8 +4,8 @@ Donate link: https://www.paypal.me/tombenyon
 Tags: external login, external, database, login, users, db, WordPress, different, username, password, hashing, md, md2, md4, md5, bcrypt, sha, sha1, sha256, sha384, sha512
 Requires at least: 4.6
 Tested up to: 4.9
-Stable tag: 1.2.1
-Requires PHP: 7.0.0
+Stable tag: 1.3.0
+Requires PHP: 5.6.34
 License: MIT
 
 External Login allows users to log in to the WordPress site with a different database of users.
@@ -343,6 +343,9 @@ Get in contact. I'll normally add simple functionality for free and pretty quick
 
 == Changelog ==
 
+= 1.3.0 =
+* Make plugin compatible with PHP 5.6.34.
+
 = 1.2.1 =
 * Fix broken Test button and improve options page description link.
 
@@ -373,6 +376,9 @@ Get in contact. I'll normally add simple functionality for free and pretty quick
 
 
 == Upgrade Notice ==
+
+= 1.3.0 =
+* Make plugin compatible with PHP 5.6.34.
 
 = 1.2.1 =
 * Fix broken Test button and improve options page description link.
