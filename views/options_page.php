@@ -10,7 +10,7 @@
           do_settings_fields( EXLOG_PLUGIN_DATA['slug'] . '-option-group', '' );
         ?>
 
-        <?php foreach (EXLOG_OPTION_FIELDS as $form_section) : ?>
+        <?php foreach (BuiltPluginData::Instance()->get_option_fields() as $form_section) : ?>
             <div class="options_section_container">
               <div class="options_section <?php echo $form_section['section_slug']; ?>">
                 <h3><?php echo $form_section['section_name'] ?></h3>

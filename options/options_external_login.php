@@ -4,7 +4,7 @@ add_action( 'admin_menu', 'exlog_create_options_menu' );
 add_action( 'admin_init', 'exlog_register_options_menu_settings');
 
 function exlog_register_options_menu_settings() {
-    foreach (EXLOG_OPTION_FIELDS as $section) {
+    foreach (BuiltPluginData::Instance()->get_option_fields() as $section) {
         foreach ($section['section_fields'] as $form_field) {
             register_setting(EXLOG_PLUGIN_DATA['slug'] . '-option-group', $form_field["field_slug"], function( $input ) use ( $form_field ) {
                 return exlog_validate( $input, $form_field );

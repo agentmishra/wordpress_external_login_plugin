@@ -16,10 +16,15 @@ define( 'EXLOG_PATH_PLUGIN_LOGIN', EXLOG_PATH_PLUGIN_BASE . '/login');
 define( 'EXLOG_PATH_PLUGIN_OPTIONS', EXLOG_PATH_PLUGIN_BASE . '/options');
 define( 'EXLOG_PATH_PLUGIN_TOOLS', EXLOG_PATH_PLUGIN_BASE . '/tools');
 define( 'EXLOG_PATH_PLUGIN_SANITISATION_VALIDATION', EXLOG_PATH_PLUGIN_BASE . '/sanitisation_validation');
-define( 'EXLOG_PLUGIN_DATA', get_file_data(EXLOG_PLUGIN_FILE_PATH, [
-        'name' => 'Plugin Name',
-        'slug' => 'Text Domain'
-    ], 'plugin'));
+//define( 'EXLOG_PLUGIN_DATA', get_file_data(EXLOG_PLUGIN_FILE_PATH, [
+//        'name' => 'Plugin Name',
+//        'slug' => 'Text Domain'
+//    ], 'plugin'));
+
+const EXLOG_PLUGIN_DATA = array(
+    'name' => 'External Login',
+    'slug' => 'external-login'
+);
 
 
 include EXLOG_PATH_PLUGIN_OPTIONS . '/wpconfig_options.php';
