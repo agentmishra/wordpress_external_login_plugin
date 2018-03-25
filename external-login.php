@@ -15,13 +15,14 @@ define( 'EXLOG_PATH_PLUGIN_VIEWS', EXLOG_PATH_PLUGIN_BASE . '/views');
 define( 'EXLOG_PATH_PLUGIN_LOGIN', EXLOG_PATH_PLUGIN_BASE . '/login');
 define( 'EXLOG_PATH_PLUGIN_OPTIONS', EXLOG_PATH_PLUGIN_BASE . '/options');
 define( 'EXLOG_PATH_PLUGIN_TOOLS', EXLOG_PATH_PLUGIN_BASE . '/tools');
+define( 'EXLOG_PATH_PLUGIN_LIB', EXLOG_PATH_PLUGIN_BASE . '/lib');
 define( 'EXLOG_PATH_PLUGIN_SANITISATION_VALIDATION', EXLOG_PATH_PLUGIN_BASE . '/sanitisation_validation');
 
 include EXLOG_PATH_PLUGIN_OPTIONS . '/wpconfig_options.php';
 include EXLOG_PATH_PLUGIN_SANITISATION_VALIDATION . '/validation.php';
 include EXLOG_PATH_PLUGIN_TOOLS . '/get_roles.php';
 include EXLOG_PATH_PLUGIN_TOOLS . '/map_role.php';
-include EXLOG_PATH_PLUGIN_OPTIONS . '/options_fields.php';
+include EXLOG_PATH_PLUGIN_LIB . '/BuiltPluginData.php';
 include EXLOG_PATH_PLUGIN_OPTIONS . '/options_external_login.php';
 include EXLOG_PATH_PLUGIN_OPTIONS . '/cleanup.php';
 include EXLOG_PATH_PLUGIN_OPTIONS . '/testing_ajax.php';

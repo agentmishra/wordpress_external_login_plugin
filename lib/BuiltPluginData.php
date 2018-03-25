@@ -3,7 +3,7 @@
 final class BuiltPluginData {
 
     private $plugin_data;
-    private $options_fields_data;
+    private $option_fields_data;
 
     /**
      * Call this method to get singleton
