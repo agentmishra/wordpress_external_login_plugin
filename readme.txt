@@ -55,6 +55,19 @@ The plugin will re-create users in the WordPress database which has has two bene
 
 == Frequently Asked Questions ==
 
+= How does the plugin log someone in? =
+
+To give an idea of whether this plugin does the job you need it to, here is the basic logic flow:
+1. User logs in to the normal WordPress login screen.
+2. We hash the users password with the method and salt (if given) that is chosen in the settings
+3. We so a simple SQL query to the external database to see if their username and the hashed password match a user.
+4. We create or update the details of the new user.
+5. We log that user in
+6. When the user logs out of Wordpress the Wordpress session ends
+
+Please note that this system is built for the login process to be a completely different login process to anything else.
+If you are looking for Single Sign On (log in to one website and you're logged in else where) you should be looking for a OAuth solution in my opinion.
+
 = How do I add a port to the database connection? =
 
 For ports that differ the standard 3306, add them to the end of the host separated by a colon eg: 'localhost:3306'.
@@ -408,6 +421,19 @@ Get in contact. I'll normally add simple functionality for free and pretty quick
 = 1.0.0 =
 * Initial production version
 
+
+== Is this plugin what I need? ==
+
+To give an idea of whether this plugin does the job you need it to, here is the basic logic flow:
+1. User logs in to the normal WordPress login screen.
+2. We hash the users password with the method and salt (if given) that is chosen in the settings
+3. We so a simple SQL query to the external database to see if their username and the hashed password match a user.
+4. We create or update the details of the new user.
+5. We log that user in
+6. When the user logs out of Wordpress the Wordpress session ends
+
+Please note that this system is built for the login process to be a completely different login process to anything else.
+If you are looking for Single Sign On (log in to one website and you're logged in else where) you should be looking for a OAuth solution in my opinion.
 
 == FUNCTIONALITY WARNINGS AND LIMITATIONS ==
 
