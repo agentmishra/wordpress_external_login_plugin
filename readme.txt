@@ -210,6 +210,12 @@ Here is a full listing of possible fields and values.
     * Possible Values
         * Any String
 
+* Database Port
+    * Constant Name
+        * EXTERNAL_LOGIN_OPTION_DB_PORT
+    * Possible Values
+        * Any String
+
 * Database Username
     * Constant Name
         * EXTERNAL_LOGIN_OPTION_DB_USERNAME
@@ -472,6 +478,9 @@ define('EXTERNAL_LOGIN_OPTION_DB_NAME', 'dojo2016');
 
 /** EXLOG - The External Database Host */
 define('EXTERNAL_LOGIN_OPTION_DB_HOST', 'localhost');
+
+/** EXLOG - The External Database Port */
+define('EXTERNAL_LOGIN_OPTION_DB_HOST', '3306');
 
 /** EXLOG - The External Database Username */
 define('EXTERNAL_LOGIN_OPTION_DB_USERNAME', 'root');
