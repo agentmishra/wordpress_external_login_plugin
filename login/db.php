@@ -1,16 +1,50 @@
 <?php
 
 function exlog_get_external_db_instance_and_fields() {
+    $host = exlog_get_option("external_login_option_db_host");
+    $port = exlog_get_option("external_login_option_db_port");
+    $user = exlog_get_option("external_login_option_db_username");
+    $password = exlog_get_option("external_login_option_db_password");
+    $dbname = exlog_get_option("external_login_option_db_name");
+
+
+    $postgresConnectionString = "";
+    if ($host) {
+        $postgresConnectionString .= " host=" . $host;
+    }
+
+    if ($port) {
+        $postgresConnectionString .= " port=" . $port;
+    }
+
+    if ($user) {
+        $postgresConnectionString .= " user=" . $user;
+    }
+
+    if ($password) {
+        $postgresConnectionString .= " password=" . $password;
+    }
+
+    if ($dbname) {
+        $postgresConnectionString .= " dbname=" . $dbname;
+    }
+
+//    $mySqlHost = $host;
+//
+//    if ($port) {
+//        $mySqlHost .= ":" . $port;
+//    }
+
     $data = array(
 //        "db_instance" => new wpdb(
-//            exlog_get_option("external_login_option_db_username"),
-//            exlog_get_option("external_login_option_db_password"),
-//            exlog_get_option("external_login_option_db_name"),
-//            exlog_get_option("external_login_option_db_host")
+//            $user,
+//            $password,
+//            $dbname,
+//            $mySqlHost
 //        ),
 
-        "db_instance" => pg_connect("host=localhost port=5432 dbname=tom.benyon"),
 
+        "db_instance" => pg_connect($postgresConnectionString) or die('Cannot connect to external database.'), //IMPROVE THIS HANDLING!!!!!!!!!!
         "dbstructure_table" => exlog_get_option('exlog_dbstructure_table'),
         "dbstructure_username" => exlog_get_option('exlog_dbstructure_username'),
         "dbstructure_password" => exlog_get_option('exlog_dbstructure_password'),
@@ -64,12 +98,7 @@ function exlog_auth_query($username, $password) {
     $rows = pg_query($query_string) or die('Query failed: ' . pg_last_error());
 //
     $userData = pg_fetch_array($rows, null, PGSQL_ASSOC); //Gets the first row
-    error_log(var_export("pwpwpwpwpwpwp" , true));
-    error_log(var_export($userData , true));
-    error_log(var_export($db_data["dbstructure_password"] , true));
-    error_log(var_export($userData[$db_data["dbstructure_password"]] , true));
-//
-//
+
 //    pg_close($db_data["db_instance"]);
 //
 //    error_log(var_export($db_data, true));
@@ -90,8 +119,6 @@ function exlog_auth_query($username, $password) {
 //
 //
         $valid_credentials = exlog_validate_password($password, $userData[$db_data["dbstructure_password"]], $user_specific_salt);
-//        error_log(var_export("validddddddddd" , true));
-//        error_log(var_export($valid_credentials , true));
 
 
         if ($valid_credentials) {
