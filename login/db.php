@@ -1,50 +1,57 @@
 <?php
 
-function exlog_get_external_db_instance_and_fields() {
+function exlog_get_external_db_instance_and_fields($dbType) {
     $host = exlog_get_option("external_login_option_db_host");
     $port = exlog_get_option("external_login_option_db_port");
     $user = exlog_get_option("external_login_option_db_username");
     $password = exlog_get_option("external_login_option_db_password");
     $dbname = exlog_get_option("external_login_option_db_name");
 
+    $db_instance = null;
+    $mySqlHost = null;
 
-    $postgresConnectionString = "";
-    if ($host) {
-        $postgresConnectionString .= " host=" . $host;
+    if ($dbType == "postgresql") {
+        $postgresConnectionString = "";
+        if ($host) {
+            $postgresConnectionString .= " host=" . $host;
+        }
+
+        if ($port) {
+            $postgresConnectionString .= " port=" . $port;
+        }
+
+        if ($user) {
+            $postgresConnectionString .= " user=" . $user;
+        }
+
+        if ($password) {
+            $postgresConnectionString .= " password=" . $password;
+        }
+
+        if ($dbname) {
+            $postgresConnectionString .= " dbname=" . $dbname;
+        }
+
+        $db_instance = pg_connect($postgresConnectionString) or die('Cannot connect to external database.'); //IMPROVE THIS HANDLING!!!!!!!!!!
+    } else {
+        $mySqlHost = $host;
+
+        $hostIncludesPort = strpos($host, ':') !== false;
+
+        if ($port && !$hostIncludesPort) { //If port is included in $host, don't add the $port variable as well
+            $mySqlHost .= ":" . $port;
+        }
+
+        $db_instance = new wpdb(
+            $user,
+            $password,
+            $dbname,
+            $mySqlHost
+        );
     }
-
-    if ($port) {
-        $postgresConnectionString .= " port=" . $port;
-    }
-
-    if ($user) {
-        $postgresConnectionString .= " user=" . $user;
-    }
-
-    if ($password) {
-        $postgresConnectionString .= " password=" . $password;
-    }
-
-    if ($dbname) {
-        $postgresConnectionString .= " dbname=" . $dbname;
-    }
-
-//    $mySqlHost = $host;
-//
-//    if ($port) {
-//        $mySqlHost .= ":" . $port;
-//    }
 
     $data = array(
-//        "db_instance" => new wpdb(
-//            $user,
-//            $password,
-//            $dbname,
-//            $mySqlHost
-//        ),
-
-
-        "db_instance" => pg_connect($postgresConnectionString) or die('Cannot connect to external database.'), //IMPROVE THIS HANDLING!!!!!!!!!!
+        "db_instance" => $db_instance,
         "dbstructure_table" => exlog_get_option('exlog_dbstructure_table'),
         "dbstructure_username" => exlog_get_option('exlog_dbstructure_username'),
         "dbstructure_password" => exlog_get_option('exlog_dbstructure_password'),
@@ -82,29 +89,34 @@ function exlog_build_wp_user_data($db_data, $userData) {
 }
 
 function exlog_auth_query($username, $password) {
-    $db_data = exlog_get_external_db_instance_and_fields();
+    $dbType = exlog_get_option('external_login_option_db_type');
 
-//    $query_string =
-//        'SELECT *' .
-//        ' FROM ' . esc_sql($db_data["dbstructure_table"]) .
-//        ' WHERE ' . esc_sql($db_data["dbstructure_username"]) . '="' . esc_sql($username) . '"';
+    $db_data = exlog_get_external_db_instance_and_fields($dbType);
 
-//    $rows = $db_data["db_instance"]->get_results($query_string);
+    if ($dbType == "postgresql") {
+        $query_string =
+            'SELECT *' .
+            ' FROM "User";'; // NEED TO FINISHHHHHHHHH THISSSSSSSSS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-    $query_string =
-        'SELECT *' .
-        ' FROM "User";';
+        $rows = pg_query($query_string) or die('Query failed: ' . pg_last_error());
 
-    $rows = pg_query($query_string) or die('Query failed: ' . pg_last_error());
-//
-    $userData = pg_fetch_array($rows, null, PGSQL_ASSOC); //Gets the first row
+        $userData = pg_fetch_array($rows, null, PGSQL_ASSOC); //Gets the first row
 
-//    pg_close($db_data["db_instance"]);
-//
-//    error_log(var_export($db_data, true));
+        pg_close($db_data["db_instance"]);
+
+    } else {
+        $query_string =
+            'SELECT *' .
+            ' FROM ' . esc_sql($db_data["dbstructure_table"]) .
+            ' WHERE ' . esc_sql($db_data["dbstructure_username"]) . '="' . esc_sql($username) . '"';
+
+        $rows = $db_data["db_instance"]->get_results($query_string);
+
+        $userData = $rows[0];
+
+    }
 
     if (sizeof($rows) > 0) {
-//        $userData = $rows[0];
 
         $user_specific_salt = false;
 
@@ -112,14 +124,10 @@ function exlog_auth_query($username, $password) {
 //            $user_specific_salt =  $userData->{$db_data["dbstructure_salt"]};
 //
             $user_specific_salt =  $userData[$db_data["dbstructure_salt"]];
-
         }
 
 //        $valid_credentials = exlog_validate_password($password, $userData->{$db_data["dbstructure_password"]}, $user_specific_salt);
-//
-//
         $valid_credentials = exlog_validate_password($password, $userData[$db_data["dbstructure_password"]], $user_specific_salt);
-
 
         if ($valid_credentials) {
             $wp_user_data = exlog_build_wp_user_data($db_data, $userData);

@@ -126,6 +126,17 @@ final class BuiltPluginData {
                         "field_description" => "The password for the account to access the database.",
                         "field_slug" => "external_login_option_db_password",
                         "type" => "text",
+                        "required" => false
+                    ),
+                    array(
+                        "field_name" => "Database Type",
+                        "field_description" => "The password for the account to access the database.",
+                        "field_slug" => "external_login_option_db_type",
+                        "type" => "select",
+                        "select_options" => array(
+                            "mysql" => "MySQL",
+                            "postgresql" => "PostgreSQL",
+                        ),
                         "required" => true
                     ),
                 ),

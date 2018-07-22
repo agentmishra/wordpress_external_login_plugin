@@ -228,6 +228,13 @@ Here is a full listing of possible fields and values.
     * Possible Values
         * Any String
 
+* Database Type
+    * Constant Name
+        * EXTERNAL_LOGIN_OPTION_DB_TYPE
+    * Possible Values
+        * mysql
+        * postgresql
+
 * Database Hash Type
     * Constant Name
         * EXTERNAL_LOGIN_OPTION_HASH_ALGORITHM
@@ -480,13 +487,16 @@ define('EXTERNAL_LOGIN_OPTION_DB_NAME', 'dojo2016');
 define('EXTERNAL_LOGIN_OPTION_DB_HOST', 'localhost');
 
 /** EXLOG - The External Database Port */
-define('EXTERNAL_LOGIN_OPTION_DB_HOST', '3306');
+define('EXTERNAL_LOGIN_OPTION_DB_PORT', '3306');
 
 /** EXLOG - The External Database Username */
 define('EXTERNAL_LOGIN_OPTION_DB_USERNAME', 'root');
 
 /** EXLOG - The External Database Password */
 define('EXTERNAL_LOGIN_OPTION_DB_PASSWORD', 'root');
+
+/** EXLOG - The External Database Type */
+define('EXTERNAL_LOGIN_OPTION_DB_TYPE', 'mysql');
 
 /** EXLOG - Password Salt */
 define('EXTERNAL_LOGIN_OPTION_DB_SALT', 'ksjefh2lkrh2r2oh23');
