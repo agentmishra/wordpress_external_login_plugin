@@ -98,10 +98,6 @@ function exlog_auth_query($username, $password) {
 
         pg_close($db_data["db_instance"]);
 
-        error_log("USERDATAAAAAA");
-        error_log(var_export($rows, true));
-        error_log(var_export($userData, true));
-
     } else {
         $query_string =
             'SELECT *' .
@@ -109,9 +105,6 @@ function exlog_auth_query($username, $password) {
             ' WHERE ' . esc_sql($db_data["dbstructure_username"]) . '="' . esc_sql($username) . '"';
 
         $rows = $db_data["db_instance"]->get_results($query_string, ARRAY_A);
-
-        error_log('MYSQLLLLLLLLLLLLLLLLLLLLLLLLLLLLL');
-        error_log(var_export($rows, true));
 
         if (sizeof($rows) > 0) {
             $userData = $rows[0];
@@ -140,25 +133,43 @@ function exlog_auth_query($username, $password) {
 }
 
 function exlog_test_query($limit = false) {
-    $db_data = exlog_get_external_db_instance_and_fields();
+    $dbType = exlog_get_option('external_login_option_db_type');
+
+    $db_data = exlog_get_external_db_instance_and_fields($dbType);
 
     $query_string =
         'SELECT *' .
-        ' FROM ' . esc_sql($db_data["dbstructure_table"]);
+        ' FROM "' . esc_sql($db_data["dbstructure_table"]) . '"';
 
     if ($limit && is_int($limit)) {
         $query_string .= ' LIMIT ' . $limit;
     }
 
-    $rows = $db_data["db_instance"]->get_results($query_string);
+    if ($dbType == "postgresql") {
+        $rows = pg_query($query_string) or die('Query failed: ' . pg_last_error());
 
-    $users = array();
-    if (sizeof($rows) > 0) {
-        foreach ($rows as $user_data) {
-            array_push($users, exlog_build_wp_user_data($db_data, $user_data));
-        };
-        return $users;
+        $users = array();
+        if (sizeof($rows) > 0) {
+            while ($x = pg_fetch_array($rows, null, PGSQL_ASSOC)) {
+                array_push($users, $x); //Gets the first row
+            };
+            return $users;
+        }
+
+        pg_close($db_data["db_instance"]);
+        
+    } else {
+        $rows = $db_data["db_instance"]->get_results($query_string);
+
+        $users = array();
+        if (sizeof($rows) > 0) {
+            foreach ($rows as $user_data) {
+                array_push($users, exlog_build_wp_user_data($db_data, $user_data));
+            };
+            return $users;
+        }
     }
+
 
 //If got this far, query failed
     error_log("External Login - No rows returned from test query.");
