@@ -137,15 +137,15 @@ function exlog_test_query($limit = false) {
 
     $db_data = exlog_get_external_db_instance_and_fields($dbType);
 
-    $query_string =
-        'SELECT *' .
-        ' FROM "' . esc_sql($db_data["dbstructure_table"]) . '"';
-
-    if ($limit && is_int($limit)) {
-        $query_string .= ' LIMIT ' . $limit;
-    }
-
     if ($dbType == "postgresql") {
+        $query_string =
+            'SELECT *' .
+            ' FROM "' . esc_sql($db_data["dbstructure_table"]) . '"';
+
+        if ($limit && is_int($limit)) {
+            $query_string .= ' LIMIT ' . $limit;
+        }
+
         $rows = pg_query($query_string) or die('Query failed: ' . pg_last_error());
 
         $users = array();
@@ -157,9 +157,17 @@ function exlog_test_query($limit = false) {
         }
 
         pg_close($db_data["db_instance"]);
-        
+
     } else {
-        $rows = $db_data["db_instance"]->get_results($query_string);
+        $query_string =
+            'SELECT *' .
+            ' FROM ' . esc_sql($db_data["dbstructure_table"]) . '';
+
+        if ($limit && is_int($limit)) {
+            $query_string .= ' LIMIT ' . $limit;
+        }
+
+        $rows = $db_data["db_instance"]->get_results($query_string, ARRAY_A);
 
         $users = array();
         if (sizeof($rows) > 0) {
