@@ -93,11 +93,12 @@ function exlog_auth_query($username, $password) {
 
     $db_data = exlog_get_external_db_instance_and_fields($dbType);
 
-    if ($dbType == "postgresql") {
-        $query_string =
-            'SELECT *' .
-            ' FROM "User";'; // NEED TO FINISHHHHHHHHH THISSSSSSSSS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    $query_string =
+        'SELECT *' .
+        ' FROM "' . esc_sql($db_data["dbstructure_table"]) . '"' .
+        ' WHERE "' . esc_sql($db_data["dbstructure_username"]) . '" ILIKE \'' . esc_sql($username) . '\''; //Add case insensitivity
 
+    if ($dbType == "postgresql") {
         $rows = pg_query($query_string) or die('Query failed: ' . pg_last_error());
 
         $userData = pg_fetch_array($rows, null, PGSQL_ASSOC); //Gets the first row
@@ -105,15 +106,9 @@ function exlog_auth_query($username, $password) {
         pg_close($db_data["db_instance"]);
 
     } else {
-        $query_string =
-            'SELECT *' .
-            ' FROM ' . esc_sql($db_data["dbstructure_table"]) .
-            ' WHERE ' . esc_sql($db_data["dbstructure_username"]) . '="' . esc_sql($username) . '"';
-
         $rows = $db_data["db_instance"]->get_results($query_string);
 
         $userData = $rows[0];
-
     }
 
     if (sizeof($rows) > 0) {
