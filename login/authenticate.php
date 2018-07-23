@@ -36,9 +36,8 @@ function exlog_auth( $user, $username, $password ){
             $user = new WP_User ($new_user_id);
         } else {
             $userdata['ID'] = $user->ID;
-            wp_update_user( $userdata ) ;
+            wp_update_user( $userdata );
         }
-
     }
 
     // Whether to disable login fallback with the local Wordpress version of the username and password
