@@ -43,7 +43,7 @@
 
   <div class="add_more">
     <p class="description">Click to add a key value pair:</p>
-    <input class="add_button" type="button" value="+"/>
+    <input class="add_button button button-primary" type="button" value="+"/>
   </div>
 
   <input

@@ -1,10 +1,31 @@
-<div
+<ul
   class="exlog_options_page"
 >
     <?php screen_icon(); ?>
-    <h2><?php echo BuiltPluginData::Instance()->get_plugin_data()['name'] ?> Options</h2>
+  <div class="options_section_outer_container title-section">
+    <div class="options_section_container">
+      <div class="options_section vert_middle">
+        <img src="<?php echo EXLOG_PATH_ASSETS . '/logoClear.svg' ?>">
+        <h2><?php echo BuiltPluginData::Instance()->get_plugin_data()['name'] ?> Options</h2>
+      </div>
+    </div>
+    <div class="options_section_container">
+      <div class="options_section">
+        <h3>Support</h3>
+        <hr>
+        <ul class="exlog_links">
+          <li class="exlog_link">
+            Having a problem? Need another feature? Add a <a href="https://wordpress.org/support/plugin/external-login">support request</a>.
+          </li>
+          <li class="exlog_link">
+            Finding this useful? Write a <a href="https://wordpress.org/plugins/external-login/#reviews">review</a> or even <a href="https://www.paypal.me/tombenyon">buy me a beer</a>!
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
-    <form method="post" action="options.php">
+    <form class="options_section_outer_container" method="post" action="options.php">
         <?php
           settings_fields( BuiltPluginData::Instance()->get_plugin_data()['slug'] . '-option-group' );
           do_settings_fields( BuiltPluginData::Instance()->get_plugin_data()['slug'] . '-option-group', '' );
@@ -41,4 +62,4 @@
 
     <?php include EXLOG_PATH_PLUGIN_VIEWS . '/modal.php'; ?>
 
-</div>
+</ul>

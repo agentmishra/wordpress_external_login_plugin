@@ -54,7 +54,7 @@ final class BuiltPluginData {
                         "field_name" => "Test External DB Connection",
                         "field_description" => "Click this button to see an example result of users from your external database to ensure data is being pulled correctly.",
                         "field_slug" => "external_login_option_test_button",
-                        "field_text" => "TEST",
+                        "field_text" => "Test Connection",
                         "type" => "button",
                         "input_class" => "exlog_test_connection"
                     ),
@@ -101,11 +101,18 @@ final class BuiltPluginData {
                     ),
                     array(
                         "field_name" => "Database Host",
-                        "field_description" => "This is the database host. This may well be 'localhost'. For ports that differ the standard 3306, add them to the end of the host seperated by a colon eg: 'localhost:3306'.",
+                        "field_description" => "This is the database host. This may well be 'localhost'.",
                         "field_slug" => "external_login_option_db_host",
                         "type" => "text",
                         "required" => true
 
+                    ),
+                    array(
+                        "field_name" => "Database Port",
+                        "field_description" => "This is the database port.",
+                        "field_slug" => "external_login_option_db_port",
+                        "type" => "text",
+                        "required" => false
                     ),
                     array(
                         "field_name" => "Database Username",
@@ -119,6 +126,17 @@ final class BuiltPluginData {
                         "field_description" => "The password for the account to access the database.",
                         "field_slug" => "external_login_option_db_password",
                         "type" => "text",
+                        "required" => false
+                    ),
+                    array(
+                        "field_name" => "Database Type",
+                        "field_description" => "The password for the account to access the database.",
+                        "field_slug" => "external_login_option_db_type",
+                        "type" => "select",
+                        "select_options" => array(
+                            "mysql" => "MySQL",
+                            "postgresql" => "PostgreSQL",
+                        ),
                         "required" => true
                     ),
                 ),
