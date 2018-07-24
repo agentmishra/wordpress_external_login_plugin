@@ -2,6 +2,8 @@
   margin-left: -10px; }
   .exlog_options_page * {
     box-sizing: border-box; }
+  .exlog_options_page p {
+    word-wrap: break-word; }
   @media screen and (min-width: 783px) {
     .exlog_options_page {
       margin-left: -20px; } }
@@ -13,6 +15,8 @@
       display: flex;
       flex-flow: row wrap;
       padding: 0 10px; }
+      .exlog_options_page .options_section_outer_container.title-section a {
+        font-weight: bold; }
       .exlog_options_page .options_section_outer_container.title-section img {
         width: 100px;
         margin-right: 20px; }
@@ -43,6 +47,13 @@
     @media screen and (max-width: 700px) {
       .exlog_options_page .options_section_container {
         width: 100%; } }
+    .exlog_options_page .options_section_container input[type="button"] {
+      min-width: 150px;
+      display: block;
+      margin: 0 auto 30px auto; }
+      .exlog_options_page .options_section_container input[type="button"].remove_role_pairing, .exlog_options_page .options_section_container input[type="button"].add_button {
+        margin: 0;
+        min-width: 0; }
     .exlog_options_page .options_section_container .options_section {
       width: 100%;
       padding: 10px 30px;
@@ -62,14 +73,18 @@
         flex-direction: row;
         align-items: center; }
         .exlog_options_page .options_section_container .options_section.role_settings .add_more .add_button {
-          font-size: 300px;
-          padding: 40px;
-          margin-left: 20px; }
+          font-size: 30px;
+          margin-left: 20px;
+          padding: 0 11px 3px  11px;
+          line-height: normal;
+          vertical-align: middle;
+          height: auto; }
       .exlog_options_page .options_section_container .options_section.role_settings .role {
         margin-top: 20px;
         display: flex;
         flex-direction: row;
-        align-items: center; }
+        align-items: center;
+        flex-wrap: wrap; }
         .exlog_options_page .options_section_container .options_section.role_settings .role select, .exlog_options_page .options_section_container .options_section.role_settings .role input {
           margin-right: 10px; }
 

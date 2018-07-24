@@ -54,7 +54,7 @@ final class BuiltPluginData {
                         "field_name" => "Test External DB Connection",
                         "field_description" => "Click this button to see an example result of users from your external database to ensure data is being pulled correctly.",
                         "field_slug" => "external_login_option_test_button",
-                        "field_text" => "TEST",
+                        "field_text" => "Test Connection",
                         "type" => "button",
                         "input_class" => "exlog_test_connection"
                     ),

@@ -21,7 +21,7 @@
       </select>
 
       <input
-          class="remove_role_pairing"
+          class="remove_role_pairing button button-primary"
           value="Delete"
           type="button"
       />

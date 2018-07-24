@@ -5,6 +5,10 @@
     box-sizing: border-box;
   }
 
+  p {
+    word-wrap: break-word;
+  }
+
   //Caters for admin area margin
   margin-left: -10px;
   @media screen and (min-width: 783px) {
@@ -16,15 +20,20 @@
     flex-flow: row wrap;
     padding: 0 $options_section_container_padding;
 
-
     &.title-section {
       display: flex;
       flex-flow: row wrap;
       padding: 0 $options_section_container_padding;
+
+      a {
+        font-weight: bold;
+      }
+
       img {
         width: 100px;
         margin-right: 20px;
       }
+
       h2 {
         text-align: center;
         font-size: 30px;
@@ -67,6 +76,18 @@
     @media screen and (max-width: 700px) {
       width: 100%;
     }
+
+    input[type="button"] {
+      min-width: 150px;
+      display: block;
+      margin: 0 auto 30px auto;
+
+      &.remove_role_pairing, &.add_button {
+        margin: 0;
+        min-width: 0;
+      }
+    }
+
     .options_section {
       width: 100%;
       padding: 10px 30px;
@@ -94,9 +115,12 @@
           align-items: center;
 
           .add_button {
-            font-size: 300px;
-            padding: 40px;
+            font-size: 30px;
             margin-left: 20px;
+            padding: 0 11px 3px  11px;
+            line-height: normal;
+            vertical-align: middle;
+            height: auto;
           }
         }
 
@@ -105,6 +129,7 @@
           display: flex;
           flex-direction: row;
           align-items: center;
+          flex-wrap: wrap;
           select, input {
             margin-right: 10px;
           }
