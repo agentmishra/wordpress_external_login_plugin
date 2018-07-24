@@ -369,6 +369,11 @@ Get in contact. I'll normally add simple functionality for free and pretty quick
 
 == Changelog ==
 
+= 1.4.0 =
+* Add PostgreSQL functionality
+* Add support links to options page
+* Add additional styling to options page
+
 = 1.3.1 =
 * Fix broken link from plugin page to settings that caused plugin failure for some users.
 
@@ -405,6 +410,11 @@ Get in contact. I'll normally add simple functionality for free and pretty quick
 
 
 == Upgrade Notice ==
+
+= 1.4.0 =
+* Add PostgreSQL functionality
+* Add support links to options page
+* Add additional styling to options page
 
 = 1.3.1 =
 * Fix broken link from plugin page to settings that caused plugin failure for some users.
