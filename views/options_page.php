@@ -1,8 +1,23 @@
-<div
+<ul
   class="exlog_options_page"
 >
     <?php screen_icon(); ?>
+  <div class="title-section">
+
     <h2><?php echo BuiltPluginData::Instance()->get_plugin_data()['name'] ?> Options</h2>
+    <div class="links-container">
+      <h3>Links</h3>
+      <hr>
+      <ul class="exlog_links">
+        <li class="exlog_link">
+          Having a problem? Need another feature? Add a <a href="https://wordpress.org/support/plugin/external-login">support request</a>.
+        </li>
+        <li class="exlog_link">
+          Finding this useful? Write a <a href="https://wordpress.org/plugins/external-login/#reviews">review</a> or even <a href="https://www.paypal.me/tombenyon">buy me a beer</a>!
+        </li>
+      </ul>
+    </div>
+  </div>
 
     <form method="post" action="options.php">
         <?php
@@ -41,4 +56,4 @@
 
     <?php include EXLOG_PATH_PLUGIN_VIEWS . '/modal.php'; ?>
 
-</div>
+</ul>
