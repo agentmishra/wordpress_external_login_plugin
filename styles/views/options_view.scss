@@ -21,6 +21,10 @@
       display: flex;
       flex-flow: row wrap;
       padding: 0 $options_section_container_padding;
+      img {
+        width: 100px;
+        margin-right: 20px;
+      }
       h2 {
         text-align: center;
         font-size: 30px;

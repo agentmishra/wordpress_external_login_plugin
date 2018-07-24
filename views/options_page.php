@@ -5,7 +5,8 @@
   <div class="options_section_outer_container title-section">
     <div class="options_section_container">
       <div class="options_section vert_middle">
-    <h2><?php echo BuiltPluginData::Instance()->get_plugin_data()['name'] ?> Options</h2>
+        <img src="<?php echo EXLOG_PATH_ASSETS . '/logoClear.svg' ?>">
+        <h2><?php echo BuiltPluginData::Instance()->get_plugin_data()['name'] ?> Options</h2>
       </div>
     </div>
     <div class="options_section_container">

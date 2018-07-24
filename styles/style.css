@@ -13,6 +13,9 @@
       display: flex;
       flex-flow: row wrap;
       padding: 0 10px; }
+      .exlog_options_page .options_section_outer_container.title-section img {
+        width: 100px;
+        margin-right: 20px; }
       .exlog_options_page .options_section_outer_container.title-section h2 {
         text-align: center;
         font-size: 30px;
