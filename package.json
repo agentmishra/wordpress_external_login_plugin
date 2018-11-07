@@ -1,6 +1,6 @@
 {
   "name": "external-login",
-  "version": "0.1.0",
+  "version": "1.4.1",
   "description": "See readme.txt for the main information for the plugin. This is done to save duplication as readme.txt is required for WordPress plugin repository.",
   "main": "gulpfile.js",
   "scripts": {

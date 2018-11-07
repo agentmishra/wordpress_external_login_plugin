@@ -4,7 +4,7 @@ Plugin Name: External Login
 Plugin URI: http://tom.benyon.io/plugins/external-login
 Description: A plugin to allow login and syncing from a secondary database
 Author: Tom Benyon
-Version: 1.4.0
+Version: 1.4.1
 Author URI: http://tom.benyon.io
 Text Domain: external-login
 */

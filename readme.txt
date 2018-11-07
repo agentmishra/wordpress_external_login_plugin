@@ -4,7 +4,7 @@ Donate link: https://www.paypal.me/tombenyon
 Tags: external login, external, database, login, users, db, WordPress, different, username, password, hashing, md, md2, md4, md5, bcrypt, sha, sha1, sha256, sha384, sha512
 Requires at least: 4.6
 Tested up to: 4.9
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 Requires PHP: 5.6.34
 License: MIT
 
@@ -369,6 +369,10 @@ Get in contact. I'll normally add simple functionality for free and pretty quick
 
 == Changelog ==
 
+= 1.4.1 =
+* Fix Test button on WP installs in sub directories
+* Improve error descriptions to the end user
+
 = 1.4.0 =
 * Add PostgreSQL functionality
 * Add support links to options page
@@ -410,6 +414,10 @@ Get in contact. I'll normally add simple functionality for free and pretty quick
 
 
 == Upgrade Notice ==
+
+= 1.4.1 =
+* Fix Test button on WP installs in sub directories
+* Improve error descriptions to the end user
 
 = 1.4.0 =
 * Add PostgreSQL functionality
