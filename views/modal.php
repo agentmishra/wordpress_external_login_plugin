@@ -9,10 +9,15 @@
     </div>
 
     <div class="exlog_test_results_inner_container">
-
       <div class='exlog_test_results'></div>
-      <div class='exlog_test_fail'>
-        <h3>ERROR: Something went wrong</h3>
+        <div class='exlog_test_fail'>
+
+          <div>
+            <h3 class="exlog-error-title">ERROR: 999</h3>
+            <p class="exlog-error-message"></p>
+          </div>
+
+        </div>
       </div>
     </div>
 </div>

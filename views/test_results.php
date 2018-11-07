@@ -20,11 +20,5 @@
 </table>
 
 <?php else : ?>
-
-    <div class="error-message">
-        <h2>ERROR!</h2>
-
-        <p>No user data was found.</p>
-    </div>
-
+    <?php throw new Exception("External Login Error: No test results found."); ?>
 <?php endif; ?>
