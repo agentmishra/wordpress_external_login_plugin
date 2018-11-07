@@ -1,5 +1,6 @@
 <ul
   class="exlog_options_page"
+  data-exlog-wp-base="<?php echo get_site_url(); ?>"
 >
     <?php screen_icon(); ?>
   <div class="options_section_outer_container title-section">

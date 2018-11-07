@@ -1,0 +1,23 @@
+{
+  "name": "external-login",
+  "version": "0.1.0",
+  "description": "See readme.txt for the main information for the plugin. This is done to save duplication as readme.txt is required for WordPress plugin repository.",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tbenyon/wordpress_external_login_plugin.git"
+  },
+  "author": "Tom Benyon",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/tbenyon/wordpress_external_login_plugin/issues"
+  },
+  "homepage": "https://github.com/tbenyon/wordpress_external_login_plugin#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^4.0.2"
+  }
+}
