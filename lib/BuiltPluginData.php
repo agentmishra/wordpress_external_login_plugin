@@ -369,6 +369,47 @@ final class BuiltPluginData {
                     ),
                 ),
             ),
+            array(
+                "section_name" => "Exclude Users",
+                "section_slug" => "exclude_users",
+                "section_description" => "This will allow you to block users based on the value of an additional field in the database. NOTE: You can also block a user by their role in the Role Settings section.",
+                "section_fields" => array(
+                    array(
+                        "field_name" => "Enable Excluding Users",
+                        "field_description" => "Tick this box if you want to enable the excluding users functionality.",
+                        "field_slug" => "external_login_option_enable_exclude_users",
+                        "type" => "checkbox",
+                    ),
+                    array(
+                        "field_name" => "Field name to check",
+                        "field_description" => "This is the field name in the database that stores whether the user should be allowed access or not.",
+                        "field_slug" => "external_login_option_exclude_users_field_name",
+                        "type" => "text",
+                        "conditionals" => array(
+                            "and",
+                            array(
+                                "condition_field" => "external_login_option_enable_exclude_users",
+                                "condition_field_value" => "true",
+                                "condition_operator" => "="
+                            )
+                        )
+                    ),
+                    array(
+                        "field_name" => "Value to reject",
+                        "field_description" => "If the following value is in the above field for this user they will not be able to login.",
+                        "field_slug" => "external_login_option_exclude_users_value",
+                        "type" => "text",
+                        "conditionals" => array(
+                            "and",
+                            array(
+                                "condition_field" => "external_login_option_enable_exclude_users",
+                                "condition_field_value" => "true",
+                                "condition_operator" => "="
+                            )
+                        )
+                    ),
+                ),
+            ),
         );
     }
 }
