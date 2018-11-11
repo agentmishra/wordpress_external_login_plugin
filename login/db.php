@@ -102,7 +102,8 @@ function exlog_auth_query($username, $password) {
         $query_string =
             'SELECT *' .
             ' FROM ' . esc_sql($db_data["dbstructure_table"]) .
-            ' WHERE ' . esc_sql($db_data["dbstructure_username"]) . '="' . esc_sql($username) . '"';
+            ' WHERE ' . esc_sql($db_data["dbstructure_username"]) . '="' . esc_sql($username) . '"' .
+            ' AND NOT ' . esc_sql(exlog_get_option('external_login_option_exclude_users_field_name')) . '="' . esc_sql(exlog_get_option('external_login_option_exclude_users_value')) . '"';
 
         $rows = $db_data["db_instance"]->get_results($query_string, ARRAY_A);
 
