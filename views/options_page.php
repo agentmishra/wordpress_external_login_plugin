@@ -39,21 +39,7 @@
                 <p><?php echo $form_section['section_description'] ?></p>
                 <hr>
 
-                <?php foreach ($form_section['section_fields'] as $form_field) : ?>
-                    <?php
-                        if ($form_field["type"] == "text") :
-                            include EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/text_field.php';
-                        elseif ($form_field["type"] == "select") :
-                            include EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/select_field.php';
-                        elseif ($form_field["type"] == "checkbox") :
-                            include EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/checkbox_field.php';
-                        elseif ($form_field["type"] == "roles") :
-                            include EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/roles_fields_builder.php';
-                        elseif ($form_field["type"] == "button") :
-                            include EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/button.php';
-                        endif;
-                    ?>
-                <?php endforeach; ?>
+                <?php Exlog_view_building::render_field_views($form_section['section_fields']); ?>
 
                 <?php submit_button(); ?>
               </div>
