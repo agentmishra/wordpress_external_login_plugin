@@ -408,6 +408,60 @@ final class BuiltPluginData {
                             )
                         )
                     ),
+                    array(
+                        "field_name" => "Repeater Test",
+                        "field_description" => "Repeater Testing!",
+                        "field_slug" => "repeater_test_1",
+                        "type" => "repeater",
+                        "repeater_fields" => array(
+                            array(
+                                "field_name" => "TESTOOOO1",
+                                "field_description" => "If the following value is in the above field for this user they will not be able to login.",
+                                "field_slug" => "external_login_option_test_repeater_text_field1",
+                                "type" => "text"
+                            ),
+                            array(
+                                "field_name" => "TESTOOOO2",
+                                "field_description" => "If the following value is in the above field for this user they will not be able to login.",
+                                "field_slug" => "external_login_option_test_repeater_text_field2",
+                                "type" => "text"
+                            ),
+                            array(
+                                "field_name" => "Repeater Test222",
+                                "field_description" => "Repeater Testing!222",
+                                "field_slug" => "repeater_test_2",
+                                "type" => "repeater",
+                                "repeater_fields" => array(
+                                    array(
+                                        "field_name" => "TESTOOOO21",
+                                        "field_description" => "If the following value is in the above field for this user they will not be able to login.",
+                                        "field_slug" => "external_login_option_test_repeater_text_field21",
+                                        "type" => "text"
+                                    ),
+                                    array(
+                                        "field_name" => "TESTOOOO22",
+                                        "field_description" => "If the following value is in the above field for this user they will not be able to login.",
+                                        "field_slug" => "external_login_option_test_repeater_text_field22",
+                                        "type" => "text"
+                                    ),
+                                    array(
+                                        "field_name" => "Repeater 3333",
+                                        "field_description" => "Repeater Testing!222",
+                                        "field_slug" => "repeater_test_3",
+                                        "type" => "repeater",
+                                        "repeater_fields" => array(
+                                            array(
+                                                "field_name" => "THREEEE TEXT",
+                                                "field_description" => "If the following value is in the above field for this user they will not be able to login.",
+                                                "field_slug" => "external_login_option_test_repeater_text_field31",
+                                                "type" => "text"
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
                 ),
             ),
         );
