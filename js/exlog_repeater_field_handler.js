@@ -115,39 +115,32 @@ var possible_repeater_data_master = [
     }
     
     function monitorRepeaterInputs() {
-      var $repeater_data_stores = $('.exlog_repeater_data_store');
-
-      $repeater_data_stores.each(function () {
-        var $inputs = $('input');
-        var change_events = 'keyup paste'; // Maybe just use change?
-
-        // Clear previous events
-        $inputs.off(change_events);
-
-        $inputs.on(change_events, (function () {
-          console.log('change detected');
-          update_repeater_data();
-        }));
-      });
-    }
-
-    function update_repeater_data() {
+      var change_events = ['keyup', 'paste'];
+      var change_events_string = change_events.join(' ');
       var $repeater_data_stores = $('.exlog_repeater_data_store');
 
       $repeater_data_stores.each(function () {
         var $repeater_data_store = $(this);
-        var data_for_store = {}; // Object to be populated by first child inputs of repeater
-        var $repeater_items = $repeater_data_store.siblings('.repeater_item');
-        $repeater_items.each(function () {
-          var $repeater_data_store_direct_inputs = $(this).children('.option-container').children('input');
-          $repeater_data_store_direct_inputs.each(function () {
-            var $input = $(this);
-            data_for_store[$input.attr('name')] = $input.val();
-          }).promise().done(function () {
-            console.log("DATA FOR STORE:\n", data_for_store);
-            $repeater_data_store.val(JSON.stringify(data_for_store));
-          });
-        });
+        var $inputs = $repeater_data_store.siblings('.repeater_item').children('.option-container').children('input, textarea');
+
+        // Clear previous events
+        $inputs.off(change_events_string);
+
+        $inputs.on(change_events_string, (function () {
+          update_repeater_data($repeater_data_store, $inputs);
+          $repeater_data_store.trigger(change_events[0]);
+        }));
+      });
+    }
+
+    function update_repeater_data($repeater_data_store, $child_inputs) {
+      var data_for_store = {}; // Object to be populated by first child inputs of repeater
+      $child_inputs.each(function () {
+        var $input = $(this);
+        data_for_store[$input.attr('name')] = $input.val();
+      }).promise().done(function () {
+        console.log("DATA FOR STORE:\n", data_for_store);
+        $repeater_data_store.val(JSON.stringify(data_for_store));
       });
     }
 

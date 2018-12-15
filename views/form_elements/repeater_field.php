@@ -10,19 +10,19 @@
   class="option-container repeater <?php if (!$exlog_view_builder_in_repeater) echo "exlog-repeater-master"; ?>"
   data-exlog-conditionals="<?php echo htmlspecialchars(json_encode($form_field["conditionals"])); ?>"
   data-exlog-field-slug="<?php echo $exlog_slug; ?>"
->
+  xmlns="http://www.w3.org/1999/html">
   <h4><?php echo $form_field["field_name"]; ?></h4>
   <p><?php echo $form_field["field_description"]; ?></p>
 
   <?php if (!(exlog_is_wpconfig_option_set($form_field["field_slug"]))) : ?>
-      <input
+      <textarea
         class="exlog_repeater_data_store"
-        type="hidden"
+        type="test"
         name="<?php echo $exlog_slug; ?>"
         <?php if (!$exlog_parent_repeater_slug) : ?>
           value="<?php echo get_option($form_field["field_slug"]); ?>"
         <?php endif; ?>
-      />
+      ></textarea>
 
       <div class="repeater_item" data-exlog-repeater-id="0">
           <?php Exlog_view_building::render_field_views($form_field["repeater_fields"], $form_field["slug"]); ?>
