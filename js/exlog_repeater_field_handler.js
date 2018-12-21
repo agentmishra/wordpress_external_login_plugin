@@ -101,6 +101,10 @@ var possible_repeater_data_master = [
 
       // Store the new id in the attr of the repeater item
       $markup.attr('data-exlog-repeater-id', new_id);
+      // Modify name for future items
+      var $markup_input = $markup.children('.option-container').children('input, textarea');
+      var $markup_name_attr = $markup_input.attr('name');
+      $markup_input.attr('name', $markup_name_attr + "_:RX_" + new_id + ":");
 
       // Add the new ID to the repeater item
       // Same as above?!
@@ -112,6 +116,7 @@ var possible_repeater_data_master = [
 
       // Place the new markup on the page
       $add_more_container.before($markup);
+      monitorRepeaterInputs();
     }
     
     function monitorRepeaterInputs() {
