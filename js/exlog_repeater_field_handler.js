@@ -54,13 +54,14 @@ var possible_repeater_data_master = [
 
     });
 
-
-    var $repeater_buttons = $(".exlog_repeater_add_button");
+    var repeater_buttons_selector = ".exlog_repeater_add_button";
     var repeater_item_selector = ".repeater_item";
     var repeater_data_attr = 'data-exlog-repeater-id';
     var master_markup_item_selector = repeater_item_selector + '[' + repeater_data_attr + '="0"]';
 
-    $repeater_buttons.click(on_add_button_click);
+    function reselect_add_buttons() {
+      $(repeater_buttons_selector).off('click').on('click', on_add_button_click);
+    }
 
     function on_add_button_click() {
       var $button = $(this);
@@ -117,6 +118,7 @@ var possible_repeater_data_master = [
       // Place the new markup on the page
       $add_more_container.before($markup);
       monitorRepeaterInputs();
+      reselect_add_buttons();
     }
     
     function monitorRepeaterInputs() {
@@ -150,6 +152,6 @@ var possible_repeater_data_master = [
     }
 
     monitorRepeaterInputs();
-
+    reselect_add_buttons();
   })
 }(jQuery));
