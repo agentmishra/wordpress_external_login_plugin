@@ -87,11 +87,32 @@
         flex-wrap: wrap; }
         .exlog_options_page .options_section_container .options_section.role_settings .role select, .exlog_options_page .options_section_container .options_section.role_settings .role input {
           margin-right: 10px; }
+      .exlog_options_page .options_section_container .options_section .option-container .option-title {
+        margin: 0 0 15px 0; }
       .exlog_options_page .options_section_container .options_section .option-container.repeater {
-        border: 1px solid #F5A623;
+        border: 2px solid #F5A623;
         padding: 15px; }
-        .exlog_options_page .options_section_container .options_section .option-container.repeater .repeater_markup_store {
-          background-color: #bafff5; }
+        .exlog_options_page .options_section_container .options_section .option-container.repeater section {
+          border-top: 5px solid #F5A623; }
+          .exlog_options_page .options_section_container .options_section .option-container.repeater section:first-of-type:first-of-type > .delete_repeater_item {
+            display: none; }
+          .exlog_options_page .options_section_container .options_section .option-container.repeater section:last-of-type {
+            border-bottom: 5px solid #F5A623; }
+          .exlog_options_page .options_section_container .options_section .option-container.repeater section.repeater_item {
+            padding: 15px 0;
+            display: flex;
+            align-items: center; }
+            .exlog_options_page .options_section_container .options_section .option-container.repeater section.repeater_item .repeater_item_input_container .repeater_markup_store {
+              background-color: #bafff5; }
+            .exlog_options_page .options_section_container .options_section .option-container.repeater section.repeater_item .delete_repeater_item {
+              width: 30px;
+              height: 30px;
+              min-width: 0;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              margin: 0;
+              align-self: flex-start; }
 
 .exlog_modal {
   display: none;

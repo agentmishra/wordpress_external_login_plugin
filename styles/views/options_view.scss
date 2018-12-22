@@ -137,11 +137,50 @@
       }
 
       .option-container {
+        $spacing: 15px;
+        .option-title {
+          margin: 0 0 $spacing 0;
+        }
+
         &.repeater {
-          border: 1px solid $color_accent;
+          border: 2px solid $color_accent;
           padding: 15px;
-          .repeater_markup_store {
-            background-color: #bafff5;
+
+          section {
+            border-top: 5px solid $color_accent;
+
+            &:first-of-type:first-of-type {
+              > .delete_repeater_item {
+                display: none;
+              }
+            }
+
+            &:last-of-type {
+              border-bottom: 5px solid $color_accent;
+            }
+
+            &.repeater_item {
+              padding: $spacing 0;
+              display: flex;
+              align-items: center;
+
+              .repeater_item_input_container {
+                .repeater_markup_store {
+                  background-color: #bafff5;
+                }
+              }
+
+              .delete_repeater_item {
+                width: 30px;
+                height: 30px;
+                min-width: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 0;
+                align-self: flex-start;
+              }
+            }
           }
         }
       }
