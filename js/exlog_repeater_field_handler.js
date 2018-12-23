@@ -47,15 +47,17 @@ var possible_repeater_data_master = [
     var repeater_item_selector = ".repeater_item";
     var repeater_data_attr = 'data-exlog-repeater-id';
     var master_markup_item_selector = repeater_item_selector + '[' + repeater_data_attr + '="0"]';
+    var click_event_name = 'click';
+    var change_events = ['keyup', 'paste'];
+    var repeater_data_store_selector = '.exlog_repeater_data_store';
+
 
     function reselect_add_buttons() {
-      var click_event_name = 'click';
       $(repeater_buttons_selector).off().on(click_event_name, on_add_button_click);
     }
 
     function on_add_button_click() {
       var $button = $(this);
-      console.log($button.siblings().length);
 
       var $add_more_container = $button.closest(".add_more");
 
@@ -99,14 +101,12 @@ var possible_repeater_data_master = [
 
       // Place the new markup on the page
       $add_more_container.before($markup);
-      monitorRepeaterInputs();
-      reselect_add_buttons();
+      reset_watchers();
     }
     
     function monitorRepeaterInputs() {
-      var change_events = ['keyup', 'paste'];
       var change_events_string = change_events.join(' ');
-      var $repeater_data_stores = $('.exlog_repeater_data_store');
+      var $repeater_data_stores = $(repeater_data_store_selector);
 
       $repeater_data_stores.each(function () {
         var $repeater_data_store = $(this);
@@ -132,7 +132,33 @@ var possible_repeater_data_master = [
       });
     }
 
-    monitorRepeaterInputs();
-    reselect_add_buttons();
+    function on_delete_item_click() {
+      $('.delete_repeater_item').off(click_event_name).on(click_event_name, function () {
+        var $delete_button = $(this);
+        var $repeater_item = $delete_button.closest(repeater_item_selector);
+
+        // var $repeater_item_name = $repeater_item.attr('name');
+
+        var $first_item = $repeater_item.siblings(master_markup_item_selector).find('input');
+
+        // Remove the repeater item from the DOM
+        $repeater_item.remove();
+
+        // Ensure elements no longer in the DOM are no longer selected as otherwise data is kept
+        reset_watchers();
+
+        // Make first repeater item trigger change to remove deleted items data
+        $first_item.trigger(change_events[0]);
+      })
+    }
+
+    // All the selectors that need updating on DOM change
+    function reset_watchers() {
+      monitorRepeaterInputs();
+      reselect_add_buttons();
+      on_delete_item_click();
+    }
+
+    reset_watchers();
   })
 }(jQuery));
