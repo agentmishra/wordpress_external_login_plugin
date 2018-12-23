@@ -42,7 +42,7 @@ var possible_repeater_data_master = [
 
 (function ($) {
   $(function () {
-    var parent_repeater_fields = $(".option-container.repeater.exlog-repeater-master");
+    var $parent_repeater_fields = $(".option-container.repeater.exlog-repeater-master");
     var repeater_buttons_selector = ".exlog_repeater_add_button";
     var repeater_item_selector = ".repeater_item";
     var repeater_data_attr = 'data-exlog-repeater-id';
@@ -50,6 +50,13 @@ var possible_repeater_data_master = [
     var click_event_name = 'click';
     var change_events = ['keyup', 'paste'];
     var repeater_data_store_selector = '.exlog_repeater_data_store';
+
+    function get_master_data() {
+      var json_string = $parent_repeater_fields.children(repeater_data_store_selector).val()
+      console.log(json_string);
+      var data = JSON.parse(json_string);
+      console.log(data);
+    }
 
 
     function reselect_add_buttons() {
@@ -118,6 +125,7 @@ var possible_repeater_data_master = [
         $inputs.on(change_events_string, (function () {
           update_repeater_data($repeater_data_store, $inputs);
           $repeater_data_store.trigger(change_events[0]);
+          get_master_data();
         }));
       });
     }
@@ -126,7 +134,13 @@ var possible_repeater_data_master = [
       var data_for_store = {}; // Object to be populated by first child inputs of repeater
       $child_inputs.each(function () {
         var $input = $(this);
-        data_for_store[$input.attr('name')] = $input.val();
+        var data = $input.val();
+        try {
+          data = JSON.parse(data); // If the data can be interpreted as JSON convert it to an object
+        } catch(error) {
+          //  Leave data as string
+        }
+        data_for_store[$input.attr('name')] = data;
       }).promise().done(function () {
         $repeater_data_store.val(JSON.stringify(data_for_store));
       });
