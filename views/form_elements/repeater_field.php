@@ -15,14 +15,15 @@
   <p><?php echo $form_field["field_description"]; ?></p>
 
   <?php if (!(exlog_is_wpconfig_option_set($form_field["field_slug"]))) : ?>
-    <textarea
+    <input
+      style="background-color: red;"
       class="exlog_repeater_data_store"
-      type="test"
-      name="<?php echo $exlog_slug; ?>"
+      type="hidden"
+      name="<?php echo $form_field["field_slug"]; ?>"
       <?php if (!$exlog_parent_repeater_slug) : ?>
-        value="<?php echo get_option($form_field["field_slug"]); ?>"
+        value="<?php echo base64_encode(get_option($form_field["field_slug"])); ?>"
       <?php endif; ?>
-    ></textarea>
+    >
 
     <section class="repeater_item" data-exlog-repeater-id="0">
       <div class="repeater_item_input_container">

@@ -51,11 +51,56 @@ var possible_repeater_data_master = [
     var change_events = ['keyup', 'paste'];
     var repeater_data_store_selector = '.exlog_repeater_data_store';
 
-    function get_master_data() {
-      var json_string = $parent_repeater_fields.children(repeater_data_store_selector).val()
-      console.log(json_string);
-      var data = JSON.parse(json_string);
-      console.log(data);
+    function object_to_string_if_object(data) {
+      if (typeof data === 'object') {
+        try {
+          data = JSON.stringify(data);
+        } catch (error) {
+          //  Leave data in current format
+        }
+      }
+      return data
+    }
+
+    // option-container > repeater_item > repeater_item_input_container > option-container > input
+    function place_data_from_db() {
+      function place_specific_repeater_values($parent_element, data) {
+      //  Put all data in the name value
+        var $data_store = $parent_element.children(repeater_data_store_selector);
+        var data_string;
+        try {
+          data_string = JSON.stringify(data);
+        } catch(e) {
+          data_string = false;
+        }
+        $data_store.val(data_string);
+
+        // Of that data, put each value in the correct input
+        for(var datum in data) {
+          var input_data = object_to_string_if_object(data[datum]);
+          var $input_element = $parent_element.find('> .repeater_item > .repeater_item_input_container > .option-container > [name="' + datum + '"]').val(input_data);
+
+          // !!!!!!!!!!!!!!!!!!! Need to check if the field doesn't yet exist and create it!
+
+          //  If the input data is a repeater field, call this function again with the relevant data and $parent element
+          if ($input_element.hasClass("exlog_repeater_data_store")) {
+              place_specific_repeater_values($input_element.closest('.option-container'), data[datum])
+          }
+        }
+      }
+
+      $parent_repeater_fields.each(function () {
+        var $parent_repeater_field = $(this);
+        var base_64_string = $parent_repeater_field.children(repeater_data_store_selector).val();
+        var parent_repeater_data;
+        try {
+          parent_repeater_data = JSON.parse(atob(base_64_string));
+        } catch (e) {
+          parent_repeater_data = false;
+        }
+        place_specific_repeater_values($parent_repeater_field, parent_repeater_data)
+      });
+
     }
 
 
@@ -125,7 +170,6 @@ var possible_repeater_data_master = [
         $inputs.on(change_events_string, (function () {
           update_repeater_data($repeater_data_store, $inputs);
           $repeater_data_store.trigger(change_events[0]);
-          get_master_data();
         }));
       });
     }
@@ -173,6 +217,7 @@ var possible_repeater_data_master = [
       on_delete_item_click();
     }
 
+    place_data_from_db();
     reset_watchers();
   })
 }(jQuery));
