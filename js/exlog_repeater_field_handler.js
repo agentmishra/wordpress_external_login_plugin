@@ -76,15 +76,25 @@ var possible_repeater_data_master = [
         $data_store.val(data_string);
 
         // Of that data, put each value in the correct input
-        for(var datum in data) {
-          var input_data = object_to_string_if_object(data[datum]);
-          var $input_element = $parent_element.find('> .repeater_item > .repeater_item_input_container > .option-container > [name="' + datum + '"]').val(input_data);
+        for(var option_name in data) {
+          var input_data = object_to_string_if_object(data[option_name]);
 
-          // !!!!!!!!!!!!!!!!!!! Need to check if the field doesn't yet exist and create it!
+          var input_selector = '> .repeater_item > .repeater_item_input_container > .option-container > [name="' + option_name + '"]';
+
+          // If input markup does not exist, create it
+          if($parent_element.find(input_selector).length < 1) {
+            // Get the index from the item name
+            var regex_result = option_name.match(/_:RX_(.*):/);
+            var index = regex_result.slice(-1)[0];
+            create_new_item($parent_element, index, option_name);
+          }
+
+          // Add DB value into the input
+          var $input_element = $parent_element.find(input_selector).val(input_data);
 
           //  If the input data is a repeater field, call this function again with the relevant data and $parent element
           if ($input_element.hasClass("exlog_repeater_data_store")) {
-              place_specific_repeater_values($input_element.closest('.option-container'), data[datum])
+              place_specific_repeater_values($input_element.closest('.option-container'), data[option_name]);
           }
         }
       }
@@ -103,22 +113,45 @@ var possible_repeater_data_master = [
 
     }
 
+    function create_new_item($repeater_option_container, item_id, item_name) {
+      console.log($repeater_option_container, item_id, item_name);
+
+      // Get the markup to copy from looking at first item
+      var markup = $repeater_option_container.children(master_markup_item_selector).html();
+      console.log('markup', markup);
+
+      var $markup = $('<section class="repeater_item">' + markup + '</section>');
+
+      console.log('$markup', $markup);
+
+      // Clean out any repeater ids that are not the first one from the generated markup
+      $(repeater_item_selector, $markup).each(function () {
+        var $repeater_item = $(this);
+        if ($repeater_item.attr(repeater_data_attr) !== "0") {
+          $repeater_item.remove();
+        }
+      });
+
+      // Store the new id in the attr of the repeater item
+      $markup.attr('data-exlog-repeater-id', item_id);
+
+      // Modify name for future items
+      var $markup_input = $markup.children('.repeater_item_input_container').children('.option-container').children('input, textarea');
+      $markup_input.attr('name', item_name);
+
+      // Place the new markup on the page
+      $repeater_option_container.children('.add_more').before($markup);
+      reset_watchers();
+    }
 
     function reselect_add_buttons() {
-      $(repeater_buttons_selector).off().on(click_event_name, on_add_button_click);
+      $(repeater_buttons_selector).off(click_event_name).on(click_event_name, on_add_button_click);
     }
 
     function on_add_button_click() {
       var $button = $(this);
 
       var $add_more_container = $button.closest(".add_more");
-
-      // Get the markup to copy from looking at first item
-      var markup = $add_more_container
-        .siblings(master_markup_item_selector)
-        .html();
-
-      var $markup = $('<section class="repeater_item">' + markup + '</section>');
 
       var used_ids = [];
       // Store all used ids
@@ -128,32 +161,18 @@ var possible_repeater_data_master = [
         used_ids.push(repeater_item_id)
       });
 
-      // Delete any repeater ids that are not 0
-      $(repeater_item_selector, $markup).each(function () {
-        var $repeater_item = $(this);
-        if ($repeater_item.attr(repeater_data_attr) !== "0") {
-          $repeater_item.remove();
-        }
-
-      });
-
       // Get a unique id for the new repeater item
       var new_id = 1;
       while (used_ids.indexOf(new_id.toString()) > -1 ) { // While new_id is in used_ids
         new_id += 1;
       }
 
-      // Store the new id in the attr of the repeater item
-      $markup.attr('data-exlog-repeater-id', new_id);
+      var $first_input = $add_more_container.siblings('input, textarea');
+      var item_name = $first_input.attr('name') + "_:RX_" + new_id + ":";
 
-      // Modify name for future items
-      var $markup_input = $markup.children('.repeater_item_input_container').children('.option-container').children('input, textarea');
-      var $markup_name_attr = $markup_input.attr('name');
-      $markup_input.attr('name', $markup_name_attr + "_:RX_" + new_id + ":");
+      var $repeater_option_container = $add_more_container.closest('.option-container.repeater');
 
-      // Place the new markup on the page
-      $add_more_container.before($markup);
-      reset_watchers();
+      create_new_item($repeater_option_container, new_id, item_name);
     }
     
     function monitorRepeaterInputs() {
