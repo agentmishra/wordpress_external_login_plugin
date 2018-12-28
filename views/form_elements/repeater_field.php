@@ -1,9 +1,6 @@
 <?php
-  if (!$exlog_parent_repeater_slug) {
-    $exlog_slug = $form_field["field_slug"] . "0";
-  } else {
-    $exlog_slug = $exlog_parent_repeater_slug . "_" . $form_field["field_slug"] . "0";
-  }
+$exlog_slug = $form_field["field_slug"];
+
 ?>
 
 <div

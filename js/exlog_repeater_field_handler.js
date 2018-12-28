@@ -3,39 +3,64 @@
 var possible_repeater_data_master = [
   {
     "field_name": "title",
+    "id": "12345678",
     "repeater_field": false,
     "field_data": "this is some text"
   },
   {
     "field_name": "Names Repeater",
+    "id": "12345678",
     "repeater_field": true,
-    "field_data": [
-      {
-        "field_name": "title in repeater",
-        "repeater_field": false,
-        "field_data": "this is some textoooo"
-      },
-      {
-        "field_name": "title in repeater222",
-        "repeater_field": false,
-        "field_data": "this is some textoooo222"
-      },
-      {
-        "field_name": "inner_repeater",
-        "repeater_field": true,
-        "field_data": [
-          {
-            "field_name": "title in repeater333",
-            "repeater_field": false,
-            "field_data": "this is some textoooo3333"
-          },
-          {
-            "field_name": "title in repeater3331",
-            "repeater_field": false,
-            "field_data": "this is some textoooo3332"
-          }
-        ]
-      }
+    "field_data": [ // Repeater items
+      [ // Repeater Item
+        {
+          "field_name": "title in repeater",
+          "id": "12345678",
+          "repeater_field": false,
+          "field_data": "this is some textoooo"
+        },
+        {
+          "field_name": "title in repeater222",
+          "id": "12345678",
+          "repeater_field": false,
+          "field_data": "this is some textoooo222"
+        },
+        {
+          "field_name": "inner_repeater",
+          "id": "12345678",
+          "repeater_field": true,
+          "field_data": [ // Repeater Items
+            [ // Repater Item
+              {
+                "field_name": "title in repeater333",
+                "id": "12345678",
+                "repeater_field": false,
+                "field_data": "this is some textoooo3333"
+              },
+              {
+                "field_name": "title in repeater3331",
+                "id": "12345678",
+                "repeater_field": false,
+                "field_data": "this is some textoooo3332"
+              }
+            ],
+            [ // Repater Item 2
+              {
+                "field_name": "title in repeater333",
+                "id": "12345678",
+                "repeater_field": false,
+                "field_data": "this is some textoooo3333"
+              },
+              {
+                "field_name": "title in repeater3331",
+                "id": "12345678",
+                "repeater_field": false,
+                "field_data": "this is some textoooo3332"
+              }
+            ]
+          ]
+        }
+      ]
     ]
   }
 ];
@@ -99,6 +124,7 @@ var possible_repeater_data_master = [
         }
       }
 
+      // Put the master data into the repeater master component and then start placing specific values
       $parent_repeater_fields.each(function () {
         var $parent_repeater_field = $(this);
         var base_64_string = $parent_repeater_field.children(repeater_data_store_selector).val();
@@ -118,11 +144,8 @@ var possible_repeater_data_master = [
 
       // Get the markup to copy from looking at first item
       var markup = $repeater_option_container.children(master_markup_item_selector).html();
-      console.log('markup', markup);
 
       var $markup = $('<section class="repeater_item">' + markup + '</section>');
-
-      console.log('$markup', $markup);
 
       // Clean out any repeater ids that are not the first one from the generated markup
       $(repeater_item_selector, $markup).each(function () {
@@ -193,20 +216,34 @@ var possible_repeater_data_master = [
       });
     }
 
-    function update_repeater_data($repeater_data_store, $child_inputs) {
-      var data_for_store = {}; // Object to be populated by first child inputs of repeater
-      $child_inputs.each(function () {
-        var $input = $(this);
-        var data = $input.val();
-        try {
-          data = JSON.parse(data); // If the data can be interpreted as JSON convert it to an object
-        } catch(error) {
-          //  Leave data as string
-        }
-        data_for_store[$input.attr('name')] = data;
-      }).promise().done(function () {
-        $repeater_data_store.val(JSON.stringify(data_for_store));
+    function update_repeater_data($repeater_data_store) {
+      var data_for_store = []; // Object to be populated by first child inputs of repeater
+      var repeater_items = $repeater_data_store.siblings('.repeater_item');
+      repeater_items.each(function () {
+        var repeater_item = [];
+        var $inputs = $(this).children('.repeater_item_input_container').children('.option-container').children('input, textarea');
+        $inputs.each(function () {
+          var $input = $(this);
+          var value = $input.val();
+          var repeater_field = false;
+          if ($input.hasClass('exlog_repeater_data_store')) {
+            repeater_field = true;
+            try {
+              value = JSON.parse(value); // If the data can be interpreted as JSON convert it to an object
+            } catch (error) {
+              console.log("EXLOG: Error storing repeater data for '" + $input.attr('name') + "'", "Value:", value);
+            }
+          }
+          repeater_item.push({
+            "name": $input.attr('name'),
+            "repeater_field": repeater_field,
+            "value": value
+          });
+        });
+        data_for_store.push(repeater_item);
       });
+
+      $repeater_data_store.val(JSON.stringify(data_for_store));
     }
 
     function on_delete_item_click() {
