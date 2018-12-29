@@ -95,32 +95,32 @@ var possible_repeater_data_master = [
         try {
           data_string = JSON.stringify(data);
         } catch(e) {
+          console.log('EXLOG: Failed to parse some data from the database.\nIncorrect data:', data);
           data_string = false;
         }
         $data_store.val(data_string);
 
         // Of that data, put each value in the correct input
         if (data) {
-          data.forEach(function (repeater_item) {
+          data.forEach(function (repeater_item, i) {
+            var $repeater_item;
+            if (i > 0) { // If not the first repeater item - create a new one in the DOM and store the jQuery object
+              $repeater_item = create_new_item($parent_element, i, false);
+            } else { // If the first repeater item, get the one repeater jQuery object
+              $repeater_item = $parent_element.find('> .repeater_item');
+            }
+
             repeater_item.forEach(function (repeater_item_option) {
 
               var input_data = object_to_string_if_object(repeater_item_option['value']);
 
-              var input_selector = '> .repeater_item > .repeater_item_input_container > .option-container > [name="' + repeater_item_option['name'] + '"]';
-
-              // If input markup does not exist, create it
-              if ($parent_element.find(input_selector).length < 1) {
-                // Get the index from the item name
-                var regex_result = repeater_item_option['name'].match(/_:RX_(.*):/);
-                var index = regex_result.slice(-1)[0];
-                create_new_item($parent_element, index, repeater_item_option['name']);
-              }
+              var input_selector = '> .repeater_item_input_container > .option-container > [name="' + repeater_item_option['name'] + '"]';
 
               // Add DB value into the input
-              var $input_element = $parent_element.find(input_selector).val(input_data);
+              var $input_element = $repeater_item.find(input_selector).val(input_data);
 
               //  If the input data is a repeater field, call this function again with the relevant data and $parent element
-              if ($input_element.hasClass("exlog_repeater_data_store")) {
+              if (repeater_item_option['repeater_field']) {
                 place_specific_repeater_values($input_element.closest('.option-container'), repeater_item_option['value']);
               }
             });
@@ -143,7 +143,7 @@ var possible_repeater_data_master = [
 
     }
 
-    function create_new_item($repeater_option_container, item_id, item_name) {
+    function create_new_item($repeater_option_container, item_id) {
       // Get the markup to copy from looking at first item
       var markup = $repeater_option_container.children(master_markup_item_selector).html();
 
@@ -160,16 +160,17 @@ var possible_repeater_data_master = [
       // Store the new id in the attr of the repeater item
       $markup.attr('data-exlog-repeater-id', item_id);
 
-      // Modify name for future items
-      var $markup_inputs = $markup.children('.repeater_item_input_container').children('.option-container').children('input, textarea');
+      var $markup_inputs = $markup.children('.repeater_item_input_container').find('.option-container input:not([type=button])');
+
       $markup_inputs.each(function () {
         var $markup_input = $(this);
-        $markup_input.attr('name', $markup_input.attr('name') + "_:RX_" + item_id + ":");
+        $markup_input.val('');
       });
 
       // Place the new markup on the page
       $repeater_option_container.children('.add_more').before($markup);
       reset_watchers();
+      return $markup;
     }
 
     function reselect_add_buttons() {
@@ -195,12 +196,9 @@ var possible_repeater_data_master = [
         new_id += 1;
       }
 
-      var $first_input = $add_more_container.siblings('input, textarea');
-      var item_name = $first_input.attr('name') + "_:RX_" + new_id + ":";
-
       var $repeater_option_container = $add_more_container.closest('.option-container.repeater');
 
-      create_new_item($repeater_option_container, new_id, item_name);
+      create_new_item($repeater_option_container, new_id, false);
     }
     
     function monitorRepeaterInputs() {
