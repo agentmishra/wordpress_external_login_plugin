@@ -87,7 +87,6 @@ var possible_repeater_data_master = [
       return data
     }
 
-    // option-container > repeater_item > repeater_item_input_container > option-container > input
     function place_data_from_db() {
       function place_specific_repeater_values($parent_element, data) {
       //  Put all data in the name value
@@ -101,26 +100,31 @@ var possible_repeater_data_master = [
         $data_store.val(data_string);
 
         // Of that data, put each value in the correct input
-        for(var option_name in data) {
-          var input_data = object_to_string_if_object(data[option_name]);
+        if (data) {
+          data.forEach(function (repeater_item) {
+            repeater_item.forEach(function (repeater_item_option) {
 
-          var input_selector = '> .repeater_item > .repeater_item_input_container > .option-container > [name="' + option_name + '"]';
+              var input_data = object_to_string_if_object(repeater_item_option['value']);
 
-          // If input markup does not exist, create it
-          if($parent_element.find(input_selector).length < 1) {
-            // Get the index from the item name
-            var regex_result = option_name.match(/_:RX_(.*):/);
-            var index = regex_result.slice(-1)[0];
-            create_new_item($parent_element, index, option_name);
-          }
+              var input_selector = '> .repeater_item > .repeater_item_input_container > .option-container > [name="' + repeater_item_option['name'] + '"]';
 
-          // Add DB value into the input
-          var $input_element = $parent_element.find(input_selector).val(input_data);
+              // If input markup does not exist, create it
+              if ($parent_element.find(input_selector).length < 1) {
+                // Get the index from the item name
+                var regex_result = repeater_item_option['name'].match(/_:RX_(.*):/);
+                var index = regex_result.slice(-1)[0];
+                create_new_item($parent_element, index, repeater_item_option['name']);
+              }
 
-          //  If the input data is a repeater field, call this function again with the relevant data and $parent element
-          if ($input_element.hasClass("exlog_repeater_data_store")) {
-              place_specific_repeater_values($input_element.closest('.option-container'), data[option_name]);
-          }
+              // Add DB value into the input
+              var $input_element = $parent_element.find(input_selector).val(input_data);
+
+              //  If the input data is a repeater field, call this function again with the relevant data and $parent element
+              if ($input_element.hasClass("exlog_repeater_data_store")) {
+                place_specific_repeater_values($input_element.closest('.option-container'), repeater_item_option['value']);
+              }
+            });
+          });
         }
       }
 
@@ -140,8 +144,6 @@ var possible_repeater_data_master = [
     }
 
     function create_new_item($repeater_option_container, item_id, item_name) {
-      console.log($repeater_option_container, item_id, item_name);
-
       // Get the markup to copy from looking at first item
       var markup = $repeater_option_container.children(master_markup_item_selector).html();
 
@@ -159,8 +161,11 @@ var possible_repeater_data_master = [
       $markup.attr('data-exlog-repeater-id', item_id);
 
       // Modify name for future items
-      var $markup_input = $markup.children('.repeater_item_input_container').children('.option-container').children('input, textarea');
-      $markup_input.attr('name', item_name);
+      var $markup_inputs = $markup.children('.repeater_item_input_container').children('.option-container').children('input, textarea');
+      $markup_inputs.each(function () {
+        var $markup_input = $(this);
+        $markup_input.attr('name', $markup_input.attr('name') + "_:RX_" + item_id + ":");
+      });
 
       // Place the new markup on the page
       $repeater_option_container.children('.add_more').before($markup);
