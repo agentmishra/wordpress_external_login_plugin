@@ -34,7 +34,7 @@
   >
     <h4><?php echo $form_field["field_name"]; ?></h4>
     <p><?php echo $form_field["field_description"]; ?></p>
-    <?php if (is_array($exlog_external_roles) && sizeof($exlog_external_roles > 0)) : ?>
+    <?php if (is_array($exlog_external_roles) && sizeof($exlog_external_roles) > 0) : ?>
       <?php foreach ($exlog_external_roles as $exlog_external_role) : ?>
             <?php include EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/role_field.php'; ?>
         <?php endforeach; ?>
