@@ -370,9 +370,9 @@ final class BuiltPluginData {
                 ),
             ),
             array(
-                "section_name" => "Exclude Users",
+                "section_name" => "Exclude Users (BETA)",
                 "section_slug" => "exclude_users",
-                "section_description" => "This will allow you to block users based on the value of an additional field in the database. NOTE: You can also block a user by their role in the Role Settings section.",
+                "section_description" => "This will allow you to block users based on the value of additional fields in the database.",
                 "section_fields" => array(
                     array(
                         "field_name" => "Enable Excluding Users",
@@ -381,82 +381,36 @@ final class BuiltPluginData {
                         "type" => "checkbox",
                     ),
                     array(
-                        "field_name" => "Field name to check",
-                        "field_description" => "This is the field name in the database that stores whether the user should be allowed access or not.",
-                        "field_slug" => "external_login_option_exclude_users_field_name",
-                        "type" => "text",
-                        "conditionals" => array(
-                            "and",
-                            array(
-                                "condition_field" => "external_login_option_enable_exclude_users",
-                                "condition_field_value" => "true",
-                                "condition_operator" => "="
-                            )
-                        )
-                    ),
-                    array(
-                        "field_name" => "Value to reject",
-                        "field_description" => "If the following value is in the above field for this user they will not be able to login.",
-                        "field_slug" => "external_login_option_exclude_users_value",
-                        "type" => "text",
-                        "conditionals" => array(
-                            "and",
-                            array(
-                                "condition_field" => "external_login_option_enable_exclude_users",
-                                "condition_field_value" => "true",
-                                "condition_operator" => "="
-                            )
-                        )
-                    ),
-                    array(
-                        "field_name" => "Repeater Test",
-                        "field_description" => "Repeater Testing!",
-                        "field_slug" => "repeater_test_1",
+                        "field_name" => "Field Names",
+                        "field_description" => "",
+                        "field_slug" => "exlog_exclude_users_field_name_repeater",
                         "type" => "repeater",
+                        "conditionals" => array(
+                            "and",
+                            array(
+                                "condition_field" => "external_login_option_enable_exclude_users",
+                                "condition_field_value" => "true",
+                                "condition_operator" => "="
+                            )
+                        ),
                         "repeater_fields" => array(
                             array(
-                                "field_name" => "TESTOOOO1",
-                                "field_description" => "If the following value is in the above field for this user they will not be able to login.",
-                                "field_slug" => "external_login_option_test_repeater_text_field1",
+                                "field_name" => "Field Name",
+                                "field_description" => "The field name in the database that stores the data that could block users.",
+                                "field_slug" => "exlog_exclude_users_field_name",
                                 "type" => "text"
                             ),
                             array(
-                                "field_name" => "TESTOOOO2",
-                                "field_description" => "If the following value is in the above field for this user they will not be able to login.",
-                                "field_slug" => "external_login_option_test_repeater_text_field2",
-                                "type" => "text"
-                            ),
-                            array(
-                                "field_name" => "Repeater Test222",
-                                "field_description" => "Repeater Testing!222",
-                                "field_slug" => "repeater_test_2",
+                                "field_name" => "Field Values",
+                                "field_description" => "",
+                                "field_slug" => "exlog_exclude_users_field_value_repeater",
                                 "type" => "repeater",
                                 "repeater_fields" => array(
                                     array(
-                                        "field_name" => "TESTOOOO21",
-                                        "field_description" => "If the following value is in the above field for this user they will not be able to login.",
-                                        "field_slug" => "external_login_option_test_repeater_text_field21",
+                                        "field_name" => "",
+                                        "field_description" => "A value in the field above that would prevent a user from logging in.",
+                                        "field_slug" => "exlog_exclude_users_field_value",
                                         "type" => "text"
-                                    ),
-                                    array(
-                                        "field_name" => "TESTOOOO22",
-                                        "field_description" => "If the following value is in the above field for this user they will not be able to login.",
-                                        "field_slug" => "external_login_option_test_repeater_text_field22",
-                                        "type" => "text"
-                                    ),
-                                    array(
-                                        "field_name" => "Repeater 3333",
-                                        "field_description" => "Repeater Testing!222",
-                                        "field_slug" => "repeater_test_3",
-                                        "type" => "repeater",
-                                        "repeater_fields" => array(
-                                            array(
-                                                "field_name" => "THREEEE TEXT",
-                                                "field_description" => "If the following value is in the above field for this user they will not be able to login.",
-                                                "field_slug" => "external_login_option_test_repeater_text_field31",
-                                                "type" => "text"
-                                            ),
-                                        ),
                                     ),
                                 ),
                             ),
