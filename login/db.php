@@ -86,11 +86,17 @@ function exlog_auth_query($username, $password) {
 
     $userData = null;
 
+    $exclude_query_string_component = "";
+    if (exlog_get_option('external_login_option_enable_exclude_users') == "on") {
+        $exclude_query_string_component = exlog_build_exclude_query_string_component($db_data);
+    }
+
     if ($dbType == "postgresql") {
         $query_string =
             'SELECT *' .
             ' FROM "' . esc_sql($db_data["dbstructure_table"]) . '"' .
-            ' WHERE "' . esc_sql($db_data["dbstructure_username"]) . '" ILIKE \'' . esc_sql($username) . '\'';
+            ' WHERE "' . esc_sql($db_data["dbstructure_username"]) . '" ILIKE \'' . esc_sql($username) . '\'' .
+         $exclude_query_string_component;
 
         $rows = pg_query($query_string) or die('Query failed: ' . pg_last_error());
 
@@ -103,7 +109,7 @@ function exlog_auth_query($username, $password) {
             'SELECT *' .
             ' FROM ' . esc_sql($db_data["dbstructure_table"]) .
             ' WHERE ' . esc_sql($db_data["dbstructure_username"]) . '="' . esc_sql($username) . '"' .
-            ' AND NOT ' . esc_sql(exlog_get_option('external_login_option_exclude_users_field_name')) . '="' . esc_sql(exlog_get_option('external_login_option_exclude_users_value')) . '"';
+            $exclude_query_string_component;
 
         $rows = $db_data["db_instance"]->get_results($query_string, ARRAY_A);
 
@@ -183,4 +189,37 @@ function exlog_test_query($limit = false) {
 //If got this far, query failed
     error_log("External Login - No rows returned from test query.");
     return false;
+}
+
+function exlog_build_exclude_query_string_component($db_data) {
+    $dbType = exlog_get_option('external_login_option_db_type');
+    $exclude_users_data = exlog_get_option('exlog_exclude_users_field_name_repeater');
+
+    $exclude_query_string_section = "";
+    if (gettype($exclude_users_data) == 'array') {
+        foreach ($exclude_users_data as $field) {
+            $field_name = $field['exlog_exclude_users_field_name'];
+            if (!exlog_check_if_field_exists($db_data, $field_name)) {
+                continue;
+            }
+
+            $field_values = $field['exlog_exclude_users_field_value_repeater'];
+            foreach ($field_values as $value_object) {
+                $value = $value_object['exlog_exclude_users_field_value'];
+                if ($dbType == "postgresql") {
+                    $string_part = ' AND "' . esc_sql($field_name) . '" NOT ILIKE \'' . esc_sql($value) . '\'';
+                } else {
+                    $string_part = ' AND NOT ' . esc_sql($field_name) . '="' . esc_sql($value) . '"';
+                }
+                $exclude_query_string_section .= $string_part;
+            }
+        }
+    }
+    return $exclude_query_string_section;
+}
+
+function exlog_check_if_field_exists($db_data, $field) {
+    $query_string = "SHOW COLUMNS FROM `" . $db_data["dbstructure_table"] . "` LIKE '" . $field . "';";
+    $result = $db_data["db_instance"]->get_results($query_string, ARRAY_A);
+    return !empty($result);
 }
