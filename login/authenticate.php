@@ -22,7 +22,7 @@ function exlog_auth( $user, $username, $password ){
             'first_name' => $response['first_name'],
             'last_name'  => $response['last_name'],
             'user_pass'  => $password,
-            'role'       => array_pop($roles),
+            'role'       => $roles[0],
             'user_email' => $response['email'],
         );
 
@@ -39,7 +39,7 @@ function exlog_auth( $user, $username, $password ){
             wp_update_user( $userdata );
         }
 
-        // If more than one role, add them
+        // Add roles to user if more than one
         foreach ($roles as $role) {
             $user->add_role($role);
         }

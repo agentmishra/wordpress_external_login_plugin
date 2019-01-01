@@ -355,7 +355,7 @@ final class Exlog_built_plugin_data {
                     ),
                     array(
                         "field_name" => "Delimiter",
-                        "field_description" => "This is the character that breaks up your roles in the field in the database.<br>Here is an example of what your field might look like:<br><i>&nbsp&nbsp&nbsp&nbspadmin, developer, editor</i><br>If this was your data you would simply type a comma below.<br>White space will be stripped after the roles are split.",
+                        "field_description" => "This is the character that breaks up your roles in the field in the database.<br>Here is an example of what your field might look like:<br><i>&nbsp&nbsp&nbsp&nbspadmin, developer, editor</i><br>If this was your data you would simply type a comma below.<br>White space will be stripped after the roles are split.<br>A space is a valid delimiting value but spaces should be written as this string (including the brackets):<br><i>&nbsp&nbsp&nbsp&nbsp{{space}}</i>",
                         "field_slug" => "exlog_multiple_roles_delimiter",
                         "type" => "text",
                         "conditionals" => array(

@@ -1,8 +1,9 @@
 <?php
 
 function exlog_map_role($db_role) {
-    if (exlog_get_option("exlog_multiple_roles_toggle") == "on") {
-        $delimiter = exlog_get_option("exlog_multiple_roles_delimiter");
+    $delimiter = exlog_get_option("exlog_multiple_roles_delimiter");
+    $delimiter = str_replace("{{space}}", " ", $delimiter);
+    if (exlog_get_option("exlog_multiple_roles_toggle") == "on" && $delimiter != "") {
         $roles = array_map('trim', explode($delimiter, $db_role));
     } else {
         $roles = array($db_role);
@@ -19,7 +20,7 @@ function exlog_map_role($db_role) {
         }
     }
 
-    // If we've managed to find some roles that can be mapped - return than
+    // If we've managed to find some roles that can be mapped, return them
     if (count($wp_roles) > 0) {
         return $wp_roles;
     }
