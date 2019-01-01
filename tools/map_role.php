@@ -5,7 +5,7 @@ function exlog_map_role($db_role) {
         $delimiter = exlog_get_option("exlog_multiple_roles_delimiter");
         $roles = array_map('trim', explode($delimiter, $db_role));
     } else {
-        $roles = $db_role;
+        $roles = array($db_role);
     }
 
     $role_map = exlog_get_role_mappings();
