@@ -23,7 +23,7 @@ include EXLOG_PATH_PLUGIN_OPTIONS . '/wpconfig_options.php';
 include EXLOG_PATH_PLUGIN_SANITISATION_VALIDATION . '/validation.php';
 include EXLOG_PATH_PLUGIN_TOOLS . '/get_roles.php';
 include EXLOG_PATH_PLUGIN_TOOLS . '/map_role.php';
-include EXLOG_PATH_PLUGIN_LIB . '/BuiltPluginData.php';
+include EXLOG_PATH_PLUGIN_LIB . '/Exlog_built_plugin_data.php';
 include EXLOG_PATH_PLUGIN_LIB . '/Exlog_view_building.php';
 include EXLOG_PATH_PLUGIN_OPTIONS . '/options_external_login.php';
 include EXLOG_PATH_PLUGIN_OPTIONS . '/cleanup.php';

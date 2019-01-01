@@ -1,6 +1,6 @@
 <?php
 
-final class BuiltPluginData {
+final class Exlog_built_plugin_data {
 
     private $plugin_data;
     private $option_fields_data;
@@ -14,7 +14,7 @@ final class BuiltPluginData {
     {
         static $inst = null;
         if ($inst === null) {
-            $inst = new BuiltPluginData();
+            $inst = new Exlog_built_plugin_data();
         }
         return $inst;
     }
