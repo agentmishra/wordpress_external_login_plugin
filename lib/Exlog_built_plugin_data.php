@@ -347,6 +347,26 @@ final class Exlog_built_plugin_data {
                         "field_slug" => "exlog_dbstructure_role",
                         "type" => "text",
                     ),
+                    array(
+                        "field_name" => "Multiple Roles Per User",
+                        "field_description" => "Tick this box if your role field has more than one role stored within it.",
+                        "field_slug" => "exlog_multiple_roles_toggle",
+                        "type" => "checkbox",
+                    ),
+                    array(
+                        "field_name" => "Delimiter",
+                        "field_description" => "This is the character that breaks up your roles in the field in the database.<br>Here is an example of what your field might look like:<br><i>&nbsp&nbsp&nbsp&nbspadmin, developer, editor</i><br>If this was your data you would simply type a comma below.<br>White space will be stripped after the roles are split.",
+                        "field_slug" => "exlog_multiple_roles_delimiter",
+                        "type" => "text",
+                        "conditionals" => array(
+                            "and",
+                            array(
+                                "condition_field" => "exlog_multiple_roles_toggle",
+                                "condition_field_value" => "true",
+                                "condition_operator" => "="
+                            )
+                        ),
+                    ),
                 )
             ),
             array(
