@@ -133,7 +133,7 @@ function exlog_auth_query($username, $password) {
         return $wp_user_data;
     }
 
-//    If not yet returned a valid user they must be invalid.
+    //    If not yet returned a valid user they must be invalid.
     return array(
         "valid" => false
     );
@@ -160,10 +160,9 @@ function exlog_test_query($limit = false) {
             while ($x = pg_fetch_array($rows, null, PGSQL_ASSOC)) {
                 array_push($users, $x); //Gets the first row
             };
+            pg_close($db_data["db_instance"]);
             return $users;
         }
-
-        pg_close($db_data["db_instance"]);
 
     } else {
         $query_string =
@@ -186,7 +185,7 @@ function exlog_test_query($limit = false) {
     }
 
 
-//If got this far, query failed
+    //If got this far, query failed
     error_log("External Login - No rows returned from test query.");
     return false;
 }
@@ -207,7 +206,7 @@ function exlog_build_exclude_query_string_component($db_data) {
             foreach ($field_values as $value_object) {
                 $value = $value_object['exlog_exclude_users_field_value'];
                 if ($dbType == "postgresql") {
-                    $string_part = ' AND "' . esc_sql($field_name) . '" NOT ILIKE \'' . esc_sql($value) . '\'';
+                    $string_part = ' AND "' . esc_sql($field_name) . '"::text NOT ILIKE \'' . esc_sql($value) . '\'';
                 } else {
                     $string_part = ' AND NOT ' . esc_sql($field_name) . '="' . esc_sql($value) . '"';
                 }
@@ -219,7 +218,15 @@ function exlog_build_exclude_query_string_component($db_data) {
 }
 
 function exlog_check_if_field_exists($db_data, $field) {
-    $query_string = "SHOW COLUMNS FROM `" . $db_data["dbstructure_table"] . "` LIKE '" . $field . "';";
-    $result = $db_data["db_instance"]->get_results($query_string, ARRAY_A);
-    return !empty($result);
+    $dbType = exlog_get_option('external_login_option_db_type');
+    if ($dbType == "mysql") {
+        $query_string = "SHOW COLUMNS FROM `" . esc_sql($db_data["dbstructure_table"]) . "` LIKE '" . $field . "';";
+        $result = $db_data["db_instance"]->get_results($query_string, ARRAY_A);
+        return !empty($result);
+    } else {
+        $query_string = "SELECT column_name FROM information_schema.columns WHERE table_name='" . $db_data["dbstructure_table"] ."' and column_name='" . $field . "';";
+        $query_results = pg_query($query_string) or die('Query failed: ' . pg_last_error());
+        $result = pg_fetch_array($query_results, null, PGSQL_ASSOC);
+        return is_array($result);
+    }
 }
