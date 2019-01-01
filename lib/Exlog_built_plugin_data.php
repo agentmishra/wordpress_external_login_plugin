@@ -402,13 +402,13 @@ final class Exlog_built_plugin_data {
                             ),
                             array(
                                 "field_name" => "Field Values",
-                                "field_description" => "",
+                                "field_description" => "A value in the field above that would prevent a user from logging in.",
                                 "field_slug" => "exlog_exclude_users_field_value_repeater",
                                 "type" => "repeater",
                                 "repeater_fields" => array(
                                     array(
                                         "field_name" => "",
-                                        "field_description" => "A value in the field above that would prevent a user from logging in.",
+                                        "field_description" => "",
                                         "field_slug" => "exlog_exclude_users_field_value",
                                         "type" => "text"
                                     ),

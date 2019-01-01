@@ -1,5 +1,10 @@
 .exlog_options_page {
   $options_section_container_padding: 10px;
+  $border-thickness: 2px;
+  $border-radius: 10px;
+  $border-color: $color_accent;
+  $border: $border-thickness solid $border-color;
+
 
   * {
     box-sizing: border-box;
@@ -92,7 +97,8 @@
       width: 100%;
       padding: 10px 30px;
       background-color: $color_primary;
-      border-radius: 15px;
+      border-radius: $border-radius;
+      border: $border;
 
       &.vert_middle {
         display: flex;
@@ -138,16 +144,21 @@
 
       .option-container {
         $spacing: 15px;
+        &:not(:last-of-type) {
+          margin-bottom: $spacing * 2;
+        }
+
         .option-title {
           margin: 0 0 $spacing 0;
         }
 
         &.repeater {
-          border: 2px solid $color_accent;
-          padding: 15px;
+          border: $border;
+          border-radius: $border-radius;
+          padding: $spacing;
 
           section {
-            border-top: 5px solid $color_accent;
+            border-top: $border;
 
             &:first-of-type:first-of-type {
               > .delete_repeater_item {
@@ -156,7 +167,7 @@
             }
 
             &:last-of-type {
-              border-bottom: 5px solid $color_accent;
+              border-bottom: $border;
             }
 
             &.repeater_item {
@@ -165,6 +176,7 @@
               align-items: center;
 
               .repeater_item_input_container {
+                flex-grow: 1;
                 .repeater_markup_store {
                   background-color: #bafff5;
                 }
@@ -177,8 +189,8 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                margin: 0;
                 align-self: flex-start;
+                margin: 0 0 0 $spacing;
               }
             }
           }

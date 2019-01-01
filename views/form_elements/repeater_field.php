@@ -8,8 +8,14 @@ $exlog_slug = $form_field["field_slug"];
   data-exlog-conditionals="<?php echo htmlspecialchars(json_encode($form_field["conditionals"])); ?>"
   data-exlog-field-slug="<?php echo $exlog_slug; ?>"
   xmlns="http://www.w3.org/1999/html">
-  <h4><?php echo $form_field["field_name"]; ?></h4>
-  <p><?php echo $form_field["field_description"]; ?></p>
+
+  <?php if($form_field["field_name"]) : ?>
+    <h4 class="option-title"><?php echo $form_field["field_name"]; ?></h4>
+  <?php endif; ?>
+
+  <?php if($form_field["field_description"]) : ?>
+    <p class="option-description"><?php echo $form_field["field_description"]; ?></p>
+  <?php endif; ?>
 
   <?php if (!(exlog_is_wpconfig_option_set($form_field["field_slug"]))) : ?>
     <input
