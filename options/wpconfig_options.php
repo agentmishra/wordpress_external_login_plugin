@@ -23,19 +23,23 @@ function exlog_is_wpconfig_option_set($option_name) {
 function exlog_modify_repeater_data_for_view_use($repeater_data) {
     function exlog_modify_repeater_item_data_for_view_use($repeater_data) {
         $formatted_data = array();
-        foreach ($repeater_data as $repeater_item_data) {
-            $formatted_repeater_items_data = array();
-            foreach ($repeater_item_data as $repeater_item_datum) {
-                if ($repeater_item_datum['repeater_field']) {
-                    $value = exlog_modify_repeater_item_data_for_view_use($repeater_item_datum['value']);
-                } else {
-                    $value = $repeater_item_datum['value'];
+        if (is_array($repeater_data)) {
+            foreach ($repeater_data as $repeater_item_data) {
+                $formatted_repeater_items_data = array();
+                foreach ($repeater_item_data as $repeater_item_datum) {
+                    if ($repeater_item_datum['repeater_field']) {
+                        $value = exlog_modify_repeater_item_data_for_view_use($repeater_item_datum['value']);
+                    } else {
+                        $value = $repeater_item_datum['value'];
+                    }
+                    $formatted_repeater_items_data[$repeater_item_datum['name']] = $value;
                 }
-                $formatted_repeater_items_data[$repeater_item_datum['name']] = $value;
+                array_push($formatted_data, $formatted_repeater_items_data);
             }
-            array_push($formatted_data, $formatted_repeater_items_data);
+            return $formatted_data;
+        } else {
+            return $repeater_data;
         }
-        return $formatted_data;
     }
 
     return exlog_modify_repeater_item_data_for_view_use($repeater_data);
