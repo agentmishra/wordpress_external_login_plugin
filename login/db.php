@@ -86,11 +86,17 @@ function exlog_auth_query($username, $password) {
 
     $userData = null;
 
+    $exclude_query_string_component = "";
+    if (exlog_get_option('external_login_option_enable_exclude_users') == "on") {
+        $exclude_query_string_component = exlog_build_exclude_query_string_component($db_data);
+    }
+
     if ($dbType == "postgresql") {
         $query_string =
             'SELECT *' .
             ' FROM "' . esc_sql($db_data["dbstructure_table"]) . '"' .
-            ' WHERE "' . esc_sql($db_data["dbstructure_username"]) . '" ILIKE \'' . esc_sql($username) . '\'';
+            ' WHERE "' . esc_sql($db_data["dbstructure_username"]) . '" ILIKE \'' . esc_sql($username) . '\'' .
+         $exclude_query_string_component;
 
         $rows = pg_query($query_string) or die('Query failed: ' . pg_last_error());
 
@@ -102,7 +108,8 @@ function exlog_auth_query($username, $password) {
         $query_string =
             'SELECT *' .
             ' FROM ' . esc_sql($db_data["dbstructure_table"]) .
-            ' WHERE ' . esc_sql($db_data["dbstructure_username"]) . '="' . esc_sql($username) . '"';
+            ' WHERE ' . esc_sql($db_data["dbstructure_username"]) . '="' . esc_sql($username) . '"' .
+            $exclude_query_string_component;
 
         $rows = $db_data["db_instance"]->get_results($query_string, ARRAY_A);
 
@@ -126,7 +133,7 @@ function exlog_auth_query($username, $password) {
         return $wp_user_data;
     }
 
-//    If not yet returned a valid user they must be invalid.
+    //    If not yet returned a valid user they must be invalid.
     return array(
         "valid" => false
     );
@@ -153,10 +160,9 @@ function exlog_test_query($limit = false) {
             while ($x = pg_fetch_array($rows, null, PGSQL_ASSOC)) {
                 array_push($users, $x); //Gets the first row
             };
+            pg_close($db_data["db_instance"]);
             return $users;
         }
-
-        pg_close($db_data["db_instance"]);
 
     } else {
         $query_string =
@@ -179,7 +185,48 @@ function exlog_test_query($limit = false) {
     }
 
 
-//If got this far, query failed
+    //If got this far, query failed
     error_log("External Login - No rows returned from test query.");
     return false;
+}
+
+function exlog_build_exclude_query_string_component($db_data) {
+    $dbType = exlog_get_option('external_login_option_db_type');
+    $exclude_users_data = exlog_get_option('exlog_exclude_users_field_name_repeater');
+
+    $exclude_query_string_section = "";
+    if (gettype($exclude_users_data) == 'array') {
+        foreach ($exclude_users_data as $field) {
+            $field_name = $field['exlog_exclude_users_field_name'];
+            if (!exlog_check_if_field_exists($db_data, $field_name)) {
+                continue;
+            }
+
+            $field_values = $field['exlog_exclude_users_field_value_repeater'];
+            foreach ($field_values as $value_object) {
+                $value = $value_object['exlog_exclude_users_field_value'];
+                if ($dbType == "postgresql") {
+                    $string_part = ' AND "' . esc_sql($field_name) . '"::text NOT ILIKE \'' . esc_sql($value) . '\'';
+                } else {
+                    $string_part = ' AND NOT ' . esc_sql($field_name) . '="' . esc_sql($value) . '"';
+                }
+                $exclude_query_string_section .= $string_part;
+            }
+        }
+    }
+    return $exclude_query_string_section;
+}
+
+function exlog_check_if_field_exists($db_data, $field) {
+    $dbType = exlog_get_option('external_login_option_db_type');
+    if ($dbType == "mysql") {
+        $query_string = "SHOW COLUMNS FROM `" . esc_sql($db_data["dbstructure_table"]) . "` LIKE '" . $field . "';";
+        $result = $db_data["db_instance"]->get_results($query_string, ARRAY_A);
+        return !empty($result);
+    } else {
+        $query_string = "SELECT column_name FROM information_schema.columns WHERE table_name='" . $db_data["dbstructure_table"] ."' and column_name='" . $field . "';";
+        $query_results = pg_query($query_string) or die('Query failed: ' . pg_last_error());
+        $result = pg_fetch_array($query_results, null, PGSQL_ASSOC);
+        return is_array($result);
+    }
 }

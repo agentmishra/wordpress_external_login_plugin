@@ -1,5 +1,10 @@
 .exlog_options_page {
   $options_section_container_padding: 10px;
+  $border-thickness: 2px;
+  $border-radius: 10px;
+  $border-color: $color_accent;
+  $border: $border-thickness solid $border-color;
+
 
   * {
     box-sizing: border-box;
@@ -92,7 +97,8 @@
       width: 100%;
       padding: 10px 30px;
       background-color: $color_primary;
-      border-radius: 15px;
+      border-radius: $border-radius;
+      border: $border;
 
       &.vert_middle {
         display: flex;
@@ -117,7 +123,7 @@
           .add_button {
             font-size: 30px;
             margin-left: 20px;
-            padding: 0 11px 3px  11px;
+            padding: 0 11px 3px 11px;
             line-height: normal;
             vertical-align: middle;
             height: auto;
@@ -135,6 +141,67 @@
           }
         }
       }
+
+      .option-container {
+        $spacing: 15px;
+        &:not(:last-of-type) {
+          margin-bottom: $spacing * 2;
+        }
+
+        .option-title {
+          margin: 0 0 $spacing 0;
+        }
+
+        &.repeater {
+          border: $border;
+          border-radius: $border-radius;
+          padding: $spacing;
+
+          section {
+            border-top: $border;
+
+            &:first-of-type:first-of-type {
+              > .delete_repeater_item {
+                display: none;
+              }
+            }
+
+            &:last-of-type {
+              border-bottom: $border;
+            }
+
+            &.repeater_item {
+              padding: $spacing 0;
+              display: flex;
+              align-items: center;
+
+              .repeater_item_input_container {
+                flex-grow: 1;
+                .repeater_markup_store {
+                  background-color: #bafff5;
+                }
+              }
+
+              .delete_repeater_item {
+                width: 30px;
+                height: 30px;
+                min-width: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                align-self: flex-start;
+                margin: 0 0 0 $spacing;
+              }
+            }
+          }
+        }
+      }
     }
+  }
+}
+
+body.settings_page_external-login {
+  #wpfooter {
+    position: relative;
   }
 }

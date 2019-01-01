@@ -7,7 +7,7 @@ function exlog_auth( $user, $username, $password ){
 
     if( !($response['valid']) ) {
         // User does not exist,  send back an error message
-        $user = new WP_Error( 'denied', __("ERROR: User/pass bad") );
+        $user = new WP_Error( 'denied', __("Invalid Username or Password") );
 
     } else if( $response['valid'] ) {
         // External user exists, try to load the user info from the WordPress user table

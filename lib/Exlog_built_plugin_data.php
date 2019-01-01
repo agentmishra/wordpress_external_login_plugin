@@ -1,6 +1,6 @@
 <?php
 
-final class BuiltPluginData {
+final class Exlog_built_plugin_data {
 
     private $plugin_data;
     private $option_fields_data;
@@ -14,7 +14,7 @@ final class BuiltPluginData {
     {
         static $inst = null;
         if ($inst === null) {
-            $inst = new BuiltPluginData();
+            $inst = new Exlog_built_plugin_data();
         }
         return $inst;
     }
@@ -366,6 +366,55 @@ final class BuiltPluginData {
                         "type" => "roles",
                         "field_description" => "These are mappings from role types in your external Database to role types in Wordpress.",
                         "field_slug" => "exlog_roles_custom_fields",
+                    ),
+                ),
+            ),
+            array(
+                "section_name" => "Exclude Users (BETA)",
+                "section_slug" => "exclude_users",
+                "section_description" => "This will allow you to block users based on the value of additional fields in the database.",
+                "section_fields" => array(
+                    array(
+                        "field_name" => "Enable Excluding Users",
+                        "field_description" => "Tick this box if you want to enable the excluding users functionality.",
+                        "field_slug" => "external_login_option_enable_exclude_users",
+                        "type" => "checkbox",
+                    ),
+                    array(
+                        "field_name" => "Field Names",
+                        "field_description" => "",
+                        "field_slug" => "exlog_exclude_users_field_name_repeater",
+                        "type" => "repeater",
+                        "conditionals" => array(
+                            "and",
+                            array(
+                                "condition_field" => "external_login_option_enable_exclude_users",
+                                "condition_field_value" => "true",
+                                "condition_operator" => "="
+                            )
+                        ),
+                        "repeater_fields" => array(
+                            array(
+                                "field_name" => "Field Name",
+                                "field_description" => "The field name in the database that stores the data that could block users.",
+                                "field_slug" => "exlog_exclude_users_field_name",
+                                "type" => "text"
+                            ),
+                            array(
+                                "field_name" => "Field Values",
+                                "field_description" => "A value in the field above that would prevent a user from logging in.",
+                                "field_slug" => "exlog_exclude_users_field_value_repeater",
+                                "type" => "repeater",
+                                "repeater_fields" => array(
+                                    array(
+                                        "field_name" => "",
+                                        "field_description" => "",
+                                        "field_slug" => "exlog_exclude_users_field_value",
+                                        "type" => "text"
+                                    ),
+                                ),
+                            ),
+                        ),
                     ),
                 ),
             ),

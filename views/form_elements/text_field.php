@@ -2,8 +2,13 @@
   class="option-container"
   data-exlog-conditionals="<?php echo htmlspecialchars(json_encode($form_field["conditionals"])); ?>"
 >
-  <h4><?php echo $form_field["field_name"]; ?></h4>
-  <p><?php echo $form_field["field_description"]; ?></p>
+    <?php if($form_field["field_name"]) : ?>
+      <h4 class="option-title"><?php echo $form_field["field_name"]; ?></h4>
+    <?php endif; ?>
+
+    <?php if($form_field["field_description"]) : ?>
+      <p><?php echo $form_field["field_description"]; ?></p>
+    <?php endif; ?>
 
   <?php if (!(exlog_is_wpconfig_option_set($form_field["field_slug"]))) : ?>
     <input

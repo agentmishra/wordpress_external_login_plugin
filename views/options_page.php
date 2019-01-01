@@ -7,7 +7,7 @@
     <div class="options_section_container">
       <div class="options_section vert_middle">
         <img src="<?php echo EXLOG_PATH_ASSETS . '/logoClear.svg' ?>">
-        <h2><?php echo BuiltPluginData::Instance()->get_plugin_data()['name'] ?> Options</h2>
+        <h2><?php echo Exlog_built_plugin_data::Instance()->get_plugin_data()['name'] ?> Options</h2>
       </div>
     </div>
     <div class="options_section_container">
@@ -28,32 +28,18 @@
 
     <form class="options_section_outer_container" method="post" action="options.php">
         <?php
-          settings_fields( BuiltPluginData::Instance()->get_plugin_data()['slug'] . '-option-group' );
-          do_settings_fields( BuiltPluginData::Instance()->get_plugin_data()['slug'] . '-option-group', '' );
+          settings_fields( Exlog_built_plugin_data::Instance()->get_plugin_data()['slug'] . '-option-group' );
+          do_settings_fields( Exlog_built_plugin_data::Instance()->get_plugin_data()['slug'] . '-option-group', '' );
         ?>
 
-        <?php foreach (BuiltPluginData::Instance()->get_option_fields() as $form_section) : ?>
+        <?php foreach (Exlog_built_plugin_data::Instance()->get_option_fields() as $form_section) : ?>
             <div class="options_section_container">
               <div class="options_section <?php echo $form_section['section_slug']; ?>">
                 <h3><?php echo $form_section['section_name'] ?></h3>
                 <p><?php echo $form_section['section_description'] ?></p>
                 <hr>
 
-                <?php foreach ($form_section['section_fields'] as $form_field) : ?>
-                    <?php
-                        if ($form_field["type"] == "text") :
-                            include EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/text_field.php';
-                        elseif ($form_field["type"] == "select") :
-                            include EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/select_field.php';
-                        elseif ($form_field["type"] == "checkbox") :
-                            include EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/checkbox_field.php';
-                        elseif ($form_field["type"] == "roles") :
-                            include EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/roles_fields_builder.php';
-                        elseif ($form_field["type"] == "button") :
-                            include EXLOG_PATH_PLUGIN_VIEWS . '/form_elements/button.php';
-                        endif;
-                    ?>
-                <?php endforeach; ?>
+                <?php Exlog_view_building::render_field_views($form_section['section_fields']); ?>
 
                 <?php submit_button(); ?>
               </div>
