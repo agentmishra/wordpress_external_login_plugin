@@ -114,6 +114,9 @@
               margin: 0;
               align-self: flex-start; }
 
+body.settings_page_external-login #wpfooter {
+  position: relative; }
+
 .exlog_modal {
   display: none;
   z-index: 999998;
