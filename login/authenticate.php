@@ -15,18 +15,18 @@ function exlog_auth( $user, $username, $password ){
         $user = $userobj->get_data_by( 'login', $response['username'] ); // Does not return a WP_User object 🙁
         $user = new WP_User($user->ID); // Attempt to load up the user with that ID
 
-        $role = exlog_map_role($response['role']);
+        $roles = exlog_map_role($response['role']);
 
         $userdata = array(
             'user_login' => $response['username'],
             'first_name' => $response['first_name'],
             'last_name'  => $response['last_name'],
             'user_pass'  => $password,
-            'role'       => $role,
+            'role'       => array_pop($roles),
             'user_email' => $response['email'],
         );
 
-//        If user does not exist
+        // If user does not exist
         if( $user->ID == 0 ) {
             // Setup the minimum required user information
 
@@ -38,6 +38,12 @@ function exlog_auth( $user, $username, $password ){
             $userdata['ID'] = $user->ID;
             wp_update_user( $userdata );
         }
+
+        // If more than one role, add them
+        foreach ($roles as $role) {
+            $user->add_role($role);
+        }
+
     }
 
     // Whether to disable login fallback with the local Wordpress version of the username and password
