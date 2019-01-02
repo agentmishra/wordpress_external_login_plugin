@@ -4,7 +4,7 @@ Donate link: https://www.paypal.me/tombenyon
 Tags: external login, external, database, login, users, db, WordPress, different, username, password, hashing, md, md2, md4, md5, bcrypt, sha, sha1, sha256, sha384, sha512
 Requires at least: 4.6
 Tested up to: 4.9
-Stable tag: 1.4.1
+Stable tag: 1.5.0
 Requires PHP: 5.6.34
 License: MIT
 
@@ -38,9 +38,10 @@ The plugin will re-create users in the WordPress database which has has two bene
 * Support for separate password salts for each password
 * Support for one salt for all passwords
 * Support for salts being prepended or appended to the password
-* Ability to fall back to the generated WordPress user for login if the 'external database' is unavailable.
 * Test the connection in the settings menu to make sure your data is being pulled correctly
+* Exclude certain users from accessing the WordPress admin area based on any field in the Users table on the External Database
 * Option to delete plugin data on plugin deactivation
+* Ability to fall back to the generated WordPress user for login if the 'external database' is unavailable.
 
 
 == Installation ==
@@ -58,9 +59,9 @@ The plugin will re-create users in the WordPress database which has has two bene
 = How does the plugin log someone in? =
 
 To give an idea of whether this plugin does the job you need it to, here is the basic logic flow:
-1. User logs in to the normal WordPress login screen.
+1. User logs in using the normal WordPress login screen.
 2. We hash the users password with the method and salt (if given) that is chosen in the settings
-3. We so a simple SQL query to the external database to see if their username and the hashed password match a user.
+3. We do a simple SQL query to the external database to see if their username and the hashed password match a user.
 4. We create or update the details of the new user.
 5. We log that user in
 6. When the user logs out of Wordpress the Wordpress session ends
@@ -369,6 +370,11 @@ Get in contact. I'll normally add simple functionality for free and pretty quick
 
 == Changelog ==
 
+= 1.5.0 =
+* Add feature to exclude users based on another field in the database
+* Add feature to get multiple roles from the external database roles field (Requires additional plugin for admin manipulation)
+* Improve cosmetic bugs in admin area
+
 = 1.4.1 =
 * Fix Test button on WP installs in sub directories
 * Improve error descriptions to the end user
@@ -414,6 +420,11 @@ Get in contact. I'll normally add simple functionality for free and pretty quick
 
 
 == Upgrade Notice ==
+
+= 1.5.0 =
+* Add feature to exclude users based on another field in the database
+* Add feature to get multiple roles from the external database roles field (Requires additional plugin for admin manipulation)
+* Improve cosmetic bugs in admin area
 
 = 1.4.1 =
 * Fix Test button on WP installs in sub directories
