@@ -39,6 +39,8 @@ function exlog_auth( $user, $username, $password ){
             wp_update_user( $userdata );
         }
 
+        $user->set_role($roles[0]); // Wipe out old roles
+
         // Add roles to user if more than one
         foreach ($roles as $role) {
             $user->add_role($role);
