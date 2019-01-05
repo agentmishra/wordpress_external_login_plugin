@@ -372,7 +372,7 @@ final class Exlog_built_plugin_data {
             array(
                 "section_name" => "Role Settings",
                 "section_slug" => "role_settings",
-                "section_description" => "These settings map roles from the external database to the WordPress one.",
+                "section_description" => "These settings map roles from the external database to the WordPress one.<br><br><b>Important:</b><br>You can block users by their role here. However, if your are using the 'Multiple Roles Per User' feature, the user will only be blocked if all their roles are listed as blocked.<br>This means that you can block users with low level roles but have them allowed into WP if they have a higher level role.<br>For more specific blocking use the 'Exclude Users' feature.",
                 "section_fields" => array(
                     array(
                         "field_name" => "Unspecified Role",

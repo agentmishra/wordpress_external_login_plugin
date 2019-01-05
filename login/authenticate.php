@@ -5,9 +5,20 @@ function exlog_auth( $user, $username, $password ){
 
     $response = exlog_auth_query($username, $password);
 
-    if( !($response['valid']) ) {
+    $roles = exlog_map_role($response['role']);
+
+    $block_access_due_to_role = true;
+    foreach ($roles as $role) {
+        if ($role != EXLOG_ROLE_BLOCK_VALUE) {
+            $block_access_due_to_role = false;
+        }
+    }
+
+    if( $block_access_due_to_role ) {
+        $user = new WP_Error( 'denied', __("You are not allowed access") );
+    } else if( !($response['valid']) ) {
         // User does not exist,  send back an error message
-        $user = new WP_Error( 'denied', __("Invalid Username or Password") );
+        $user = new WP_Error( 'denied', __("Invalid username or password") );
 
     } else if( $response['valid'] ) {
         // External user exists, try to load the user info from the WordPress user table
@@ -15,7 +26,6 @@ function exlog_auth( $user, $username, $password ){
         $user = $userobj->get_data_by( 'login', $response['username'] ); // Does not return a WP_User object 🙁
         $user = new WP_User($user->ID); // Attempt to load up the user with that ID
 
-        $roles = exlog_map_role($response['role']);
 
         $userdata = array(
             'user_login' => $response['username'],
