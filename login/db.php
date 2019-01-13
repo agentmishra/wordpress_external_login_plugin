@@ -32,7 +32,7 @@ function exlog_get_external_db_instance_and_fields($dbType) {
             $postgresConnectionString .= " dbname=" . $dbname;
         }
 
-        $db_instance = pg_connect($postgresConnectionString) or die('Cannot connect to external database.'); //IMPROVE THIS HANDLING!!!!!!!!!!
+        $db_instance = pg_connect($postgresConnectionString) or error_log("EXLOG: Cannot connect to the external database."); //IMPROVE THIS HANDLING!!!!!!!!!!
     } else {
         $mySqlHost = $host;
 
@@ -98,7 +98,7 @@ function exlog_auth_query($username, $password) {
             ' WHERE "' . esc_sql($db_data["dbstructure_username"]) . '" ILIKE \'' . esc_sql($username) . '\'' .
          $exclude_query_string_component;
 
-        $rows = pg_query($query_string) or die('Query failed: ' . pg_last_error());
+        $rows = pg_query($query_string) or error_log("EXLOG: External DB query failed.");
 
         $userData = pg_fetch_array($rows, null, PGSQL_ASSOC); //Gets the first row
 
@@ -118,25 +118,26 @@ function exlog_auth_query($username, $password) {
         }
     }
 
+    if ($userData) {
+        $user_specific_salt = false;
 
-    $user_specific_salt = false;
+        if (exlog_get_option('external_login_option_db_salting_method') == 'all') {
+            $user_specific_salt =  $userData[$db_data["dbstructure_salt"]];
+        }
 
-    if (exlog_get_option('external_login_option_db_salting_method') == 'all') {
-        $user_specific_salt =  $userData[$db_data["dbstructure_salt"]];
+        $valid_credentials = exlog_validate_password($password, $userData[$db_data["dbstructure_password"]], $user_specific_salt);
+
+        if ($valid_credentials) {
+            $wp_user_data = exlog_build_wp_user_data($db_data, $userData);
+            $wp_user_data["exlog_authenticated"] = true;
+            return $wp_user_data;
+        } else {
+            $user_data["exlog_authenticated"] = false;
+            return $userData;
+        }
+    } else {
+        return false;
     }
-
-    $valid_credentials = exlog_validate_password($password, $userData[$db_data["dbstructure_password"]], $user_specific_salt);
-
-    if ($valid_credentials) {
-        $wp_user_data = exlog_build_wp_user_data($db_data, $userData);
-        $wp_user_data["valid"] = true;
-        return $wp_user_data;
-    }
-
-    //    If not yet returned a valid user they must be invalid.
-    return array(
-        "valid" => false
-    );
 }
 
 function exlog_test_query($limit = false) {
@@ -225,7 +226,7 @@ function exlog_check_if_field_exists($db_data, $field) {
         return !empty($result);
     } else {
         $query_string = "SELECT column_name FROM information_schema.columns WHERE table_name='" . $db_data["dbstructure_table"] ."' and column_name='" . $field . "';";
-        $query_results = pg_query($query_string) or die('Query failed: ' . pg_last_error());
+        $query_results = pg_query($query_string) or error_log("EXLOG: External DB query failed when checking if Field Exists");
         $result = pg_fetch_array($query_results, null, PGSQL_ASSOC);
         return is_array($result);
     }

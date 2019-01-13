@@ -14,52 +14,62 @@ function exlog_auth( $user, $username, $password ){
         }
     }
 
-    if( $block_access_due_to_role ) {
-        $user = new WP_Error( 'denied', __("You are not allowed access") );
-    } else if( !($response['valid']) ) {
-        // User does not exist,  send back an error message
-        $user = new WP_Error( 'denied', __("Invalid username or password") );
+    // If a user was found
+    if ($response) {
 
-    } else if( $response['valid'] ) {
-        // External user exists, try to load the user info from the WordPress user table
-        $userobj = new WP_User();
-        $user = $userobj->get_data_by( 'login', $response['username'] ); // Does not return a WP_User object 🙁
-        $user = new WP_User($user->ID); // Attempt to load up the user with that ID
+        // If role is blocking user access
+        if( $block_access_due_to_role ) {
+            $user = new WP_Error( 'denied', __("You are not allowed access") );
 
+        // If user was NOT authenticated
+        } else if( !($response["exlog_authenticated"]) ) {
+            // User does not exist, send back an error message
+            $user = new WP_Error( 'denied', __("Invalid username or password") );
 
-        $userdata = array(
-            'user_login' => $response['username'],
-            'first_name' => $response['first_name'],
-            'last_name'  => $response['last_name'],
-            'user_pass'  => $password,
-            'role'       => $roles[0],
-            'user_email' => $response['email'],
-        );
+        // If user was authenticated
+        } else if( $response["exlog_authenticated"] ) {
+            // External user exists, try to load the user info from the WordPress user table
+            $userobj = new WP_User();
+            $user = $userobj->get_data_by( 'login', $response['username'] ); // Does not return a WP_User object 🙁
+            $user = new WP_User($user->ID); // Attempt to load up the user with that ID
 
-        // If user does not exist
-        if( $user->ID == 0 ) {
-            // Setup the minimum required user information
+            $userdata = array(
+                'user_login' => $response['username'],
+                'first_name' => $response['first_name'],
+                'last_name'  => $response['last_name'],
+                'user_pass'  => $password,
+                'role'       => $roles[0],
+                'user_email' => $response['email'],
+            );
 
-            $new_user_id = wp_insert_user( $userdata ); // A new user has been created
+            // If user does not exist
+            if( $user->ID == 0 ) {
+                // Setup the minimum required user information
 
-            // Load the new user info
-            $user = new WP_User ($new_user_id);
-        } else {
-            $userdata['ID'] = $user->ID;
-            wp_update_user( $userdata );
+                $new_user_id = wp_insert_user( $userdata ); // A new user has been created
+
+                // Load the new user info
+                $user = new WP_User ($new_user_id);
+            } else {
+                $userdata['ID'] = $user->ID;
+                wp_update_user( $userdata );
+            }
+
+            $user->set_role($roles[0]); // Wipe out old roles
+
+            // Add roles to user if more than one
+            foreach ($roles as $role) {
+                $user->add_role($role);
+            }
         }
-
-        $user->set_role($roles[0]); // Wipe out old roles
-
-        // Add roles to user if more than one
-        foreach ($roles as $role) {
-            $user->add_role($role);
-        }
-
     }
 
     // Whether to disable login fallback with the local Wordpress version of the username and password
-    if (exlog_get_option('external_login_option_disable_local_login') == "on") {
+    // Prevents local login if:
+    // - Disable local login  is set in the admin area
+    // - OR
+    // - The user was found but the password was rejected
+    if (exlog_get_option('external_login_option_disable_local_login') == "on" || is_wp_error($user)) {
         remove_action('authenticate', 'wp_authenticate_username_password', 20);
     }
 
