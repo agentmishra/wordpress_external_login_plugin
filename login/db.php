@@ -32,7 +32,7 @@ function exlog_get_external_db_instance_and_fields($dbType) {
             $postgresConnectionString .= " dbname=" . $dbname;
         }
 
-        $db_instance = pg_connect($postgresConnectionString) or error_log("EXLOG: Cannot connect to the external database."); //IMPROVE THIS HANDLING!!!!!!!!!!
+        $db_instance = pg_connect($postgresConnectionString) or error_log("EXLOG: Cannot connect to the external database.");
     } else {
         $mySqlHost = $host;
 

@@ -134,7 +134,7 @@ var possible_repeater_data_master = [
         var base_64_string = $parent_repeater_field.children(repeater_data_store_selector).val();
         var parent_repeater_data;
         try {
-          parent_repeater_data = JSON.parse(atob(base_64_string));
+          parent_repeater_data = JSON.parse(atob(atob(base_64_string))); // Once for storing from server, once for data store
         } catch (e) {
           parent_repeater_data = false;
         }
@@ -232,7 +232,7 @@ var possible_repeater_data_master = [
           if ($input.hasClass('exlog_repeater_data_store')) {
             repeater_field = true;
             try {
-              value = JSON.parse(value); // If the data can be interpreted as JSON convert it to an object
+              value = JSON.parse(atob(value)); // If the data can be interpreted as JSON convert it to an object
             } catch (error) {
               console.log("EXLOG: Error storing repeater data for '" + $input.attr('name') + "'", "Value:", value);
             }
@@ -246,7 +246,7 @@ var possible_repeater_data_master = [
         data_for_store.push(repeater_item);
       });
 
-      $repeater_data_store.val(JSON.stringify(data_for_store));
+      $repeater_data_store.val(btoa(JSON.stringify(data_for_store)));
     }
 
     function on_delete_item_click() {
