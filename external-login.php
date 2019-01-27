@@ -13,6 +13,7 @@ define( 'EXLOG_PLUGIN_FILE_PATH', __FILE__);
 define( 'EXLOG_PATH_PLUGIN_BASE', __DIR__);
 define( 'EXLOG_PATH_PLUGIN_VIEWS', EXLOG_PATH_PLUGIN_BASE . '/views');
 define( 'EXLOG_PATH_PLUGIN_LOGIN', EXLOG_PATH_PLUGIN_BASE . '/login');
+define( 'EXLOG_PATH_PLUGIN_REGISTRATION', EXLOG_PATH_PLUGIN_BASE . '/registration');
 define( 'EXLOG_PATH_PLUGIN_OPTIONS', EXLOG_PATH_PLUGIN_BASE . '/options');
 define( 'EXLOG_PATH_PLUGIN_TOOLS', EXLOG_PATH_PLUGIN_BASE . '/tools');
 define( 'EXLOG_PATH_PLUGIN_LIB', EXLOG_PATH_PLUGIN_BASE . '/lib');
@@ -34,3 +35,6 @@ include EXLOG_PATH_PLUGIN_OPTIONS . '/add_plugin_options_links.php';
 include EXLOG_PATH_PLUGIN_LOGIN . '/validate_password.php';
 include EXLOG_PATH_PLUGIN_LOGIN . '/db.php';
 include EXLOG_PATH_PLUGIN_LOGIN . '/authenticate.php';
+include EXLOG_PATH_PLUGIN_REGISTRATION . '/Exlog_user_registration.php';
+
+add_action('init', "Exlog_user_registration::setup_user_registration");

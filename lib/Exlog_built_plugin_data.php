@@ -444,9 +444,9 @@ final class Exlog_built_plugin_data {
                 "section_description" => "This section allows handling of new users being created in WordPress and also being added to the external system.",
                 "section_fields" => array(
                     array(
-                        "field_name" => "Allow New User Registration",
-                        "field_description" => "Tick this box if you want to enable users to register.",
-                        "field_slug" => "exlog_enable_user_registration",
+                        "field_name" => "Disable New User Registration",
+                        "field_description" => "Tick this box if you want to disable users from registering.",
+                        "field_slug" => "exlog_disble_user_registration",
                         "type" => "checkbox",
                     ),
                 ),
