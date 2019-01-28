@@ -1,6 +1,10 @@
 <?php
 
-function exlog_get_external_db_instance_and_fields($dbType) {
+function exlog_get_external_db_instance_and_fields($dbType = false) {
+    if (!$dbType) {
+        $dbType = exlog_get_option('external_login_option_db_type');
+    }
+
     $host = exlog_get_option("external_login_option_db_host");
     $port = exlog_get_option("external_login_option_db_port");
     $user = exlog_get_option("external_login_option_db_username");
@@ -52,6 +56,7 @@ function exlog_get_external_db_instance_and_fields($dbType) {
 
     $data = array(
         "db_instance" => $db_instance,
+        "db_type" => $dbType,
         "dbstructure_table" => exlog_get_option('exlog_dbstructure_table'),
         "dbstructure_username" => exlog_get_option('exlog_dbstructure_username'),
         "dbstructure_password" => exlog_get_option('exlog_dbstructure_password'),
@@ -229,5 +234,30 @@ function exlog_check_if_field_exists($db_data, $field) {
         $query_results = pg_query($query_string) or error_log("EXLOG: External DB query failed when checking if Field Exists");
         $result = pg_fetch_array($query_results, null, PGSQL_ASSOC);
         return is_array($result);
+    }
+}
+
+function exlog_does_value_exists_in_field($field, $value, $db_data = false, $force_case_insensitive = true) {
+    if (!$db_data) {
+        $db_data = exlog_get_external_db_instance_and_fields();
+    }
+
+    if ($db_data["db_type"] == "mysql") {
+        $query_string =
+            'SELECT *' .
+            ' FROM ' . esc_sql($db_data["dbstructure_table"]);
+
+            if ($force_case_insensitive) {
+                $query_string .= ' WHERE LOWER(' . esc_sql($field) . ')=LOWER("' . esc_sql($value) . '");';
+            } else {
+                $query_string .= ' WHERE ' . esc_sql($field) . '="' . esc_sql($value) . '";';
+            }
+
+        $rows = $db_data["db_instance"]->get_results($query_string, ARRAY_A);
+
+        return sizeof($rows) > 0;
+
+    } else {
+        return false;
     }
 }
