@@ -11,7 +11,12 @@ class Exlog_user_registration {
             //Fired when user tries to registers a user. See "Source" here: https://developer.wordpress.org/reference/functions/register_new_user/
             add_filter('register_post', array($self, "before_user_is_registered"), 10, 3 );
             add_filter('register_form', array($self, "add_additional_fields"));
+            add_action('register_new_user', array($self, "after_wordpress_registration"), 10, 1 );
         }
+    }
+    
+    public static function after_wordpress_registration() {
+        exlog_add_new_user_to_external_db($_POST['first_name']);
     }
 
     public function before_user_is_registered($sanitized_user_login, $user_email, $errors) {
