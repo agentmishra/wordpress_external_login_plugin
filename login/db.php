@@ -258,6 +258,18 @@ function exlog_does_value_exists_in_field($field, $value, $db_data = false, $for
         return sizeof($rows) > 0;
 
     } else {
-        return false;
+        $query_comparison_operator = ($force_case_insensitive ? "ILIKE" : "LIKE");
+
+        $query_string =
+            'SELECT *' .
+            ' FROM "' . esc_sql($db_data["dbstructure_table"]) . '"' .
+            ' WHERE "' . esc_sql($field) . '" ' . $query_comparison_operator . ' \'' . esc_sql($value) . '\';';
+
+        $rows = pg_query($query_string) or error_log("EXLOG: External DB query failed. (DVE)");
+
+        $userData = pg_fetch_array($rows, null, PGSQL_ASSOC); //Gets the first row
+
+        pg_close($db_data["db_instance"]);
+        return $userData == true;
     }
 }
