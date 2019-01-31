@@ -6,20 +6,29 @@ class Exlog_user_registration {
             update_option('users_can_register', false);
         } else {
             $self = new self();
+            // Turn on default registration for all users
             update_option('users_can_register', true);
 
-            //Fired when user tries to registers a user. See "Source" here: https://developer.wordpress.org/reference/functions/register_new_user/
-            add_filter('register_post', array($self, "before_user_is_registered"), 10, 3 );
+            add_filter('registration_errors', array($self, "before_user_is_registered"), 10, 3);
             add_filter('register_form', array($self, "add_additional_fields"));
-            add_action('register_new_user', array($self, "after_wordpress_registration"), 10, 1 );
         }
     }
     
-    public static function after_wordpress_registration() {
-        exlog_add_new_user_to_external_db($_POST['first_name']);
+    public static function add_user_to_external_db($errors) {
+        // Collate fields and values to add
+
+        // Run query
+        $result = exlog_add_new_user_to_external_db($_POST['first_name']);
+
+        if (!$result) {
+            $errors->add( 'exlog_insert_error', __( '<strong>Registration Error (EXLOG 554)</strong>: Unable to register.', 'crf' ) );
+        }
+
+        // If query fails return error
+        return $errors;
     }
 
-    public function before_user_is_registered($sanitized_user_login, $user_email, $errors) {
+    public function before_user_is_registered($errors, $sanitized_user_login, $user_email) {
         // If no errors from user existing in WP DB - check External DB
         if (count($errors->get_error_codes()) == 0) {
             //    Need to check if username exists
@@ -31,6 +40,10 @@ class Exlog_user_registration {
             } else if (empty( $_POST['first_name'] ) ) {
                 $errors->add( 'first_name_error', __( '<strong>ERROR</strong>: You must add your First Name.', 'crf' ) );
             }
+        }
+
+        if (count($errors->get_error_codes()) == 0) {
+            $errors = Exlog_user_registration::add_user_to_external_db($errors);
         }
 
         return $errors;

@@ -275,8 +275,6 @@ function exlog_does_value_exists_in_field($field, $value, $db_data = false, $for
 }
 
 function exlog_add_new_user_to_external_db($insert_data, $db_data = false) {
-    error_log(var_export("ABOUT TO INSERT!!!!!!!!!!!!!!", true));
-    error_log(var_export($insert_data, true));
     if (!$db_data) {
         $db_data = exlog_get_external_db_instance_and_fields();
     }
@@ -285,6 +283,9 @@ function exlog_add_new_user_to_external_db($insert_data, $db_data = false) {
         $rows = $db_data["db_instance"]->insert("User", array(
             'firstname' => $insert_data,
         ));
+
+        return ($rows);
+
     } else {
         $query_string = "INSERT INTO \"User\" (\"firstname\") VALUES ('Barry');";
         $result = pg_query($query_string) or error_log("EXLOG: External DB query failed when adding user");
@@ -295,8 +296,4 @@ function exlog_add_new_user_to_external_db($insert_data, $db_data = false) {
             error_log("SUCCESS!!!!");
         }
     }
-
-
-
-
 }
