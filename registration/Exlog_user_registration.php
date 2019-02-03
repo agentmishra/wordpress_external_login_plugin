@@ -94,13 +94,17 @@ class Exlog_user_registration {
             }
         }
 
+        $additional_fields = exlog_get_option('exlog_additional_fields_field_mapping');
         if (count($errors->get_error_codes()) == 0) {
-
-        } else {
-
-//            if (empty($_POST['first_name'])) {
-//                $errors->add( 'first_name_error', __( '<strong>ERROR</strong>: You must add your First Name.', 'crf' ) );
-//            }
+            if ($additional_fields) {
+                foreach ($additional_fields as $additional_field) {
+                    if ($additional_field['external_login_option_required_field'] == "on") {
+                        if (empty($_POST[$additional_field['exlog_additional_field_name']])) {
+                            $errors->add( 'missing_required_field_error', __( '<strong>ERROR</strong>: "' . $additional_field['exlog_additional_field_label'] . '" is a required field.', 'crf' ) );
+                        }
+                    }
+                }
+            }
         }
 
         if (count($errors->get_error_codes()) == 0) {
