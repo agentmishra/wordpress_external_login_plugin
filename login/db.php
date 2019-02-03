@@ -280,7 +280,7 @@ function exlog_add_new_user_to_external_db($insert_data, $db_data = false) {
     }
     //    Check if all fields exist
     if ($db_data["db_type"] == "mysql") {
-        $rows = $db_data["db_instance"]->insert("User", $insert_data);
+        $rows = $db_data["db_instance"]->insert(exlog_get_option('exlog_dbstructure_table'), $insert_data);
 
         if($db_data["db_instance"]->last_error !== '') :
             $db_data["db_instance"]->print_error();
@@ -304,6 +304,42 @@ function exlog_add_new_user_to_external_db($insert_data, $db_data = false) {
             ");";
 
         $result = pg_query($query_string) or error_log("EXLOG: External DB query failed when adding user");
+        $affected_rows = pg_affected_rows($result);
+        pg_close($db_data["db_instance"]);
+
+        return $affected_rows > 0;
+    }
+}
+
+function exlog_update_password_in_external_db($username, $hashed_password, $db_data = false) {
+    if (!$db_data) {
+        $db_data = exlog_get_external_db_instance_and_fields();
+    }
+
+    if ($db_data["db_type"] == "mysql") {
+        $rows = $db_data["db_instance"]->update(
+            exlog_get_option('exlog_dbstructure_table'),
+            array(
+                exlog_get_option('exlog_dbstructure_password') => $hashed_password
+            ),
+            array( exlog_get_option('exlog_dbstructure_username') => $username )
+        );
+
+        if($db_data["db_instance"]->last_error !== '') :
+            $db_data["db_instance"]->print_error();
+        return false;
+        endif;
+        error_log("success?");
+        error_log(var_export($rows, true));
+        return ($rows);
+
+    } else {
+        $query_string = "UPDATE \"" .
+            exlog_get_option('exlog_dbstructure_table') .
+            "\" SET \"" . exlog_get_option('exlog_dbstructure_password') . "\" = '" . $hashed_password . "'" .
+            " WHERE \"" . exlog_get_option('exlog_dbstructure_username') . "\" = '" . $username . "';";
+
+        $result = pg_query($query_string) or error_log("EXLOG: External DB query failed when updating password.");
         $affected_rows = pg_affected_rows($result);
         pg_close($db_data["db_instance"]);
 

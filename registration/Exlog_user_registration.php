@@ -16,10 +16,16 @@ class Exlog_user_registration {
         }
     }
 
-    public static function before_password_reset() {
+    public static function before_password_reset($user, $new_password) {
+        $hashed_password = $new_password;
+
+        $username = get_userdata($user->ID)->user_login;
+
+        $successfully_updated_password = exlog_update_password_in_external_db($username, $hashed_password);
+
         // If external login cannot update the password, prevent password reset
-        if (false) {
-            login_header(__('Failed to Reset Password'), '<p class="message reset-pass" style>' . __('Your password has been reset.') . ' <a href="' . esc_url(wp_login_url()) . '">' . __('Try again') . '</a></p>');
+        if (!$successfully_updated_password) {
+            login_header(__('Failed to Reset Password'), '<p style="color:red;" class="message reset-pass" style>' . __('Your password failed to reset. (Exlog error: 465)') . ' <a href="' . esc_url(wp_login_url()) . '">' . __('Try again') . '</a></p>');
             login_footer();
             exit;
         }
