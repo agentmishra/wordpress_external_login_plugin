@@ -8,7 +8,7 @@ function exlog_get_option($option_name) {
         return constant($constant_option_name);
     } else {
         $option_data = get_option($option_name);
-        $decoded_option_data = json_decode($option_data, true);
+        $decoded_option_data = json_decode(base64_decode($option_data), true);
         if ($decoded_option_data) {
             return exlog_modify_repeater_data_for_view_use($decoded_option_data); // If data was JSON return PHP array (for repeater fields)
         }

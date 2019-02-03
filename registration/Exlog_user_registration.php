@@ -50,17 +50,11 @@ class Exlog_user_registration {
     }
 
     public function add_additional_fields() {
-        ?>
-        <p>
-            <label for="first_name"><?php echo "First Name"; ?><br/>
-                <input type="text"
-                       name="first_name"
-                       value=""
-                       class="input"
-                       required
-                />
-            </label>
-        </p>
-        <?php
+        foreach (exlog_get_option('exlog_additional_fields_field_mapping') as $additional_field) {
+            $exlog_registration_form_element_name = $additional_field['exlog_additional_field_name'];
+            $exlog_registration_form_element_label = $additional_field['exlog_additional_field_label'];
+            include EXLOG_PATH_PLUGIN_VIEWS . '/registration/registration_form_elements/text.php';
+        }
+
     }
 }

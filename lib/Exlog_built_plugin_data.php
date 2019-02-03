@@ -367,6 +367,26 @@ final class Exlog_built_plugin_data {
                             )
                         ),
                     ),
+                    array(
+                        "field_name" => "Additional Fields",
+                        "field_description" => "",
+                        "field_slug" => "exlog_additional_fields_field_mapping",
+                        "type" => "repeater",
+                        "repeater_fields" => array(
+                            array(
+                                "field_name" => "Field Name",
+                                "field_description" => "The field name in the database.",
+                                "field_slug" => "exlog_additional_field_name",
+                                "type" => "text"
+                            ),
+                            array(
+                                "field_name" => "Label for field",
+                                "field_description" => "The label for the data that will be shown in the registration form.",
+                                "field_slug" => "exlog_additional_field_label",
+                                "type" => "text"
+                            ),
+                        ),
+                    ),
                 )
             ),
             array(
@@ -449,6 +469,7 @@ final class Exlog_built_plugin_data {
                         "field_slug" => "exlog_disble_user_registration",
                         "type" => "checkbox",
                     ),
+
                 ),
             ),
         );
