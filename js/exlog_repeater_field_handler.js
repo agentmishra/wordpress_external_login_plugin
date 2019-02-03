@@ -89,6 +89,13 @@ var possible_repeater_data_master = [
 
     function place_data_from_db() {
       function place_specific_repeater_values($parent_element, data) {
+        try {
+          data = JSON.parse(data);
+        } catch(e) {
+          //
+        }
+
+
       //  Put all data in the name value
         var $data_store = $parent_element.children(repeater_data_store_selector);
         var data_string;
@@ -98,10 +105,11 @@ var possible_repeater_data_master = [
           console.log('EXLOG: Failed to parse some data from the database.\nIncorrect data:', data);
           data_string = false;
         }
-        $data_store.val(data_string);
+
+        $data_store.val(btoa(data_string));
 
         // Of that data, put each value in the correct input
-        if (data) {
+        if (data && data != 'false') {
           data.forEach(function (repeater_item, i) {
             var $repeater_item;
             if (i > 0) { // If not the first repeater item - create a new one in the DOM and store the jQuery object
@@ -121,7 +129,8 @@ var possible_repeater_data_master = [
 
               //  If the input data is a repeater field, call this function again with the relevant data and $parent element
               if (repeater_item_option['repeater_field']) {
-                place_specific_repeater_values($input_element.closest('.option-container'), repeater_item_option['value']);
+                var $next_repeater = $input_element.closest('.option-container');
+                place_specific_repeater_values($next_repeater, repeater_item_option['value']);
               }
             });
           });
@@ -205,15 +214,21 @@ var possible_repeater_data_master = [
       var change_events_string = change_events.join(' ');
       var $repeater_data_stores = $(repeater_data_store_selector);
 
+      // For every repeater data store
       $repeater_data_stores.each(function () {
         var $repeater_data_store = $(this);
+
+        // Get just the inputs for that data store
         var $inputs = $repeater_data_store.siblings('.repeater_item').children('.repeater_item_input_container').children('.option-container').children('input, textarea');
 
-        // Clear previous events
+        // Clear previous change events on inputs
         $inputs.off(change_events_string);
 
+        // For each input, if there is a change in the data, update the data in the repeater data store
         $inputs.on(change_events_string, (function () {
           update_repeater_data($repeater_data_store, $inputs);
+
+          // After the data store data is updated, trigger an event change on the store so that parent stores will update their data
           $repeater_data_store.trigger(change_events[0]);
         }));
       });
