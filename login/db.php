@@ -325,12 +325,11 @@ function exlog_update_password_in_external_db($username, $hashed_password, $db_d
             array( exlog_get_option('exlog_dbstructure_username') => $username )
         );
 
-        if($db_data["db_instance"]->last_error !== '') :
+        if($db_data["db_instance"]->last_error !== '') {
             $db_data["db_instance"]->print_error();
-        return false;
-        endif;
-        error_log("success?");
-        error_log(var_export($rows, true));
+            return false;
+        }
+
         return ($rows);
 
     } else {

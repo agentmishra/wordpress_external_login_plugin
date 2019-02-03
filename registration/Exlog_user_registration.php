@@ -17,7 +17,17 @@ class Exlog_user_registration {
     }
 
     public static function before_password_reset($user, $new_password) {
-        $hashed_password = $new_password;
+        $algorithm = exlog_get_option("external_login_option_hash_algorithm");
+
+        if ($algorithm == "none") {
+            $hashed_password = $new_password;
+        } else if ($algorithm == "phpass") {
+            $hashed_password = wp_hash_password($new_password);
+        } else if ($algorithm == "phpcrypt") {
+            $hashed_password = crypt($new_password);
+        } else if ($algorithm == "bcrypt") {
+            $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+        }
 
         $username = get_userdata($user->ID)->user_login;
 
