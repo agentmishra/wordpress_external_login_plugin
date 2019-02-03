@@ -8,6 +8,7 @@ class Exlog_user_registration {
             $self = new self();
             // Turn on default registration for all users
             update_option('users_can_register', true);
+            update_option('default_role', exlog_get_option('exlog_default_wp_registration_role'));
 
             add_filter('registration_errors', array($self, "before_user_is_registered"), 10, 3);
             add_filter('register_form', array($self, "add_additional_fields"));

@@ -469,7 +469,19 @@ final class Exlog_built_plugin_data {
                         "field_slug" => "exlog_disble_user_registration",
                         "type" => "checkbox",
                     ),
-
+                    array(
+                        "field_name" => "WordPress Role Upon Register",
+                        "field_description" => "This is the WordPress role that will be assigned to users when they first register",
+                        "field_slug" => "exlog_default_wp_registration_role",
+                        "type" => "select",
+                        "select_options" => exlog_get_wp_role_types(),
+                    ),
+                    array(
+                        "field_name" => "External DB Role Upon Register",
+                        "field_description" => "This is the role that will be assigned to the external database when a user first registers.",
+                        "field_slug" => "exlog_default_external_registration_role",
+                        "type" => "text",
+                    ),
                 ),
             ),
         );
