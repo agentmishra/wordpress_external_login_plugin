@@ -280,9 +280,13 @@ function exlog_add_new_user_to_external_db($insert_data, $db_data = false) {
     }
     //    Check if all fields exist
     if ($db_data["db_type"] == "mysql") {
-        $rows = $db_data["db_instance"]->insert("User", array(
-            'firstname' => $insert_data,
-        ));
+        $rows = $db_data["db_instance"]->insert("User", $insert_data);
+
+        error_log(var_export($insert_data, true));
+
+        if($db_data["db_instance"]->last_error !== '') :
+            $db_data["db_instance"]->print_error();
+        endif;
 
         return ($rows);
 

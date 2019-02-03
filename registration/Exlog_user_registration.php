@@ -14,12 +14,39 @@ class Exlog_user_registration {
             add_filter('register_form', array($self, "add_additional_fields"));
         }
     }
-    
-    public static function add_user_to_external_db($errors) {
+
+    public static function add_user_to_external_db($errors, $username, $email) {
         // Collate fields and values to add
 
+        $insert_array = array();
+
+        // Add username
+        $insert_array[exlog_get_option('exlog_dbstructure_username')] = $username;
+
+        // Add email
+        $insert_array[exlog_get_option('exlog_dbstructure_email')] = $email;
+
+        // Add first name
+        $insert_array[exlog_get_option('exlog_dbstructure_first_name')] = esc_sql($_POST[exlog_get_option('exlog_dbstructure_first_name')]);
+
+        // Add last name
+        $insert_array[exlog_get_option('exlog_dbstructure_last_name')] = esc_sql($_POST[exlog_get_option('exlog_dbstructure_last_name')]);
+
+        // Add role
+        $insert_array[exlog_get_option('exlog_dbstructure_role')] = esc_sql(exlog_get_option('exlog_default_external_registration_role'));
+
+        // Collate additional field data
+        $additional_fields = exlog_get_option('exlog_additional_fields_field_mapping');
+        if ($additional_fields && gettype($additional_fields) == 'array') {
+            foreach ($additional_fields as $additional_field) {
+                if ($additional_field['external_login_option_show_field_in_registration'] == "on") {
+                    $insert_array[esc_sql($additional_field['exlog_additional_field_name'])] = esc_sql($_POST[$additional_field['exlog_additional_field_name']]);
+                }
+            }
+        }
+
         // Run query
-        $result = exlog_add_new_user_to_external_db($_POST['first_name']);
+        $result = exlog_add_new_user_to_external_db($insert_array);
 
         if (!$result) {
             $errors->add( 'exlog_insert_error', __( '<strong>Registration Error (EXLOG 554)</strong>: Unable to register.', 'crf' ) );
@@ -38,25 +65,50 @@ class Exlog_user_registration {
 
             } else if (exlog_does_value_exists_in_field(exlog_get_option('exlog_dbstructure_email'), $user_email)) {
                 $errors->add('email_exists', "The e-mail is already registered to another user.");
-            } else if (empty( $_POST['first_name'] ) ) {
-                $errors->add( 'first_name_error', __( '<strong>ERROR</strong>: You must add your First Name.', 'crf' ) );
             }
         }
 
         if (count($errors->get_error_codes()) == 0) {
-            $errors = Exlog_user_registration::add_user_to_external_db($errors);
+
+        } else {
+
+//            if (empty($_POST['first_name'])) {
+//                $errors->add( 'first_name_error', __( '<strong>ERROR</strong>: You must add your First Name.', 'crf' ) );
+//            }
+        }
+
+        if (count($errors->get_error_codes()) == 0) {
+            $errors = Exlog_user_registration::add_user_to_external_db($errors, $sanitized_user_login, $user_email);
         }
 
         return $errors;
     }
 
     public function add_additional_fields() {
-        foreach (exlog_get_option('exlog_additional_fields_field_mapping') as $additional_field) {
-            if ($additional_field['external_login_option_show_field_in_registration'] == "on") {
-                $exlog_registration_form_element_name = $additional_field['exlog_additional_field_name'];
-                $exlog_registration_form_element_label = $additional_field['exlog_additional_field_label'];
-                $exlog_registration_form_element_required = $additional_field['external_login_option_required_field'] == "on";
-                include EXLOG_PATH_PLUGIN_VIEWS . '/registration/registration_form_elements/text.php';
+        $additional_fields = exlog_get_option('exlog_additional_fields_field_mapping');
+
+        array_unshift($additional_fields,
+            array(
+                'exlog_additional_field_label' => 'First Name',
+                'exlog_additional_field_name' => exlog_get_option('exlog_dbstructure_first_name'),
+                'external_login_option_show_field_in_registration' => true
+            ),
+            array(
+                'exlog_additional_field_label' => 'Last Name',
+                'exlog_additional_field_name' => exlog_get_option('exlog_dbstructure_last_name'),
+                'external_login_option_show_field_in_registration' => true
+            )
+        );
+
+
+        if ($additional_fields) {
+            foreach ($additional_fields as $additional_field) {
+                if ($additional_field['external_login_option_show_field_in_registration'] == "on") {
+                    $exlog_registration_form_element_name = $additional_field['exlog_additional_field_name'];
+                    $exlog_registration_form_element_label = $additional_field['exlog_additional_field_label'];
+                    $exlog_registration_form_element_required = $additional_field['external_login_option_required_field'] == "on";
+                    include EXLOG_PATH_PLUGIN_VIEWS . '/registration/registration_form_elements/text.php';
+                }
             }
         }
 
