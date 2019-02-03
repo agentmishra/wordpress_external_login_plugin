@@ -52,9 +52,12 @@ class Exlog_user_registration {
 
     public function add_additional_fields() {
         foreach (exlog_get_option('exlog_additional_fields_field_mapping') as $additional_field) {
-            $exlog_registration_form_element_name = $additional_field['exlog_additional_field_name'];
-            $exlog_registration_form_element_label = $additional_field['exlog_additional_field_label'];
-            include EXLOG_PATH_PLUGIN_VIEWS . '/registration/registration_form_elements/text.php';
+            if ($additional_field['external_login_option_show_field_in_registration'] == "on") {
+                $exlog_registration_form_element_name = $additional_field['exlog_additional_field_name'];
+                $exlog_registration_form_element_label = $additional_field['exlog_additional_field_label'];
+                $exlog_registration_form_element_required = $additional_field['external_login_option_required_field'] == "on";
+                include EXLOG_PATH_PLUGIN_VIEWS . '/registration/registration_form_elements/text.php';
+            }
         }
 
     }

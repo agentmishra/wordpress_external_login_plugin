@@ -73,7 +73,7 @@ var possible_repeater_data_master = [
     var repeater_data_attr = 'data-exlog-repeater-id';
     var master_markup_item_selector = repeater_item_selector + '[' + repeater_data_attr + '="0"]';
     var click_event_name = 'click';
-    var change_events = ['keyup', 'paste'];
+    var change_events = ['keyup', 'paste', 'change'];
     var repeater_data_store_selector = '.exlog_repeater_data_store';
 
     function object_to_string_if_object(data) {
@@ -106,6 +106,7 @@ var possible_repeater_data_master = [
           data_string = false;
         }
 
+
         $data_store.val(btoa(data_string));
 
         // Of that data, put each value in the correct input
@@ -124,12 +125,18 @@ var possible_repeater_data_master = [
 
               var input_selector = '> .repeater_item_input_container > .option-container > [name="' + repeater_item_option['name'] + '"]';
 
+              var $input_item = $repeater_item.find(input_selector);
+
               // Add DB value into the input
-              var $input_element = $repeater_item.find(input_selector).val(input_data);
+              if ($input_item.attr('type') === 'checkbox') {
+                $input_item.prop('checked', input_data);
+              } else {
+                $input_item.val(input_data);
+              }
 
               //  If the input data is a repeater field, call this function again with the relevant data and $parent element
               if (repeater_item_option['repeater_field']) {
-                var $next_repeater = $input_element.closest('.option-container');
+                var $next_repeater = $input_item.closest('.option-container');
                 place_specific_repeater_values($next_repeater, repeater_item_option['value']);
               }
             });
@@ -242,7 +249,16 @@ var possible_repeater_data_master = [
         var $inputs = $(this).children('.repeater_item_input_container').children('.option-container').children('input, textarea');
         $inputs.each(function () {
           var $input = $(this);
-          var value = $input.val();
+          var value;
+
+          if ($input.attr('type') === 'text') {
+            value = $input.val();
+          } else if ($input.attr('type') === 'checkbox') {
+            value = $input.prop('checked');
+          } else {
+            value = null;
+          }
+
           var repeater_field = false;
           if ($input.hasClass('exlog_repeater_data_store')) {
             repeater_field = true;

@@ -385,6 +385,18 @@ final class Exlog_built_plugin_data {
                                 "field_slug" => "exlog_additional_field_label",
                                 "type" => "text"
                             ),
+                            array(
+                                "field_name" => "Show in registration screen",
+                                "field_description" => "Tick this box if you want this field to be provided in the registration screen",
+                                "field_slug" => "external_login_option_show_field_in_registration",
+                                "type" => "checkbox",
+                            ),
+                            array(
+                                "field_name" => "Required",
+                                "field_description" => "If this field is a required field in the registration screen",
+                                "field_slug" => "external_login_option_required_field",
+                                "type" => "checkbox",
+                            ),
                         ),
                     ),
                 )
