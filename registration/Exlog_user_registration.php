@@ -10,8 +10,18 @@ class Exlog_user_registration {
             update_option('users_can_register', true);
             update_option('default_role', exlog_get_option('exlog_default_wp_registration_role'));
 
+            add_action('password_reset', array($self, "before_password_reset"), 10, 2 );
             add_filter('registration_errors', array($self, "before_user_is_registered"), 10, 3);
             add_filter('register_form', array($self, "add_additional_fields"));
+        }
+    }
+
+    public static function before_password_reset() {
+        // If external login cannot update the password, prevent password reset
+        if (false) {
+            login_header(__('Failed to Reset Password'), '<p class="message reset-pass" style>' . __('Your password has been reset.') . ' <a href="' . esc_url(wp_login_url()) . '">' . __('Try again') . '</a></p>');
+            login_footer();
+            exit;
         }
     }
 
