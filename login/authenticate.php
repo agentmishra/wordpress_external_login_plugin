@@ -52,6 +52,9 @@ function exlog_auth( $user, $username, $password ){
                 $user = new WP_User ($new_user_id);
             } else {
                 $userdata['ID'] = $user->ID;
+
+                add_filter( 'send_password_change_email', '__return_false' ); // Prevent password update e-mail
+
                 wp_update_user( $userdata );
             }
 
