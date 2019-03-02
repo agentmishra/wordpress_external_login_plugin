@@ -19,6 +19,7 @@ This is a note to self. This process and code needs integrating into the plugin 
 A copy of the deploy script is in the repo for reference but needs running from a directory above it (see step 6).
 
 1) Modify the version number in external-login.php
+1) Modify readme.txt "Tested up to" version
 1) Modify readme.txt version
 1) Modify readme.txt == Changelog ==
 1) Modify readme.txt == Upgrade Notice ==

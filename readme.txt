@@ -3,8 +3,8 @@ Contributors: tbenyon
 Donate link: https://www.paypal.me/tombenyon
 Tags: external login, external, database, login, users, db, WordPress, different, username, password, hashing, md, md2, md4, md5, bcrypt, sha, sha1, sha256, sha384, sha512
 Requires at least: 4.6
-Tested up to: 4.9
-Stable tag: 1.5.0
+Tested up to: 5.1
+Stable tag: 1.6.0
 Requires PHP: 5.6.34
 License: MIT
 
@@ -370,6 +370,12 @@ Get in contact. I'll normally add simple functionality for free and pretty quick
 
 == Changelog ==
 
+= 1.6.0 =
+* Prevent password change e-mail coming through when a users details are updated in WordPress in the External Login flow
+* Add feature to block users based on their role
+* Fix for the admin area form on repeater items
+* Fix a nested function error that appeared for some users
+
 = 1.5.0 =
 * Add feature to exclude users based on another field in the database
 * Add feature to get multiple roles from the external database roles field (Requires additional plugin for admin manipulation)
@@ -420,6 +426,12 @@ Get in contact. I'll normally add simple functionality for free and pretty quick
 
 
 == Upgrade Notice ==
+
+= 1.6.0 =
+* Prevent password change e-mail coming through when a users details are updated in WordPress in the External Login flow
+* Add feature to block users based on their role
+* Fix for the admin area form on repeater items
+* Fix a nested function error that appeared for some users
 
 = 1.5.0 =
 * Add feature to exclude users based on another field in the database
