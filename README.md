@@ -14,6 +14,15 @@ A special thank you to Ben Lobaugh for a [great article](https://ben.lobaugh.net
 - Ability to prepend user names in WP with a string to separate WP users from those generated with external login
 - Add a custom login screen
 
+## Tests
+Start by downloading WordPress 5.1 and adding it to the following directory:<br>
+```tests/wp_builds/wp_5.1```
+
+This can be downloaded from here:<br>
+`https://wordpress.org/news/2019/02/betty/`
+
+To run tests execute `make tests`
+
 ## Deploy to WordPress
 This is a note to self. This process and code needs integrating into the plugin itself.
 A copy of the deploy script is in the repo for reference but needs running from a directory above it (see step 6).
