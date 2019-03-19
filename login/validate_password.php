@@ -19,10 +19,9 @@
         }
     }
 
-    function exlog_validate_password($password, $hash, $user_specific_salt) {
-        $salt_method = exlog_get_option("external_login_option_db_salting_method");
-        $algorithm = exlog_get_option("external_login_option_hash_algorithm");
-
+    function exlog_validate_password($password, $hash, $user_specific_salt, $fetcher) {
+        $salt_method = $fetcher->get_salting_method("external_login_option_db_salting_method");
+        $algorithm = $fetcher->get_algorithm_type("external_login_option_hash_algorithm");
         $hash = exlog_should_lowercase_hex_hash($algorithm, $hash);
 
         if ($algorithm == "none") {

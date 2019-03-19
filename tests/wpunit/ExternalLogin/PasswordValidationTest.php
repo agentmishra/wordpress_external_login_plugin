@@ -19,19 +19,17 @@ class PasswordValidationTest extends \Codeception\TestCase\WPTestCase {
         parent::tearDown();
     }
 
-    // tests
-    public function testMe() {
+    public function test_when_algorithm_is_phpass_and_no_salt_validates_a_valid_password_hash() {
+        include "lib/Exlog_password_validator.php";
         include "login/validate_password.php";
-        function exlog_get_option($option) {
-            switch ($option) {
-                case 'external_login_option_db_salting_method':
-                    return 'none';
-                case 'external_login_option_hash_algorithm':
-                    return 'phpass';
-            }
-        }
+        include "options/wpconfig_options.php";
 
-        $this->assertTrue(exlog_validate_password("password", '$2b$10$MaTFwF7Ov2JRTTPnV.I4X.q0KQ3VVAiwTzULlPnBYeSBkBztnXfJO', false));
+
+        $test_fetcher = $this->make('Exlog_password_validator', [
+            'get_salting_method' => 'none',
+            'get_algorithm_type' => 'phpass',
+        ]);
+        $this->assertTrue(exlog_validate_password("password", '$2b$10$MaTFwF7Ov2JRTTPnV.I4X.q0KQ3VVAiwTzULlPnBYeSBkBztnXfJO', false, $test_fetcher));
     }
 
 }
