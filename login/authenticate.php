@@ -33,7 +33,7 @@ function exlog_auth( $user, $username, $password ){
             $user = $userobj->get_data_by( 'login', $response['username'] ); // Does not return a WP_User object 🙁
             $user = new WP_User($user->ID); // Attempt to load up the user with that ID
 
-            $userdata = array(
+            $exlog_userdata = array(
                 'user_login' => $response['username'],
                 'first_name' => $response['first_name'],
                 'last_name'  => $response['last_name'],
@@ -46,16 +46,16 @@ function exlog_auth( $user, $username, $password ){
             if( $user->ID == 0 ) {
                 // Setup the minimum required user information
 
-                $new_user_id = wp_insert_user( $userdata ); // A new user has been created
+                $new_user_id = wp_insert_user( $exlog_userdata ); // A new user has been created
 
                 // Load the new user info
                 $user = new WP_User ($new_user_id);
             } else {
-                $userdata['ID'] = $user->ID;
+                $exlog_userdata['ID'] = $user->ID;
 
                 add_filter( 'send_password_change_email', '__return_false' ); // Prevent password update e-mail
 
-                wp_update_user( $userdata );
+                wp_update_user($exlog_userdata);
             }
 
             $user->set_role($roles[0]); // Wipe out old roles
@@ -64,6 +64,9 @@ function exlog_auth( $user, $username, $password ){
             foreach ($roles as $role) {
                 $user->add_role($role);
             }
+
+            // Hook that passes user data on successful login
+            do_action('exlog_hook_action_authenticated', $user, $exlog_userdata);
         }
     }
 
