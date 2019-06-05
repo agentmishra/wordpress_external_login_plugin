@@ -65,6 +65,12 @@ final class Exlog_built_plugin_data {
                         "type" => "checkbox",
                     ),
                     array(
+                        "field_name" => "Migration Mode",
+                        "field_description" => "Tick this box if you want the plugin to prioritise the local WordPress database for authentication over the external database. If the user is found in the local database, authentication will not be attempted on the external database.",
+                        "field_slug" => "external_login_option_migration_mode",
+                        "type" => "checkbox",
+                    ),
+                    array(
                         "field_name" => "Disable Local Login",
                         "field_description" => "Tick this box if you want to disable the login attempt with the Wordpress Database if the external login fails. This will only take effect if External Login is enabled.",
                         "field_slug" => "external_login_option_disable_local_login",
@@ -74,6 +80,11 @@ final class Exlog_built_plugin_data {
                             array(
                                 "condition_field" => "external_login_option_enable_external_login",
                                 "condition_field_value" => "true",
+                                "condition_operator" => "="
+                            ),
+                            array(
+                                "condition_field" => "external_login_option_migration_mode",
+                                "condition_field_value" => "false",
                                 "condition_operator" => "="
                             )
                         )
