@@ -3,8 +3,8 @@ Contributors: tbenyon
 Donate link: https://www.paypal.me/tombenyon
 Tags: external login, external, database, login, users, db, WordPress, different, username, password, hashing, md, md2, md4, md5, bcrypt, sha, sha1, sha256, sha384, sha512
 Requires at least: 4.6
-Tested up to: 5.1
-Stable tag: 1.6.0
+Tested up to: 5.2.1
+Stable tag: 1.7.0
 Requires PHP: 5.6.34
 License: MIT
 
@@ -192,6 +192,13 @@ Here is a full listing of possible fields and values.
         * on
         * off
 
+* Migration Mode
+    * Constant Name
+        * EXTERNAL_LOGIN_OPTION_MIGRATION_MODE
+    * Possible Values
+        * on
+        * off
+
 * Delete Settings on Plugin Deactivation
     * Constant Name
         * EXTERNAL_LOGIN_OPTION_DELETE_PLUGIN_SETTINGS
@@ -352,6 +359,45 @@ Here is a full listing of possible fields and values.
     * Possible Values
         * Any String
 
+= What hooks are available in the External Login flow? =
+
+- exlog_hook_action_authenticated
+This hook is run after the user has been authenticated from the external database.
+
+This will not run if the user is authenticated from the local WordPress database.
+
+Below is an example of code that could be added to your `functions.php` file to delete a user from the external database after they have logged in for the first time.
+`
+/**
+ * Example function to do something after External Login has authenticated a user
+ *
+ * In this case we are deleting the user from the external database
+ *
+ * WP User Object $wp_user The WordPress user object for the authenticated user.
+ *
+ * Array $exlog_user_data An associative array of user data generated when attempting to authenticate the user
+ */
+function my_function_to_do_something_after_authentication($wp_user, $exlog_user_data) {
+  // Uses the data provided to the plugin to create the database object and data required for a query
+  $db_data = exlog_get_external_db_instance_and_fields('mysql');
+
+  // A query of your choice
+  $rows = $db_data["db_instance"]->delete(
+    esc_sql($db_data["dbstructure_table"]),
+    array( esc_sql($db_data["dbstructure_username"]) => esc_sql($exlog_user_data['user_login']) )
+  );
+
+  // Checking if the user was deleted
+  if ($rows) {
+    error_log('User Successfully deleted from external database');
+  } else {
+    error_log('Unable to delete user from external database');
+  }
+}
+
+add_action('exlog_hook_action_authenticated', 'my_function_to_do_something_after_authentication', 10, 2);
+`
+
 = I need an extra feature. Can you add it? =
 
 Get in contact. I'll normally add simple functionality for free and pretty quick!
@@ -369,6 +415,10 @@ Get in contact. I'll normally add simple functionality for free and pretty quick
 
 
 == Changelog ==
+
+= 1.7.0 =
+* Add Migration Mode setting
+* Add action hook 'exlog_hook_action_authenticated' that is triggered when the user is authenticated with the external database
 
 = 1.6.0 =
 * Prevent password change e-mail coming through when a users details are updated in WordPress in the External Login flow
@@ -426,6 +476,10 @@ Get in contact. I'll normally add simple functionality for free and pretty quick
 
 
 == Upgrade Notice ==
+
+= 1.7.0 =
+* Add Migration Mode setting
+* Add action hook 'exlog_hook_action_authenticated' that is triggered when the user is authenticated with the external database
 
 = 1.6.0 =
 * Prevent password change e-mail coming through when a users details are updated in WordPress in the External Login flow
