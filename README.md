@@ -63,4 +63,4 @@ A copy of the deploy script is in the repo for reference but needs running from 
 1) Modify readme.txt == Changelog ==
 1) Modify readme.txt == Upgrade Notice ==
 1) Tag git commit with respective version number
-1) In plugins dir execute./deploy.sh
+1) In repo directory execute `./deploy.sh`
