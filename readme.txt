@@ -4,7 +4,7 @@ Donate link: https://www.paypal.me/tombenyon
 Tags: external login, external, database, login, users, db, WordPress, different, username, password, hashing, md, md2, md4, md5, bcrypt, sha, sha1, sha256, sha384, sha512
 Requires at least: 4.6
 Tested up to: 5.2.1
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 Requires PHP: 5.6.34
 License: MIT
 
@@ -416,6 +416,10 @@ Get in contact. I'll normally add simple functionality for free and pretty quick
 
 == Changelog ==
 
+= 1.7.1 =
+* Allow mysql databases to accept username or e-mail address for the new username
+* Fixed missing logo on production (Hopefully :P )
+
 = 1.7.0 =
 * Add Migration Mode setting
 * Add action hook 'exlog_hook_action_authenticated' that is triggered when the user is authenticated with the external database
@@ -476,6 +480,10 @@ Get in contact. I'll normally add simple functionality for free and pretty quick
 
 
 == Upgrade Notice ==
+
+= 1.7.1 =
+* Allow mysql databases to accept username or e-mail address for the new username
+* Fixed missing logo on production (Hopefully :P )
 
 = 1.7.0 =
 * Add Migration Mode setting
