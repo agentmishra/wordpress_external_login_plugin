@@ -34,24 +34,25 @@ echo
 
 # Get some user input
 # Can't use the -i flag for read, since that doesn't work for bash 3
-printf "Q1. WordPress Repo Plugin Slug e.g. my-awesome-plugin: "
-read -e PLUGINSLUG
-echo
+#printf "Q1. WordPress Repo Plugin Slug e.g. my-awesome-plugin: "
+#read -e PLUGINSLUG
+#echo
 
 # Set up some default values. Feel free to change these in your own script
 CURRENTDIR=$(pwd)
-default_svnpath="/tmp/$PLUGINSLUG"
-default_svnurl="https://plugins.svn.wordpress.org/$PLUGINSLUG"
-default_svnuser="GaryJ"
-default_plugindir="$CURRENTDIR/$PLUGINSLUG"
-default_mainfile="$PLUGINSLUG.php"
+PLUGINSLUG="external-login"
+SVNPATH="/tmp/$PLUGINSLUG"
+SVNURL="https://plugins.svn.wordpress.org/$PLUGINSLUG"
+SVNUSER="tbenyon"
+PLUGINDIR="$CURRENTDIR"
+MAINFILE="$PLUGINSLUG.php"
 
-echo "Q2. Your local plugin root directory (the Git repo)."
-printf "($default_plugindir): "
-read -e  input
-input="${input%/}" # Strip trailing slash
-PLUGINDIR="${input:-$default_plugindir}" # Populate with default if empty
-echo
+#echo "Q2. Your local plugin root directory (the Git repo)."
+#printf "($default_plugindir): "
+#read -e  input
+#input="${input%/}" # Strip trailing slash
+#PLUGINDIR="${input:-$default_plugindir}" # Populate with default if empty
+#echo
 
 # Check directory exists.
 if [ ! -d "$PLUGINDIR" ]; then
@@ -59,10 +60,10 @@ if [ ! -d "$PLUGINDIR" ]; then
   exit 1;
 fi
 
-printf "Q3. Name of the main plugin file ($default_mainfile): "
-read -e input
-MAINFILE="${input:-$default_mainfile}" # Populate with default if empty
-echo
+#printf "Q3. Name of the main plugin file ($default_mainfile): "
+#read -e input
+#MAINFILE="${input:-$default_mainfile}" # Populate with default if empty
+#echo
 
 # Check main plugin file exists.
 if [ ! -f "$PLUGINDIR/$MAINFILE" ]; then
@@ -90,28 +91,28 @@ fi
 
 echo
 
-echo "Q4. Path to a local directory where a temporary SVN checkout can be made."
-printf "Don't add trunk ($default_svnpath): "
-read -e input
-input="${input%/}" # Strip trailing slash
-SVNPATH="${input:-$default_svnpath}" # Populate with default if empty
-echo
+#echo "Q4. Path to a local directory where a temporary SVN checkout can be made."
+#printf "Don't add trunk ($default_svnpath): "
+#read -e input
+#input="${input%/}" # Strip trailing slash
+#SVNPATH="${input:-$default_svnpath}" # Populate with default if empty
+#echo
 
-echo "Q5. Remote SVN repo on WordPress.org."
-printf "($default_svnurl): "
-read -e input
-input="${input%/}" # Strip trailing slash
-SVNURL="${input:-$default_svnurl}" # Populate with default if empty
-echo
+#echo "Q5. Remote SVN repo on WordPress.org."
+#printf "($default_svnurl): "
+#read -e input
+#input="${input%/}" # Strip trailing slash
+#SVNURL="${input:-$default_svnurl}" # Populate with default if empty
+#echo
 
-printf "Q6. Your WordPress repo SVN username ($default_svnuser): "
-read -e input
-SVNUSER="${input:-$default_svnuser}" # Populate with default if empty
-echo
+#printf "Q6. Your WordPress repo SVN username ($default_svnuser): "
+#read -e input
+#SVNUSER="${input:-$default_svnuser}" # Populate with default if empty
+#echo
 
-echo "That's all of the data collected."
-echo
-echo "Slug: $PLUGINSLUG"
+#echo "That's all of the data collected."
+#echo
+echo "Slug: external-login"
 echo "Plugin directory: $PLUGINDIR"
 echo "Main file: $MAINFILE"
 echo "Temp checkout path: $SVNPATH"
