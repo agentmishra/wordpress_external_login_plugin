@@ -47,8 +47,8 @@
 //    Because a hash represented in hexidecimal could be represented in lower case or upper,
 //    make it compatible with PHPs lowercase system
     function exlog_should_lowercase_hex_hash($algorithm, $hash) {
-//        Case sensitive hashes
-        if ($algorithm == "bcrypt" || $algorithm == "phpass" || $algorithm == "phpcrypt") {
+//        Case sensitive hashes and when no hash is used
+            if ($algorithm == "bcrypt" || $algorithm == "phpass" || $algorithm == "phpcrypt" || $algorithm == "none") {
             return $hash;
 //        Hex hashes that can be lower or upper case
         } else {
